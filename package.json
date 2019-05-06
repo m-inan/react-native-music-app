@@ -1,0 +1,30 @@
+{
+  "name": "musicapp",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "react": "16.8.3",
+    "redux": "^4.0.1",
+    "react-native": "0.59.5",
+    "react-redux": "^7.0.3",
+    "redux-thunk": "^2.3.0",
+    "react-native-svg": "^9.4.0",
+    "react-native-swift": "^1.2.2",
+    "react-native-device-info": "^1.5.1",
+    "react-native-track-player": "^1.1.4"
+  },
+  "devDependencies": {
+    "@babel/core": "7.4.3",
+    "@babel/runtime": "7.4.3",
+    "babel-jest": "24.7.1",
+    "jest": "24.7.1",
+    "metro-react-native-babel-preset": "0.53.1",
+    "react-test-renderer": "16.8.3"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "isSwift": true
+}
