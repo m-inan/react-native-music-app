@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Dimensions, PanResponder, View, Animated, Text } from 'react-native'
 import TrackPlayer from 'react-native-track-player'
-import SVG, { Circle, G, Path } from 'react-native-svg'
+import Svg, { Circle, G, Path } from 'react-native-svg'
 import { timeFormat, polarToCartesian, cartesianToPolar } from '../../Utils/index'
 import { Context } from '../../Stores'
 
@@ -34,6 +34,8 @@ export default function Slider ({ positionY, miniPos }) {
 	}, [Player.state])
 
 	const setProgress = (x, y) => {
+		if ( !Player.track ) return;
+
 		const angleToPercent = cartesianToPolar(x, y, { cy, cx }) / 180 * 100
 		const time = Player.duration / 100 * angleToPercent
 
@@ -81,7 +83,7 @@ export default function Slider ({ positionY, miniPos }) {
 			</Text>
 
 			<View style={{ transform: [ { scaleY: -1 } ], }}>
-					<SVG width={'100%'} height={'100%'}>
+					<Svg width={'100%'} height={'100%'}>
 						<G {..._panResponder.panHandlers}>
 							<Path
 								fill="none"
@@ -114,7 +116,7 @@ export default function Slider ({ positionY, miniPos }) {
 							fill="none"
 							strokeWidth="2"
 						/>
-					</SVG>
+					</Svg>
 			</View>
 		</Animated.View>
 	)
@@ -124,7 +126,7 @@ export default function Slider ({ positionY, miniPos }) {
 const styles = {
 	container: {
 		position: 'relative',
-		top: 200,
+		top: 220,
 		height,
 		zIndex: 3,
 

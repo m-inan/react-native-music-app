@@ -3,7 +3,7 @@ import { Animated, PanResponder, Dimensions } from 'react-native'
 const { height } = Dimensions.get('window')
 export const miniPos = height - 100
 
-export const positionY = new Animated.Value(miniPos)
+export const positionY = new Animated.Value(0)
 
 let startLoc, startPage, isOpen = false
 
@@ -14,14 +14,14 @@ export const _panResponder = PanResponder.create({
     startLoc = locationY
     startPage = pageY
   },
-  onPanResponderRelease: ({ nativeEvent: { pageY } }) => {
+  onPanResponderRelease: ({ nativeEvent: { pageY, pageX } }) => {
     // finish
     if ( isOpen && startPage + 30 < pageY ) {
       pageY = miniPos
     } else if ( startPage > pageY + 30 ) {
       pageY = 0
     } else {
-      if ( pageY > height / 2 ) {
+      if ( (pageY < 50 && pageX < 50) || pageY > height / 2 ) {
         pageY = miniPos
       } else {
         pageY = 0

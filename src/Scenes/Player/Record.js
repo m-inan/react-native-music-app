@@ -22,9 +22,10 @@ export default function Record ({ positionY, miniPos }) {
 		layout: [width - 100, 90],
 		tLayout: [width - 140, 70],
 		tRadius: [(width - 140) / 2, 35],
-		translateY: [isPhoneX ? 150 : 80, 5],
-		translateX: [-20, 15],
+		translateY: [isPhoneX ? 150 : 100, 5],
+		translateX: [-20, -5],
 		miniLayout: [50, 20],
+		right: [(width - (width - 60)) / 2, 0]
 	}
 
 	for ( const key in ranges ) {
@@ -75,6 +76,7 @@ export default function Record ({ positionY, miniPos }) {
 				...styles.container,
 				width: ranges.layout,
 				height: ranges.layout,
+				right: ranges.right,
 				transform: [
 					{
 						translateY: ranges.translateY
@@ -108,7 +110,6 @@ export default function Record ({ positionY, miniPos }) {
 const styles = {
 	container: {
 		top: 0,
-		right: 30,
 		position: 'absolute',
 		borderRadius: width / 2,
 		backgroundColor: 'rgb(26, 30, 34)',

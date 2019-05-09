@@ -7,24 +7,6 @@ export default function List () {
 	async function loadmusics () {
 		await TrackPlayer.setupPlayer()
 
-		await Promise.all([
-			{
-				id: 1,
-				title: 'Love Me', 
-				artist: 'Ellie Goulding' ,
-				url: 'http://localhost:8080/Loveme.mp3',
-				thumbnail: 'http://localhost:8080/Loveme.png'
-			},
-			{ 
-				id: 2, 
-				title: 'Burn', 
-				artist: 'Ellie Goulding',
-				url: 'http://localhost:8080/Burn.mp3',
-				thumbnail: 'http://localhost:8080/Burn.jpg'
-			}
-		].map(async item => [
-			await TrackPlayer.add({ ...item })
-		]))
 	}
 
 
@@ -38,7 +20,6 @@ export default function List () {
 
 const styles = {
 	container: {
-		flex: 1,
-		backgroundColor: 'rgb(49, 55, 57)'
+		flex: 1
 	}
 }

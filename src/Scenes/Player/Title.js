@@ -2,38 +2,41 @@ import React, { useState, useContext, useMemo, useRef, useEffect } from 'react'
 import { Animated, Text, Dimensions } from 'react-native'
 import { Context } from '../../Stores'
 
+const { width } = Dimensions.get('window')
 
 export default function Title ({ positionY, miniPos }) {
   const [textWidth, setTextWidth] = useState(0)
+  const [change, setChange] = useState(true)
   const { state } = useContext(Context)
-  const layout = useRef(null)
-
-
-  useEffect(() => {
-    layout.current.onLayout = () => {
-      console.log('layout')
-    }
-  }, [])
-
 
   const { track } = useMemo(() => state.Player, [ state.Player ])
+
+  useEffect(() => {
+    setChange(true)
+  }, [state.track])
 
   const top = positionY.interpolate({
     inputRange: [0, miniPos],
     outputRange: [(miniPos / 2) + 150, 30]
   })
-
+  
   const right = positionY.interpolate({
     inputRange: [0, miniPos],
-    outputRange: [0, 120]
+    outputRange: [(width - textWidth) / 2, 120]
   })
 
   return <Animated.View
-    ref={layout}
     style={{
       top,
       right,
       ...styles.container,
+    }}
+    onLayout={({ nativeEvent: { layout } }) => {
+      if ( change ) {
+
+        setChange(false)
+        setTextWidth(layout.width)
+      }
     }}
   >
     <Text style={styles.title}>{ track ? track.title : 'Not Playing' }</Text>
@@ -43,18 +46,17 @@ export default function Title ({ positionY, miniPos }) {
 
 const styles = {
   container: {
-    position: 'absolute',
     flex: 1,
     alignSelf: 'flex-end',
     minWidth: 'auto',
-    alignItems: 'flex-end',
-    width: '100%',
+    alignItems: 'center',
+    position: 'absolute'
   },
 
   title: {
     color: '#fff',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
 
   singer: {

@@ -3,6 +3,7 @@ import { View, Dimensions, Animated } from 'react-native'
 
 import { _panResponder, positionY, miniPos } from './Animation'
 
+import Header from './Header'
 import Slider from './Slider'
 import Record from './Record'
 import Title from './Title'
@@ -18,6 +19,8 @@ export default function Player () {
 
 	return (
 		<Animated.View style={styles.container}>
+			<Header {...animation} />
+		
 			<Slider {...animation} />
 
 			<Record {...animation} />
@@ -50,6 +53,6 @@ const styles = {
 		height: 100,
 		position: 'absolute',
 		top: 0,
-		left: 0
+		left: 0,
 	}
 }
