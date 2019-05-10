@@ -1,13 +1,14 @@
 import React, { useContext } from 'react'
 import { View, Dimensions, Animated } from 'react-native'
 
-import { _panResponder, positionY, miniPos } from './Animation'
-
+import Title from './Title'
 import Header from './Header'
 import Slider from './Slider'
 import Record from './Record'
-import Title from './Title'
+import Handle from './Handle'
 import Controllers from './Controllers'
+
+import { _panResponder, positionY, miniPos } from './Animation'
 
 const { width, height } = Dimensions.get('window')
 
@@ -20,39 +21,23 @@ export default function Player () {
 	return (
 		<Animated.View style={styles.container}>
 			<Header {...animation} />
-		
 			<Slider {...animation} />
-
 			<Record {...animation} />
 			<Title {...animation} />
-
 			<Controllers />
-
-			<View
-				{..._panResponder.panHandlers}
-				style={styles.handleArea} 
-			/>
+			<Handle {...animation} {..._panResponder.panHandlers} />
 		</Animated.View>
 	)
 }
 
-
 const styles = {
 	container: {
-		position: 'absolute',
-		top: 0,
-		left: 0,
 		width,
 		height,
-		backgroundColor: 'rgb(35, 40, 44)',
-		transform: [ { translateY: positionY } ]
-	},
-
-	handleArea: {
-		width,
-		height: 100,
-		position: 'absolute',
 		top: 0,
 		left: 0,
+		position: 'absolute',
+		backgroundColor: 'rgb(35, 40, 44)',
+		transform: [ { translateY: positionY } ]
 	}
 }

@@ -11,7 +11,7 @@ import { Provider } from './Stores'
 
 export default function App () {
 	return (
-		<View style={{ flex: 1, backgroundColor: 'rgb(49, 55, 57)' }}>
+		<View style={styles.container}>
 			<Provider>
 				<Logo />
 				<Header />
@@ -20,4 +20,11 @@ export default function App () {
 			</Provider>
 		</View>
 	)
+}
+
+const styles = {
+	container: {
+		flex: 1,
+		backgroundColor: 'rgb(49, 55, 57)'
+	}
 }

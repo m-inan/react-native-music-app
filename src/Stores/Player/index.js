@@ -16,6 +16,7 @@ export default function reducer (state = initialState.Player, { type, payload })
     case types.PLAYBACK_TRACK:
       return {
         ...state,
+        time: 0,
         track: payload.track,
         duration: payload.duration
       }
@@ -24,10 +25,20 @@ export default function reducer (state = initialState.Player, { type, payload })
         ...state,
         time: payload.time
       }
-    case types.ISPLAYING:
+    case types.PLAYING:
       return {
         ...state,
-        isPlaying: payload.isPlaying
+        playing: payload.playing
+      }
+    case types.SHUFFLE:
+      return {
+        ...state,
+        shuffle: payload.shuffle
+      }
+    case types.REPLAY:
+      return {
+        ...state,
+        replay: payload.replay
       }
     default: return state;
   }

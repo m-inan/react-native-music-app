@@ -1,10 +1,9 @@
 import React from 'react';
-import { Animated, TouchableWithoutFeedback } from 'react-native';
+import { Animated } from 'react-native';
 
 import { ChevronDown, Options } from '../../Icons'
 
 export default function Header ({ positionY, miniPos }) {
-
   const opacity = positionY.interpolate({
     inputRange: [0, 50, miniPos],
     outputRange: [1, 0, 0]
@@ -28,7 +27,7 @@ const styles = {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: 10,
+    paddingTop: 20,
     paddingHorizontal: 10
   },
 

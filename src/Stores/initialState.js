@@ -1,11 +1,13 @@
 export default {
   List: [],
   Player: {
-    time: 0,
-    duration: 0,
+    time: null,
+    duration: null,
     init: false,
     state: null,
     track: null,
-    isPlaying: false
+    suffle: false,
+    replay: false,
+    playing: false
   }
 }

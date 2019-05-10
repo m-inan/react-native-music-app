@@ -66,11 +66,29 @@ export function updateTime(time) {
   }
 }
 
-export function setUserPlaying(isPlaying) {
+export function setUserPlaying(playing) {
   return {
-    type: types.ISPLAYING,
+    type: types.PLAYING,
     payload: {
-      isPlaying
+      playing
+    }
+  }
+}
+
+export function setShuffle(shuffle) {
+  return {
+    type: types.SHUFFLE,
+    payload: {
+      shuffle
+    }
+  }
+}
+
+export function setReplay(replay) {
+  return {
+    type: types.REPLAY,
+    payload: {
+      replay
     }
   }
 }

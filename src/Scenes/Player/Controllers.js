@@ -2,32 +2,44 @@ import React, { useContext } from 'react'
 import { View, TouchableWithoutFeedback } from 'react-native'
 import TrackPlayer from 'react-native-track-player'
 
-import { Context, setUserPlaying } from '../../Stores'
+import { Context, setUserPlaying, setReplay, setShuffle } from '../../Stores'
 
 import { Play, Pause, Skip, Replay, Shuffle } from '../../Icons'
 
 
 export default function Controller () {
-  const { state: { Player: { isPlaying } }, dispatch } = useContext(Context)
-
-
+  const { state: { Player: { playing, shuffle, replay } }, dispatch } = useContext(Context)
 
   const onClickPlayPause = () => {
-    dispatch(setUserPlaying(!isPlaying))
+    dispatch(setUserPlaying(!playing))
 
-    TrackPlayer[isPlaying ? 'pause' : 'play']()
+    TrackPlayer[playing ? 'pause' : 'play']()
   }
 
+  const selectFill = bool => {
+    return bool ? 'rgb(225, 47, 129)' : 'rgb(255, 255, 255)'
+  }
 
+  const onPressShuffle = () => {
+    dispatch(setShuffle(!shuffle))
+  }
+
+  const onPressReplay = () => {
+    dispatch(setReplay(!replay))
+  }
 
   return <View style={styles.container}>
-    <View style={styles.shuffle}>
-      <Shuffle fill={'rgb(225, 47, 129)'} />
-    </View>
+    <TouchableWithoutFeedback onPress={onPressShuffle}>
+      <View style={styles.shuffle}>
+        <Shuffle fill={selectFill(shuffle)} />
+      </View>
+    </TouchableWithoutFeedback>
 
-    <View style={styles.replay}>
-      <Replay fill={'rgb(225, 47, 129)'} />
-    </View>
+    <TouchableWithoutFeedback onPress={onPressReplay}>
+      <View style={styles.replay}>
+        <Replay fill={selectFill(replay)} />
+      </View>
+    </TouchableWithoutFeedback>
 
     <View style={styles.prev}>
       <Skip />
@@ -35,7 +47,7 @@ export default function Controller () {
 
     <TouchableWithoutFeedback onPress={onClickPlayPause}>
       <View style={styles.playPause}>
-        { isPlaying ? <Pause /> : <Play /> }
+        { playing ? <Pause /> : <Play /> }
       </View>
     </TouchableWithoutFeedback>
 
