@@ -2,7 +2,12 @@ import React, { useContext } from 'react'
 import { View, TouchableWithoutFeedback } from 'react-native'
 import TrackPlayer from 'react-native-track-player'
 
-import { Context, setUserPlaying, setReplay, setShuffle } from '../../Stores'
+import { Context } from '../../Stores'
+import {
+  setUserPlaying,
+  setReplay,
+  setShuffle
+} from '../../Stores/Player/actions'
 
 import { Play, Pause, Skip, Replay, Shuffle } from '../../Icons'
 

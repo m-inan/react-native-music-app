@@ -1,1 +1,2 @@
-export const SET_LIST = "SET_LIST"
+const pre = 'LIST/'
+export const SET = pre + "SET"

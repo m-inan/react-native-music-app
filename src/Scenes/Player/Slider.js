@@ -122,7 +122,6 @@ export default function Slider ({ positionY, miniPos }) {
 	)
 }
 
-
 const styles = {
 	container: {
 		position: 'relative',

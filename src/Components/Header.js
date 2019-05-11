@@ -1,18 +1,29 @@
-import React from 'react'
-import { View } from 'react-native'
+import React, { useContext } from 'react'
+import { View, TouchableWithoutFeedback } from 'react-native'
 import { Music, Menu, Search } from '../Icons'
 
+import { Context } from '../Stores'
+import { toggle } from "../Stores/Search/actions";
 
 export function Header () {
+  const { dispatch } = useContext(Context)
+
+  const onPressSearch = () => {
+    dispatch(toggle())
+  }
+
   return (
     <View style={styles.container}>
       <Menu />
 
-      <Search style={styles.search}/>
+      <TouchableWithoutFeedback onPress={onPressSearch}>
+        <View style={styles.search}>
+          <Search/>
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   )
 }
-
 
 const styles = {
   container: {
@@ -20,10 +31,11 @@ const styles = {
     alignItems: 'center',
     flexDirection: 'row',
     paddingTop: 10,
-    paddingHorizontal: 15,
+    paddingLeft: 15,
   },
 
   search: {
-    marginLeft: 'auto'
+    marginLeft: 'auto',
+    padding: 15,
   }
 }

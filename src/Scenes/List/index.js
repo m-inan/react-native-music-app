@@ -5,7 +5,7 @@ import TrackPlayer from 'react-native-track-player'
 
 export default function List () {
 	async function loadmusics () {
-		await TrackPlayer.setupPlayer()
+
 
 	}
 

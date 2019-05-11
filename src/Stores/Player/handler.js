@@ -32,14 +32,11 @@ async function Handler(dispatch, data) {
 			break;
 		case 'playback-track-changed':
 
-
 			dispatch(playbackTrack(data.nextTrack))
 
 			break;
 		case 'playback-queue-ended':
 			// finish
-
-
 
 			break;
 		case 'playback-error':

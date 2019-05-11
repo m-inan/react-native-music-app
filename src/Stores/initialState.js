@@ -9,5 +9,8 @@ export default {
     suffle: false,
     replay: false,
     playing: false
+  },
+  Search: {
+    show: false
   }
 }

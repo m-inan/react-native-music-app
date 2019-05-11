@@ -8,11 +8,9 @@ import Handler from './Player/handler'
 
 import List from './List'
 import Player from './Player'
+import Search from './Search'
 
 import initialState from './initialState'
-
-export * from './List/actions'
-export * from './Player/actions'
 
 import { updateTime, updatePlayback } from './Player/actions'
 
@@ -20,7 +18,8 @@ export const Context = createContext(initialState);
 
 const rootReducer = combineReducers({
   List,
-  Player
+  Player,
+  Search
 })
 
 function applyMiddleware(...middlewares) {

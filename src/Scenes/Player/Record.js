@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { Animated, Dimensions, Easing, TouchableWithoutFeedback } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
-import { Context, setUserPlaying } from '../../Stores'
+import { Context } from '../../Stores'
+import { setUserPlaying } from '../../Stores/Player/actions'
 import TrackPlayer from 'react-native-track-player'
 
 

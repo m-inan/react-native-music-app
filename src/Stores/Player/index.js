@@ -3,24 +3,24 @@ import initialState from '../initialState'
 
 export default function reducer (state = initialState.Player, { type, payload }) {
   switch( type ) {
-    case types.PLAYBACK_INIT:
+    case types.INIT:
       return {
         ...state,
         init: true
       }
-    case types.PLAYBACK_STATE:
+    case types.STATE:
       return {
         ...state,
         state: payload.state
       }
-    case types.PLAYBACK_TRACK:
+    case types.TRACK:
       return {
         ...state,
         time: 0,
         track: payload.track,
         duration: payload.duration
       }
-    case types.PLAYBACK_TIME:
+    case types.TIME:
       return {
         ...state,
         time: payload.time

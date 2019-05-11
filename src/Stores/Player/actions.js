@@ -7,13 +7,13 @@ export function initializePlayback() {
       maxCacheSize: 1024 * 5 // 5 mb
     })
 
-    dispatch({ type: PLAYBACK_INIT })
+    dispatch({ type: types.INIT })
   }
 }
 
 export function playbackState(state) {
   return {
-    type: types.PLAYBACK_STATE,
+    type: types.STATE,
     payload: {
       state
     }
@@ -26,7 +26,7 @@ export function playbackTrack(track) {
     track = await TrackPlayer.getTrack(track)
   
     dispatch({
-      type: types.PLAYBACK_TRACK,
+      type: types.TRACK,
       payload: {
         track,
         duration
@@ -58,7 +58,7 @@ export function updatePlayback() {
 export function updateTime(time) {
   return async dispatch => {
     dispatch({
-      type: types.PLAYBACK_TIME,
+      type: types.TIME,
       payload: {
         time
       }

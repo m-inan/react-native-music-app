@@ -1,5 +1,8 @@
-import React, { useContext } from 'react'
-import { View, Dimensions, Animated } from 'react-native'
+import React, { useEffect, useContext } from 'react'
+import { Dimensions, Animated } from 'react-native'
+
+import { Context } from '../../Stores'
+import { initializePlayback } from '../../Stores/Player/actions'
 
 import Title from './Title'
 import Header from './Header'
@@ -13,6 +16,12 @@ import { _panResponder, positionY, miniPos } from './Animation'
 const { width, height } = Dimensions.get('window')
 
 export default function Player () {
+	const { dispatch } = useContext(Context)
+
+	useEffect(() => {
+		dispatch(initializePlayback())
+	}, [])
+
 	const animation = {
 		miniPos,
 		positionY
