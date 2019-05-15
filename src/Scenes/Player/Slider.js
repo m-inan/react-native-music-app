@@ -9,7 +9,7 @@ const { width } = Dimensions.get('window')
 const padding = 20
 const r = (width - (padding * 2)) / 2
 const cx = r + padding
-const cy = r + padding
+const cy = padding
 const height = (width + padding * 2) / 2
 
 
@@ -34,7 +34,7 @@ export default function Slider ({ positionY, miniPos }) {
 	}, [Player.state])
 
 	const setProgress = (x, y) => {
-		if ( !Player.track ) return;
+		//if ( !Player.track ) return;
 
 		const angleToPercent = cartesianToPolar(x, y, { cy, cx }) / 180 * 100
 		const time = Player.duration / 100 * angleToPercent
@@ -82,21 +82,21 @@ export default function Slider ({ positionY, miniPos }) {
 					{ timeFormat(Player.duration) }
 			</Text>
 
-			<View style={{ transform: [ { scaleY: -1 } ], }}>
+			<View>
 					<Svg width={'100%'} height={'100%'}>
 						<G {..._panResponder.panHandlers}>
 							<Path
 								fill="none"
 								stroke={'rgb(131, 141, 149)'}
 								strokeWidth={5}							
-								d={`M${padding} ${cy} A ${r} ${r} 0 0 1 ${r * 2 + padding} ${cy}`}
+								d={`M${padding} ${cy} A ${r} ${r} 0 0 0 ${r * 2 + padding} ${cy}`}
 							/>
 							
 							<Path
 								fill="none"
 								strokeWidth={5}
 								stroke={'rgb(225, 47, 129)'}
-								d={`M${padding} ${cy} A ${r} ${r} 0 0 1 ${x} ${y}`}
+								d={`M${padding} ${cy} A ${r} ${r} 0 0 0 ${x} ${y}`}
 							/>
 
 							<Circle
@@ -111,10 +111,10 @@ export default function Slider ({ positionY, miniPos }) {
 
 						<Circle
 							r={r - 30}
-							cx={r + padding}
-							cy={height - padding}
 							fill="none"
 							strokeWidth="2"
+							cx={r + padding}
+							cy={padding}
 						/>
 					</Svg>
 			</View>

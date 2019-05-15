@@ -3,7 +3,7 @@ import { Animated, PanResponder, Dimensions } from 'react-native'
 const { height } = Dimensions.get('window')
 export const miniPos = height - 100
 
-export const positionY = new Animated.Value(miniPos)
+export const positionY = new Animated.Value(0)
 
 let startLoc, startPage, isOpen = false
 

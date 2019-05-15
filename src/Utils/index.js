@@ -14,27 +14,27 @@ export function timeFormat(value) {
 	)
 }
 
+const degrees = 180
+
 export function polarToCartesian(A, { cy, cx, r }) {
-	A = (A - 180) * Math.PI / 180
+	A = (A - degrees) / (degrees / Math.PI)
 
 	return {
 		x: cx + (r * Math.cos(A)),
-		y: cy + (r * Math.sin(A))
+		y: cy + (r * -Math.sin(A))
 	}
 }
 
 export function cartesianToPolar (x, y, { cy, cx }) {
-	if ( y > cy ) {
+	if ( y < cy ) {
 		y = cy
 	}
 
-	return Math.round(
-		(
-			Math.atan((y - cy) / (x - cx))
-		) / (
-			(Math.PI / 180)
-		) + (
-			x >= cx ? 180 : 0
-		)
-	)
+	let angle = -Math.atan2(y - cy, x - cx)
+	
+	angle *= degrees / Math.PI
+	angle += degrees
+
+	console.log(Math.round(angle) )
+	return Math.round(angle) 
 }
