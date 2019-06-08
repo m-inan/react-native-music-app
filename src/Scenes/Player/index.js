@@ -1,8 +1,5 @@
-import React, { useEffect, useContext } from 'react'
+import React from 'react'
 import { Dimensions, Animated } from 'react-native'
-
-import { Context } from '../../Stores'
-import { initializePlayback } from '../../Stores/Player/actions'
 
 import Title from './Title'
 import Header from './Header'
@@ -15,38 +12,32 @@ import { _panResponder, positionY, miniPos } from './Animation'
 
 const { width, height } = Dimensions.get('window')
 
-export default function Player () {
-	const { dispatch } = useContext(Context)
+export default function Player() {
+  const animation = {
+    miniPos,
+    positionY
+  }
 
-	useEffect(() => {
-		dispatch(initializePlayback())
-	}, [])
-
-	const animation = {
-		miniPos,
-		positionY
-	}
-
-	return (
-		<Animated.View style={styles.container}>
-			<Header {...animation} />
-			<Slider {...animation} />
-			<Record {...animation} />
-			<Title {...animation} />
-			<Controllers />
-			<Handle {...animation} {..._panResponder.panHandlers} />
-		</Animated.View>
-	)
+  return (
+    <Animated.View style={styles.container}>
+      <Header {...animation} />
+      <Slider {...animation} />
+      <Record {...animation} />
+      <Title {...animation} />
+      <Controllers />
+      <Handle {...animation} {..._panResponder.panHandlers} />
+    </Animated.View>
+  )
 }
 
 const styles = {
-	container: {
-		width,
-		height,
-		top: 0,
-		left: 0,
-		position: 'absolute',
-		backgroundColor: 'rgb(35, 40, 44)',
-		transform: [ { translateY: positionY } ]
-	}
+  container: {
+    width,
+    height,
+    top: 0,
+    left: 0,
+    position: 'absolute',
+    backgroundColor: 'rgb(35, 40, 44)',
+    transform: [{ translateY: positionY }]
+  }
 }

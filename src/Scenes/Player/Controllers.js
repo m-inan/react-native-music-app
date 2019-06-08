@@ -1,20 +1,17 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 import { View, TouchableWithoutFeedback } from 'react-native'
 import TrackPlayer from 'react-native-track-player'
 
-import { Context } from '../../Stores'
 import {
   setUserPlaying,
   setReplay,
   setShuffle
-} from '../../Stores/Player/actions'
+} from '../../reducers/Player/actions'
 
-import { Play, Pause, Skip, Replay, Shuffle } from '../../Icons'
+import { Play, Pause, Skip, Replay, Shuffle } from '../../components/Icons'
 
-
-export default function Controller () {
-  const { state: { Player: { playing, shuffle, replay } }, dispatch } = useContext(Context)
-
+function Controller({ Player: { playing, shuffle, replay }, dispatch }) {
   const onClickPlayPause = () => {
     dispatch(setUserPlaying(!playing))
 
@@ -33,35 +30,36 @@ export default function Controller () {
     dispatch(setReplay(!replay))
   }
 
-  return <View style={styles.container}>
-    <TouchableWithoutFeedback onPress={onPressShuffle}>
-      <View style={styles.shuffle}>
-        <Shuffle fill={selectFill(shuffle)} />
-      </View>
-    </TouchableWithoutFeedback>
+  return (
+    <View style={styles.container}>
+      <TouchableWithoutFeedback onPress={onPressShuffle}>
+        <View style={styles.shuffle}>
+          <Shuffle fill={selectFill(shuffle)} />
+        </View>
+      </TouchableWithoutFeedback>
 
-    <TouchableWithoutFeedback onPress={onPressReplay}>
-      <View style={styles.replay}>
-        <Replay fill={selectFill(replay)} />
-      </View>
-    </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={onPressReplay}>
+        <View style={styles.replay}>
+          <Replay fill={selectFill(replay)} />
+        </View>
+      </TouchableWithoutFeedback>
 
-    <View style={styles.prev}>
-      <Skip />
+      <View style={styles.prev}>
+        <Skip />
+      </View>
+
+      <TouchableWithoutFeedback onPress={onClickPlayPause}>
+        <View style={styles.playPause}>{playing ? <Pause /> : <Play />}</View>
+      </TouchableWithoutFeedback>
+
+      <View style={styles.next}>
+        <Skip />
+      </View>
     </View>
-
-    <TouchableWithoutFeedback onPress={onClickPlayPause}>
-      <View style={styles.playPause}>
-        { playing ? <Pause /> : <Play /> }
-      </View>
-    </TouchableWithoutFeedback>
-
-    <View style={styles.next}>
-      <Skip />
-    </View>
-  </View>
+  )
 }
 
+export default connect(state => state)(Controller)
 
 const styles = {
   container: {
@@ -73,19 +71,17 @@ const styles = {
     width: '100%',
     height: 200,
     zIndex: 4,
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
 
   playPause: {
     width: 30,
     marginHorizontal: 40
   },
-  
+
   prev: {
     width: 20,
-    transform: [
-      { rotate: '-180deg' }
-    ]
+    transform: [{ rotate: '-180deg' }]
   },
 
   next: {
@@ -97,7 +93,7 @@ const styles = {
     top: 0,
     left: 30,
     width: 25,
-    height: 25,
+    height: 25
   },
 
   replay: {
@@ -105,6 +101,6 @@ const styles = {
     top: 0,
     right: 30,
     width: 25,
-    height: 25,
+    height: 25
   }
 }

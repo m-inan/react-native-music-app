@@ -1,5 +1,4 @@
 {
   "name": "musicapp",
-  "displayName": "musicapp",
-  "grapql": "http://localhost:8080/graphql"
+  "displayName": "musicapp"
 }

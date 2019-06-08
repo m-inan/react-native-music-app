@@ -1,9 +1,9 @@
-import React from 'react';
-import { Animated } from 'react-native';
+import React from 'react'
+import { Animated } from 'react-native'
 
-import { ChevronDown, Options } from '../../Icons'
+import { ChevronDown, Options } from '../../components/Icons'
 
-export default function Header ({ positionY, miniPos }) {
+export default function Header({ positionY, miniPos }) {
   const opacity = positionY.interpolate({
     inputRange: [0, 50, miniPos],
     outputRange: [1, 0, 0]
