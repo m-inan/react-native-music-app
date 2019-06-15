@@ -5,8 +5,8 @@ import middleware from './middleware'
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
-  reducer,
-  composeEnhancer(applyMiddleware(...middleware))
+	reducer,
+	composeEnhancer(applyMiddleware(...middleware))
 )
 
 export default store

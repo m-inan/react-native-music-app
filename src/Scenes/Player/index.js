@@ -13,31 +13,31 @@ import { _panResponder, positionY, miniPos } from './Animation'
 const { width, height } = Dimensions.get('window')
 
 export default function Player() {
-  const animation = {
-    miniPos,
-    positionY
-  }
+	const animation = {
+		miniPos,
+		positionY
+	}
 
-  return (
-    <Animated.View style={styles.container}>
-      <Header {...animation} />
-      <Slider {...animation} />
-      <Record {...animation} />
-      <Title {...animation} />
-      <Controllers />
-      <Handle {...animation} {..._panResponder.panHandlers} />
-    </Animated.View>
-  )
+	return (
+		<Animated.View style={styles.container}>
+			<Header {...animation} />
+			<Slider {...animation} />
+			<Record {...animation} />
+			<Title {...animation} />
+			<Controllers />
+			<Handle {...animation} {..._panResponder.panHandlers} />
+		</Animated.View>
+	)
 }
 
 const styles = {
-  container: {
-    width,
-    height,
-    top: 0,
-    left: 0,
-    position: 'absolute',
-    backgroundColor: 'rgb(35, 40, 44)',
-    transform: [{ translateY: positionY }]
-  }
+	container: {
+		width,
+		height,
+		top: 0,
+		left: 0,
+		position: 'absolute',
+		backgroundColor: 'rgb(35, 40, 44)',
+		transform: [{ translateY: positionY }]
+	}
 }

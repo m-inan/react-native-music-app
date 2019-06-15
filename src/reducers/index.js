@@ -4,6 +4,6 @@ import Playlist from './Playlist'
 import Player from './Player'
 
 export default combineReducers({
-  Playlist,
-  Player
+	Playlist,
+	Player
 })
