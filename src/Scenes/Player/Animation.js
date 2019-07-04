@@ -1,6 +1,6 @@
 import { Animated, PanResponder, Dimensions } from 'react-native'
 
-const { height } = Dimensions.get('window')
+let { height } = Dimensions.get('window')
 export const miniPos = height - 100
 
 export const positionY = new Animated.Value(miniPos)

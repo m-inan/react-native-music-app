@@ -6,6 +6,11 @@ import RNFS from 'react-native-fs'
 import TrackPlayer from 'react-native-track-player'
 import { setUserPlaying } from '../../reducers/Player/actions'
 
+import Header from '../../components/Header'
+import Logo from '../../components/Header/logo'
+
+import Lists from './Lists'
+
 function Playlist({ dispatch }) {
 	const [check, setCheck] = useState(false)
 	const [exist, setExist] = useState(false)
@@ -51,12 +56,10 @@ function Playlist({ dispatch }) {
 	}
 
 	return (
-		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			<Text style={{ color: 'white' }}>Player page</Text>
-			{!exist && <Button title="Download" onPress={download} />}
-
-			<Button title="Play" onPress={play} />
-
+		<View style={{ flex: 1 }}>
+			<Header />
+			<Logo />
+			<Lists />
 			<Player />
 		</View>
 	)

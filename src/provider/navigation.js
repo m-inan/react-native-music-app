@@ -4,11 +4,15 @@ import withProvider from './withProvider'
 import Auth from '../scenes/Auth'
 import Playlist from '../scenes/Playlist'
 
+import Header from '../components/Header'
+
 import { getToken } from '../utils'
+import { Colors } from '../constants'
 
 export default async function Navigator(store) {
 	Navigation.registerComponent('Auth', () => withProvider(Auth, store))
 	Navigation.registerComponent('Playlist', () => withProvider(Playlist, store))
+	Navigation.registerComponent('Header', () => withProvider(Header, store))
 
 	Navigation.setDefaultOptions({
 		topBar: {
