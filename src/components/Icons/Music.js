@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
 import Svg, { Path } from 'react-native-svg'
 import { Animated } from 'react-native'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const slide = new Animated.Value(0)
 
-function Music({ Player }) {
+function Music() {
+	const { state } = useSelector(state => state.Player)
+
 	useEffect(() => {
-		switch (Player.state) {
+		switch (state) {
 			case 'playing':
 				Animated.loop(
 					Animated.sequence([
@@ -27,7 +29,7 @@ function Music({ Player }) {
 				slide.stopAnimation()
 				break
 		}
-	}, [Player.state])
+	}, [state])
 
 	return (
 		<Animated.View
@@ -50,4 +52,4 @@ function Music({ Player }) {
 	)
 }
 
-export default connect(state => state)(Music)
+export default Music

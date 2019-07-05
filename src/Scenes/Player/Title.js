@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Animated, Text, Dimensions } from 'react-native'
 
 const { width } = Dimensions.get('window')
 
-function Title({ positionY, miniPos, Player: { track } }) {
+export default function Title({ positionY, miniPos }) {
+	const { track } = useSelector(state => state.Player)
 	const [textWidth, setTextWidth] = useState(0)
 	const [change, setChange] = useState(true)
 
@@ -37,8 +38,6 @@ function Title({ positionY, miniPos, Player: { track } }) {
 		</Animated.View>
 	)
 }
-
-export default connect(state => state)(Title)
 
 const styles = {
 	container: {

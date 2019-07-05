@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { View, TouchableWithoutFeedback } from 'react-native'
 
 import {
@@ -10,7 +10,10 @@ import {
 
 import { Play, Pause, Skip, Replay, Shuffle } from '../../components/Icons'
 
-function Controller({ playing, shuffle, replay, track, dispatch }) {
+function Controller() {
+	const dispatch = useDispatch()
+	const { playing, shuffle, replay, track } = useSelector(state => state.Player)
+
 	const onClickPlayPause = () => {
 		if (track) {
 			dispatch(setUserPlaying(!playing))
@@ -58,7 +61,7 @@ function Controller({ playing, shuffle, replay, track, dispatch }) {
 	)
 }
 
-export default connect(({ Player }) => ({ ...Player }))(Controller)
+export default Controller
 
 const styles = {
 	container: {

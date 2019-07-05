@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Dimensions, PanResponder, View, Animated, Text } from 'react-native'
 import TrackPlayer from 'react-native-track-player'
 import Svg, { Circle, G, Path } from 'react-native-svg'
@@ -18,12 +18,12 @@ const height = (width + padding * 2) / 2
 
 let interval
 
-function Slider({ positionY, miniPos, state, duration, playing, track }) {
+export default function Slider({ positionY, miniPos }) {
+	const { state, duration, playing, track } = useSelector(state => state.Player)
 	const [percent, setPercent] = useState(0)
 	const [time, setTime] = useState(null)
 
 	useEffect(() => {
-		console.log(interval)
 		switch (state) {
 			case 'ready':
 				setPercent(0)
@@ -166,10 +166,3 @@ const styles = {
 		fontSize: 12
 	}
 }
-
-export default connect(({ Player: { playing, duration, state, track } }) => ({
-	playing,
-	duration,
-	state,
-	track
-}))(Slider)
