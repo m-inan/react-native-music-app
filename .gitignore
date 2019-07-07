@@ -278,7 +278,3 @@ buck-out/
 .fakebuckversion
 
 # End of https://www.gitignore.io/api/macos,reactnative
-
-
-ios/
-android/
