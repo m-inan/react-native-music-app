@@ -1,13 +1,17 @@
+import React from 'react'
 import { AppState } from 'react-native'
+import { Provider } from 'react-redux'
 import TrackPlayer from 'react-native-track-player'
 
-import store from './store'
 import Navigation from './navigation'
+import store from './store'
 
 import { updatePlayback, initializePlayback } from '../reducers/Player/actions'
 import Handler from '../reducers/Player/handler'
+import Player from '../scenes/Player'
+import Logo from '../components/Header/logo'
 
-export default function Provider() {
+export default function withProvider() {
 	store.dispatch(initializePlayback())
 
 	AppState.addEventListener('change', appState => {
@@ -18,5 +22,11 @@ export default function Provider() {
 
 	TrackPlayer.registerEventHandler(Handler(store.dispatch))
 
-	Navigation(store)
+	return (
+		<Provider store={store}>
+			<Logo />
+			<Navigation />
+			<Player />
+		</Provider>
+	)
 }

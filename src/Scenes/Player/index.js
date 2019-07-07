@@ -37,6 +37,7 @@ const styles = {
 		top: 0,
 		left: 0,
 		position: 'absolute',
+		zIndex: 1000,
 		backgroundColor: 'rgb(35, 40, 44)',
 		transform: [{ translateY: positionY }]
 	}

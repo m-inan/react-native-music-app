@@ -1,19 +1,17 @@
 import React from 'react'
 import { View } from 'react-native'
-import Player from '../Player'
-
-import Header from '../../components/Header'
-import Logo from '../../components/Header/logo'
 
 import Lists from './Lists'
+import { Colors } from '../../constants'
 
 export default function Playlist() {
 	return (
-		<View style={{ flex: 1 }}>
-			<Header />
-			<Logo />
+		<View style={styles.container}>
 			<Lists />
-			<Player />
 		</View>
 	)
+}
+
+const styles = {
+	container: { flex: 1, backgroundColor: Colors.layoutBG }
 }

@@ -1,9 +1,6 @@
-import { Navigation } from 'react-native-navigation'
-
+import React from 'react'
 import Provider from './provider'
 
 export default function App() {
-	Navigation.events().registerAppLaunchedListener(() => {
-		Provider()
-	})
+	return <Provider />
 }
