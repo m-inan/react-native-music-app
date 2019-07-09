@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import Svg, { Path } from 'react-native-svg'
-import { Animated } from 'react-native'
+import Animated, { Easing } from 'react-native-reanimated'
 import { useSelector } from 'react-redux'
 
-const slide = new Animated.Value(0)
+const { Value, loop, sequence, timing } = Animated
+
+const slide = new Value(0)
 
 function Music() {
 	const { state } = useSelector(state => state.Player)
@@ -11,15 +13,17 @@ function Music() {
 	useEffect(() => {
 		switch (state) {
 			case 'playing':
-				Animated.loop(
-					Animated.sequence([
-						Animated.timing(slide, {
+				loop(
+					sequence([
+						timing(slide, {
 							toValue: 5,
-							duration: 1000
+							duration: 1000,
+							easing: Easing.inOut(Easing.ease)
 						}),
-						Animated.timing(slide, {
+						timing(slide, {
 							toValue: 0,
-							duration: 1000
+							duration: 1000,
+							easing: Easing.inOut(Easing.ease)
 						})
 					])
 				).start()

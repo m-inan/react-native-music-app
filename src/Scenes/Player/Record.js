@@ -1,21 +1,20 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-	Animated,
-	Dimensions,
-	Easing,
-	TouchableWithoutFeedback
-} from 'react-native'
+import { Dimensions, TouchableWithoutFeedback } from 'react-native'
+import Animated, { Easing } from 'react-native-reanimated'
+
 import DeviceInfo from 'react-native-device-info'
 import { setUserPlaying } from '../../reducers/Player/actions'
 
+const { Value, interpolate, loop, sequence, timing } = Animated
+
 const { width } = Dimensions.get('window')
 const isPhoneX = /iPhone X/g.test(DeviceInfo.getDeviceName())
-const spinValue = new Animated.Value(0)
+const spinValue = new Value(0)
 
-const rotate = spinValue.interpolate({
+const rotate = interpolate(spinValue, {
 	inputRange: [0, 1],
-	outputRange: ['1deg', '360deg']
+	outputRange: [1, 360]
 })
 
 function Record({ positionY, miniPos }) {
@@ -25,9 +24,9 @@ function Record({ positionY, miniPos }) {
 	useEffect(() => {
 		switch (state) {
 			case 'playing':
-				Animated.loop(
-					Animated.sequence([
-						Animated.timing(spinValue, {
+				loop(
+					sequence([
+						timing(spinValue, {
 							toValue: 1,
 							duration: 10000,
 							easing: Easing.linear
@@ -58,13 +57,13 @@ function Record({ positionY, miniPos }) {
 	}
 
 	for (const key in ranges) {
-		ranges[key] = positionY.interpolate({
+		ranges[key] = interpolate(positionY, {
 			inputRange: [0, miniPos],
 			outputRange: ranges[key]
 		})
 	}
 
-	const borderWidth = positionY.interpolate({
+	const borderWidth = interpolate(positionY, {
 		inputRange: [0, 100, miniPos],
 		outputRange: [10, 0, 0]
 	})

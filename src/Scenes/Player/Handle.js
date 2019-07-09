@@ -1,5 +1,6 @@
 import React from 'react'
-import { Animated, Dimensions } from 'react-native'
+import { Dimensions } from 'react-native'
+import Animated from 'react-native-reanimated'
 import { Drag } from '../../components/Icons'
 
 const { width } = Dimensions.get('window')

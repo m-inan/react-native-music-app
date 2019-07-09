@@ -1,9 +1,12 @@
-import { Animated, PanResponder, Dimensions } from 'react-native'
+import { PanResponder, Dimensions } from 'react-native'
+import Animated, { Easing } from 'react-native-reanimated'
+
+const { Value, timing } = Animated
 
 let { height } = Dimensions.get('window')
 export const miniPos = height - 100
 
-export const positionY = new Animated.Value(miniPos)
+export const positionY = new Value(miniPos)
 
 let startLoc,
 	startPage,
@@ -34,9 +37,10 @@ export const _panResponder = PanResponder.create({
 
 		isOpen = pageY === 0
 
-		Animated.timing(positionY, {
+		timing(positionY, {
 			toValue: pageY,
-			duration: 300
+			duration: 300,
+			easing: Easing.inOut(Easing.ease)
 		}).start()
 	},
 	onMoveShouldSetPanResponder: () => true,
@@ -50,9 +54,10 @@ export const _panResponder = PanResponder.create({
 			pageY = 0
 		}
 
-		Animated.timing(positionY, {
+		timing(positionY, {
 			toValue: pageY,
-			duration: 0
+			duration: 0,
+			easing: Easing.inOut(Easing.ease)
 		}).start()
 	}
 })

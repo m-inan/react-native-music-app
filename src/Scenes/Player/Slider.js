@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Dimensions, PanResponder, View, Animated, Text } from 'react-native'
+import { Dimensions, PanResponder, View, Text } from 'react-native'
+import Animated from 'react-native-reanimated'
 import TrackPlayer from 'react-native-track-player'
 import Svg, { Circle, G, Path } from 'react-native-svg'
 import {
