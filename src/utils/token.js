@@ -3,10 +3,10 @@ import AsyncStorage from '@react-native-community/async-storage'
 const key = '@App:token'
 
 export async function setToken(value) {
-	await AsyncStorage.setItem(key)
+	await AsyncStorage.setItem(key, value)
 }
 
-export async function getToken(value) {
+export async function getToken() {
 	return await AsyncStorage.getItem(key)
 }
 

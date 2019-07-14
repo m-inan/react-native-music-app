@@ -8,8 +8,6 @@ import store from './store'
 
 import { updatePlayback, initializePlayback } from '../reducers/Player/actions'
 import Handler from '../reducers/Player/handler'
-import Player from '../scenes/Player'
-import Logo from '../components/Header/logo'
 
 export default function withProvider() {
 	store.dispatch(initializePlayback())
@@ -24,9 +22,7 @@ export default function withProvider() {
 
 	return (
 		<Provider store={store}>
-			<Logo />
 			<Navigation />
-			<Player />
 		</Provider>
 	)
 }

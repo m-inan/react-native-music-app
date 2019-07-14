@@ -31,6 +31,10 @@ export default function Player() {
 	)
 }
 
+Player.navigationOptions = {
+	header: null
+}
+
 const styles = {
 	container: {
 		width,
@@ -38,7 +42,7 @@ const styles = {
 		top: 0,
 		left: 0,
 		position: 'absolute',
-		zIndex: 1000,
+		zIndex: 97,
 		backgroundColor: 'rgb(35, 40, 44)',
 		transform: [{ translateY: positionY }]
 	}
