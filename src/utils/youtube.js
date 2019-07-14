@@ -7,6 +7,7 @@ export const YTD = async (route, param = {}) => {
 	const queryString = buildQueryString({
 		part: 'snippet,contentDetails',
 		mine: true,
+		maxResults: 50,
 		...param
 	})
 

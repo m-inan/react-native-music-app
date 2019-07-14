@@ -1,30 +1,26 @@
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
+import { useDispatch } from 'react-redux'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import Layout from '../../components/Layout'
-import { Colors } from '../../constants'
-import { YTD } from '../../utils'
 import Lists from './Lists'
 
-const getPlaylists = async () => {
-	try {
-		const { items } = await YTD('playlists')
-		console.log(items)
-
-		for (const item of items) {
-			const list = await YTD('playlistItems', { playlistId: item.id })
-
-			console.log(list)
-		}
-	} catch (e) {
-		console.log(e)
-	}
-}
+import { Colors } from '../../constants'
+import { setList } from '../../reducers/Playlist/actions'
 
 export default function Playlist() {
+	const dispatch = useDispatch()
+
 	useEffect(() => {
-		getPlaylists()
+		setReduxData()
 	}, [])
+
+	const setReduxData = async () => {
+		const playlist = await AsyncStorage.getItem('playlist')
+
+		dispatch(setList(JSON.parse(playlist)))
+	}
 
 	return (
 		<Layout>

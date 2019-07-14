@@ -2,103 +2,33 @@ import React, { useState } from 'react'
 import {
 	View,
 	Text,
-	ListView,
+	FlatList,
 	StyleSheet,
 	ScrollView,
 	Dimensions,
 	TouchableOpacity
 } from 'react-native'
+import { useSelector } from 'react-redux'
+
+import TabView from '../../components/TabView'
+
+import Item from './Item'
+import Title from './Title'
 
 import { Colors } from '../../constants'
 
-const scenes = [
-	{ title: 'First' },
-	{ title: 'Second' },
-	{ title: 'Third' },
-	{ title: 'ZZZZZZFirstZZZZZZ' },
-	{ title: 'Second' },
-	{ title: 'Third' },
-	{ title: 'First' },
-	{ title: 'Second' },
-	{ title: 'ZZZZZZFirstZZZZZZ' },
-	{ title: 'Third' }
-]
-
-const data = [
-	{ name: 'Song Name' },
-	{ name: 'Song Name' },
-	{ name: 'Song Name' },
-	{ name: 'Song Name' },
-	{ name: 'Song Name' },
-	{ name: 'Song Name' },
-	{ name: 'Song Name' },
-	{ name: 'Song Name' },
-	{ name: 'Song Name' },
-	{ name: 'Song Name' }
-]
-
 const padding = 40
 const { width } = Dimensions.get('window')
-const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-
-let scrollView, tabBarScroll
-const _tabsMeasurements = []
 
 export default function Lists() {
-	const [index, setIndex] = useState(0)
-
-	const _onMomentumScrollBeginAndEnd = ({
-		nativeEvent: {
-			contentOffset: { x }
-		}
-	}) => {
-		const page = Math.round(x / width)
-
-		setIndex(page)
-		_updateTabBarScroll(page)
-	}
-
-	const _onPressTabButton = key => {
-		setIndex(key)
-		_updateTabBarScroll(key)
-
-		scrollView.scrollTo({ x: key * width, y: 0, animated: true })
-	}
-
-	const _updateTabBarScroll = key => {
-		let scrollX = 0
-
-		_tabsMeasurements.map(({ width }, k) => {
-			if (k < key) {
-				scrollX += width
-			}
-		})
-		tabBarScroll.scrollTo({ x: scrollX - width / 3 })
-	}
-
-	const _measureTab = (
-		key,
-		{
-			nativeEvent: {
-				layout: { x, width, height }
-			}
-		}
-	) => {
-		_tabsMeasurements[key] = { left: x, right: x + width, width, height }
-	}
+	const items = useSelector(state => state.Playlist)
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>{scenes[index].title}</Text>
-
-			<View style={styles.tabBarContainer}>
-				<ScrollView
-					horizontal
-					ref={scView => (tabBarScroll = scView)}
-					showsHorizontalScrollIndicator={false}
-				>
+			<TabView
+				TabBar={({ _onPressTabButton, _measureTab, index }) => (
 					<View style={styles.tabBar}>
-						{scenes.map((scene, key) => {
+						{items.map((item, key) => {
 							const isActive = key === index
 
 							return (
@@ -114,56 +44,36 @@ export default function Lists() {
 										}}
 										onLayout={_measureTab.bind(this, key)}
 									>
-										{scene.title}
+										{item.title}
 									</Text>
 								</TouchableOpacity>
 							)
 						})}
 					</View>
-				</ScrollView>
-			</View>
-
-			<View style={styles.sceneContainer}>
-				<ScrollView
-					horizontal
-					pagingEnabled
-					showsHorizontalScrollIndicator={false}
-					ref={scView => (scrollView = scView)}
-					onMomentumScrollEnd={_onMomentumScrollBeginAndEnd}
-				>
-					{scenes.map((scene, key) => (
+				)}
+				Screens={() =>
+					items.map((scene, key) => (
 						<View key={key} style={styles.scene}>
 							<ScrollView>
-								<ListView
-									dataSource={ds.cloneWithRows(data)}
-									renderRow={item => (
-										<View style={styles.item}>
-											<Text style={{ color: Colors.gray }}>{item.name}</Text>
-										</View>
-									)}
+								<FlatList
+									data={scene.list}
+									keyExtractor={({ videoId }) => videoId}
+									renderItem={Item}
 								/>
 							</ScrollView>
 						</View>
-					))}
-				</ScrollView>
-			</View>
+					))
+				}
+				Title={({ index }) => <Title {...{ index, items }} />}
+			/>
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({
-	title: {
-		color: '#fff',
-		fontSize: 30,
-		padding: 20
-	},
 	container: {
 		flex: 1,
 		marginBottom: 50
-	},
-	tabBarContainer: {
-		height: 100,
-		backgroundColor: Colors.primary
 	},
 	scene: {
 		width: width - padding,
@@ -176,15 +86,5 @@ const styles = StyleSheet.create({
 		paddingHorizontal: padding / 2,
 		alignItems: 'center',
 		height: 30
-	},
-	sceneContainer: {
-		top: -50,
-		flex: 1
-	},
-	item: {
-		height: 40,
-		borderBottomWidth: 1,
-		borderBottomColor: Colors.gray,
-		padding: 10
 	}
 })
