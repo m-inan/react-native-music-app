@@ -1,9 +1,8 @@
 import React from 'react'
 import { View, Text, Button } from 'react-native'
 import { useDispatch } from 'react-redux'
-import AsyncStorage from '@react-native-community/async-storage'
 
-import { YTD } from '../../utils'
+import { YTD, setPlaylist } from '../../utils'
 import { setList } from '../../reducers/Playlist/actions'
 
 const getPlaylistsData = async () => {
@@ -48,11 +47,9 @@ export default function Title({ items, index }) {
 	const setData = async () => {
 		const playlist = await getPlaylistsData()
 
-		console.log(playlist)
-
 		dispatch(setList(playlist))
 
-		await AsyncStorage.setItem('playlist', JSON.stringify(playlist))
+		await setPlaylist(playlist)
 	}
 
 	return (

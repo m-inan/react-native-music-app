@@ -1,23 +1,31 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { Text, Dimensions } from 'react-native'
 import Animated from 'react-native-reanimated'
 
-const { width } = Dimensions.get('window')
+const { width: windowWidth } = Dimensions.get('window')
 
 export default function Title({ positionY, miniPos }) {
 	const { track } = useSelector(state => state.Player)
-	const [textWidth, setTextWidth] = useState(0)
-	const [change, setChange] = useState(true)
 
 	const top = positionY.interpolate({
 		inputRange: [0, miniPos],
-		outputRange: [miniPos / 2 + 150, 30]
+		outputRange: [miniPos / 2 + 160, 30]
 	})
 
 	const right = positionY.interpolate({
 		inputRange: [0, miniPos],
-		outputRange: [(width - textWidth) / 2, 120]
+		outputRange: [0, 120]
+	})
+
+	const width = positionY.interpolate({
+		inputRange: [0, miniPos],
+		outputRange: [windowWidth, windowWidth - 180]
+	})
+
+	const paddingHorizontal = positionY.interpolate({
+		inputRange: [0, miniPos],
+		outputRange: [50, 0]
 	})
 
 	return (
@@ -25,17 +33,14 @@ export default function Title({ positionY, miniPos }) {
 			style={{
 				top,
 				right,
+				width,
+				paddingHorizontal,
 				...styles.container
 			}}
-			onLayout={({ nativeEvent: { layout } }) => {
-				if (change) {
-					setChange(false)
-					setTextWidth(layout.width)
-				}
-			}}
 		>
-			<Text style={styles.title}>{track ? track.title : 'Not Playing'}</Text>
-			<Text style={styles.singer}>{track && track.artist}</Text>
+			<Text numberOfLines={1} style={styles.title}>
+				{track ? track.title : 'Not Playing'}
+			</Text>
 		</Animated.View>
 	)
 }

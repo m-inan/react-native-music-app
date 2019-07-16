@@ -73,7 +73,7 @@ export default function TabView({ TabBar, Screens, Title }) {
 					ref={scView => (scrollView = scView)}
 					onMomentumScrollEnd={_onMomentumScrollBeginAndEnd}
 				>
-					<Screens />
+					<Screens {...{ index }} />
 				</ScrollView>
 			</View>
 		</View>

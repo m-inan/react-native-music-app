@@ -38,7 +38,6 @@
 		2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E941DF850E9000B6D8A /* libRCTText-tvOS.a */; };
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
-		2D92CC9A74AD44F1A88DA71F /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 249F11DE828949D1B5C5C6C6 /* libReactNativeConfig.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* musicappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* musicappTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		37D75EAA372449A79A7A7184 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 733CECD39CF040CBB511F38E /* libRNFS.a */; };
@@ -470,7 +469,6 @@
 		17F5D10518BA4E398C5209FA /* RNPlaceholder.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; path = RNPlaceholder.swift; sourceTree = "<group>"; };
 		1A7838DAB50D456582BD81C4 /* libRNReanimated-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNReanimated-tvOS.a"; sourceTree = "<group>"; };
 		2111F539B5594FACA5981D21 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
-		249F11DE828949D1B5C5C6C6 /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* musicapp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "musicapp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* musicapp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "musicapp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -544,7 +542,6 @@
 				A970326D6BB14023A6A55303 /* libRNGestureHandler.a in Frameworks */,
 				65E2DFC707754C3B99D1151A /* libRNReanimated.a in Frameworks */,
 				E4D800028F7342E9BE537AC1 /* libRNGoogleSignin.a in Frameworks */,
-				2D92CC9A74AD44F1A88DA71F /* libReactNativeConfig.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,7 +815,6 @@
 				F833C670B8784DECBB805A6E /* libRNSVG-tvOS.a */,
 				C0899E5B6F0B41D3AFF2D10E /* libRNGestureHandler-tvOS.a */,
 				1A7838DAB50D456582BD81C4 /* libRNReanimated-tvOS.a */,
-				249F11DE828949D1B5C5C6C6 /* libReactNativeConfig.a */,
 				3C18AB9C77B64082A4A7DA7F /* libReactNativeConfig-tvOS.a */,
 			);
 			name = "Recovered References";
@@ -993,6 +989,9 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = TH24236SE5;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.InterAppAudio = {
 								enabled = 1;
 							};
