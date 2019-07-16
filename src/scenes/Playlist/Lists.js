@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import {
 	View,
 	Text,
@@ -51,19 +51,25 @@ export default function Lists() {
 						})}
 					</View>
 				)}
-				Screens={() =>
-					items.map((scene, key) => (
-						<View key={key} style={styles.scene}>
+				Screens={({ index }) => {
+					if (!items.length) return null
+
+					const scene = items[index]
+
+					return (
+						<View style={styles.scene}>
 							<ScrollView>
 								<FlatList
 									data={scene.list}
 									keyExtractor={({ videoId }) => videoId}
-									renderItem={Item}
+									renderItem={({ item }) => (
+										<Item playlistId={scene.id} {...item} />
+									)}
 								/>
 							</ScrollView>
 						</View>
-					))
-				}
+					)
+				}}
 				Title={({ index }) => <Title {...{ index, items }} />}
 			/>
 		</View>
