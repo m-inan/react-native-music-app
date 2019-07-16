@@ -11,7 +11,7 @@ function Music() {
 	const { state } = useSelector(state => state.Player)
 
 	useEffect(() => {
-		switch (state) {
+		/*switch (state) {
 			case 'playing':
 				loop(
 					sequence([
@@ -32,7 +32,7 @@ function Music() {
 			case 'paused':
 				slide.stopAnimation()
 				break
-		}
+		}*/
 	}, [state])
 
 	return (

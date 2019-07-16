@@ -6,7 +6,7 @@ import Animated, { Easing } from 'react-native-reanimated'
 import DeviceInfo from 'react-native-device-info'
 import { setUserPlaying } from '../../reducers/Player/actions'
 
-const { Value, interpolate, loop, sequence, timing } = Animated
+const { Value, interpolate, stopClock, timing } = Animated
 
 const { width } = Dimensions.get('window')
 const isPhoneX = /iPhone X/g.test(DeviceInfo.getDeviceName())
@@ -24,24 +24,17 @@ function Record({ positionY, miniPos }) {
 	useEffect(() => {
 		switch (state) {
 			case 'playing':
-				loop(
-					sequence([
-						timing(spinValue, {
-							toValue: 1,
-							duration: 10000,
-							easing: Easing.linear
-						})
-					])
-				).start()
+				timing(spinValue, {
+					toValue: 1,
+					duration: 10000,
+					easing: Easing.linear
+				}).start()
 				break
 
 			case 'paused':
-				spinValue.stopAnimation()
-				spinValue.extractOffset()
 				break
 
 			case 'ready':
-				spinValue.flattenOffset()
 				break
 		}
 	}, [state])
