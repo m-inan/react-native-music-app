@@ -3,17 +3,18 @@ import {
 	View,
 	Text,
 	Image,
-	Button,
 	ActivityIndicator,
 	TouchableOpacity
 } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import RNFS from 'react-native-fs'
 import TrackPlayer from 'react-native-track-player'
 
 import { setAudioFileExists } from '../../reducers/Playlist/actions'
 import { setUserPlaying } from '../../reducers/Player/actions'
 import { Colors, Api } from '../../constants'
+
+import { Download, Play } from '../../components/Icons'
 
 export default function Item({
 	thumbnail,
@@ -22,9 +23,11 @@ export default function Item({
 	exists,
 	playlistId
 }) {
-	const toFile = `${RNFS.DocumentDirectoryPath}/${videoId}.mp3`
 	const dispatch = useDispatch()
+	const { track } = useSelector(state => state.Player)
 	const [loading, setLoading] = useState(false)
+
+	const toFile = `${RNFS.DocumentDirectoryPath}/${videoId}.mp3`
 
 	const _downloadAudio = async () => {
 		setLoading(true)
@@ -32,27 +35,20 @@ export default function Item({
 		const response = await fetch(`${Api.BaseURI}/download/${videoId}`)
 		const { audio: fromUrl } = await response.json()
 
-		console.log(fromUrl)
-
 		await RNFS.downloadFile({
 			fromUrl,
 			toFile
 		})
 
-		dispatch(setAudioFileExists(playlistId, videoId))
 		setLoading(false)
+		dispatch(setAudioFileExists(playlistId, videoId, `file://${toFile}`))
 	}
 
 	const _play = async () => {
-		await TrackPlayer.add({
-			title,
-			thumbnail,
-			id: videoId,
-			url: `file://${toFile}`,
-			artist: 'Minan'
-		})
-
-		dispatch(setUserPlaying(true))
+		if (track) {
+			await TrackPlayer.skip(videoId)
+			dispatch(setUserPlaying(true))
+		}
 	}
 
 	return (
@@ -61,14 +57,20 @@ export default function Item({
 			<Text style={{ color: Colors.gray, flex: 1 }}>{title}</Text>
 			{exists ? (
 				<TouchableOpacity onPress={_play}>
-					<Text style={styles.play}>Play</Text>
+					<View style={styles.play}>
+						<Play />
+					</View>
 				</TouchableOpacity>
 			) : loading ? (
 				<View style={styles.spinner}>
 					<ActivityIndicator />
 				</View>
 			) : (
-				<Button title="download" onPress={_downloadAudio} />
+				<TouchableOpacity onPress={_downloadAudio}>
+					<View style={styles.download}>
+						<Download />
+					</View>
+				</TouchableOpacity>
 			)}
 		</View>
 	)
@@ -77,7 +79,7 @@ export default function Item({
 const styles = {
 	item: {
 		height: 70,
-		borderBottomWidth: 1,
+		borderBottomWidth: 0.5,
 		borderBottomColor: Colors.gray,
 		padding: 10,
 		flexDirection: 'row'
@@ -90,9 +92,16 @@ const styles = {
 	spinner: {
 		paddingVertical: 20
 	},
+	download: {
+		width: 50,
+		height: 50,
+		padding: 5,
+		paddingLeft: 20
+	},
 	play: {
-		color: 'white',
-		padding: 10,
-		fontSize: 18
+		width: 50,
+		height: 50,
+		padding: 5,
+		paddingLeft: 20
 	}
 }

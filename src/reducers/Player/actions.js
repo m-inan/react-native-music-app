@@ -30,30 +30,40 @@ export function playbackState(state) {
 	}
 }
 
-export function playbackTrack(trackId) {
-	return async dispatch => {
-		const duration = await TrackPlayer.getDuration()
-		const track = await TrackPlayer.getTrack(trackId)
+export function playbackTrack() {
+	return async (dispatch, getState) => {
+		const { replay, shuffle, track: current } = getState().Player
 
-		dispatch({
-			type: types.TRACK,
-			payload: {
-				track,
-				duration
-			}
-		})
+		if (replay) {
+			await TrackPlayer.skip(current.id)
+			await TrackPlayer.play()
+		} else {
+			await new Promise(resolve =>
+				setTimeout(() => {
+					resolve()
+				}, 100)
+			)
+
+			const duration = await TrackPlayer.getDuration()
+			const trackId = await TrackPlayer.getCurrentTrack()
+			const track = await TrackPlayer.getTrack(trackId)
+
+			dispatch({
+				type: types.TRACK,
+				payload: {
+					track,
+					duration
+				}
+			})
+		}
 	}
 }
 
 export function updatePlayback() {
 	return async dispatch => {
-		try {
-			dispatch(playbackState(await TrackPlayer.getState()))
+		dispatch(playbackState(await TrackPlayer.getState()))
 
-			dispatch(playbackTrack(await TrackPlayer.getCurrentTrack()))
-		} catch (e) {
-			console.log(e)
-		}
+		dispatch(playbackTrack(await TrackPlayer.getCurrentTrack()))
 	}
 }
 
@@ -84,4 +94,8 @@ export function setReplay(replay) {
 			replay
 		}
 	}
+}
+
+export function playbackQueueEnded() {
+	return async (dispatch, getState) => {}
 }

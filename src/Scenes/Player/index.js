@@ -1,6 +1,5 @@
 import React from 'react'
-import { Dimensions } from 'react-native'
-import Animated from 'react-native-reanimated'
+import { Dimensions, Animated } from 'react-native'
 
 import Title from './Title'
 import Header from './Header'
@@ -31,10 +30,6 @@ export default function Player() {
 	)
 }
 
-Player.navigationOptions = {
-	header: null
-}
-
 const styles = {
 	container: {
 		width,
@@ -42,7 +37,7 @@ const styles = {
 		top: 0,
 		left: 0,
 		position: 'absolute',
-		zIndex: 97,
+		zIndex: 1000,
 		backgroundColor: 'rgb(35, 40, 44)',
 		transform: [{ translateY: positionY }]
 	}

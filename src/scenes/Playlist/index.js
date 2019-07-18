@@ -23,6 +23,7 @@ export default function Playlist() {
 
 		dispatch(setList(playlist))
 	}
+
 	return (
 		<Layout>
 			<View style={styles.container}>

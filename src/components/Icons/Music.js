@@ -1,29 +1,25 @@
 import React, { useEffect } from 'react'
 import Svg, { Path } from 'react-native-svg'
-import Animated, { Easing } from 'react-native-reanimated'
+import { Animated } from 'react-native'
 import { useSelector } from 'react-redux'
 
-const { Value, loop, sequence, timing } = Animated
+const slide = new Animated.Value(0)
 
-const slide = new Value(0)
-
-function Music() {
+export function Music() {
 	const { state } = useSelector(state => state.Player)
 
 	useEffect(() => {
-		/*switch (state) {
+		switch (state) {
 			case 'playing':
-				loop(
-					sequence([
-						timing(slide, {
+				Animated.loop(
+					Animated.sequence([
+						Animated.timing(slide, {
 							toValue: 5,
-							duration: 1000,
-							easing: Easing.inOut(Easing.ease)
+							duration: 1000
 						}),
-						timing(slide, {
+						Animated.timing(slide, {
 							toValue: 0,
-							duration: 1000,
-							easing: Easing.inOut(Easing.ease)
+							duration: 1000
 						})
 					])
 				).start()
@@ -32,7 +28,7 @@ function Music() {
 			case 'paused':
 				slide.stopAnimation()
 				break
-		}*/
+		}
 	}, [state])
 
 	return (
@@ -55,5 +51,3 @@ function Music() {
 		</Animated.View>
 	)
 }
-
-export default Music

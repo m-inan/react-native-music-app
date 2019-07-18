@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Dimensions, PanResponder, View, Text } from 'react-native'
-import Animated from 'react-native-reanimated'
+import { Dimensions, PanResponder, View, Animated, Text } from 'react-native'
 import TrackPlayer from 'react-native-track-player'
 import Svg, { Circle, G, Path } from 'react-native-svg'
 import {
@@ -37,7 +36,9 @@ export default function Slider({ positionY, miniPos }) {
 					setTime(current)
 
 					if (current > 0) {
-						setPercent((current * 100) / duration)
+						let percent = (current * 100) / duration
+
+						setPercent(percent <= 100 ? percent : 100)
 					}
 				}, 100)
 				break
@@ -46,8 +47,16 @@ export default function Slider({ positionY, miniPos }) {
 		}
 	}, [state])
 
+	useState(() => {
+		if (percent > 100) {
+			setPercent(100)
+		}
+	}, [percent])
+
 	const setProgress = (x, y) => {
 		if (!track) return
+
+		clearInterval(interval)
 
 		const angleToPercent = (cartesianToPolar(x, y, { cy, cx }) / 180) * 100
 		const time = (duration / 100) * angleToPercent

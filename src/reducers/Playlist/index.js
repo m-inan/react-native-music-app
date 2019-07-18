@@ -18,7 +18,8 @@ export default function reducer(state = initialState(), { type, payload }) {
 							if (item.videoId === payload.videoId) {
 								return {
 									...item,
-									exists: true
+									exists: true,
+									source: payload.source
 								}
 							} else {
 								return item

@@ -1,9 +1,6 @@
-import { getToken } from './token'
 import { buildQueryString } from './URL'
 
-export const YTD = async (route, param = {}) => {
-	const accessToken = await getToken()
-
+export const YTD = async (route, accessToken, param = {}) => {
 	const queryString = buildQueryString({
 		part: 'snippet,contentDetails',
 		mine: true,

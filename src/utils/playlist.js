@@ -7,5 +7,7 @@ export async function setPlaylist(value) {
 }
 
 export async function getPlaylist() {
-	return JSON.parse(await AsyncStorage.getItem(key))
+	const playlist = JSON.parse(await AsyncStorage.getItem(key))
+
+	return playlist || []
 }

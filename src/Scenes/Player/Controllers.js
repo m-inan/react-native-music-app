@@ -2,6 +2,8 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, TouchableWithoutFeedback } from 'react-native'
 
+import TrackPlayer from 'react-native-track-player'
+
 import {
 	setUserPlaying,
 	setReplay,
@@ -32,6 +34,20 @@ function Controller() {
 		dispatch(setReplay(!replay))
 	}
 
+	const onPressPrev = async () => {
+		const time = await TrackPlayer.getPosition()
+
+		if (time <= 3) {
+			TrackPlayer.skipToPrevious()
+		} else {
+			TrackPlayer.seekTo(0)
+		}
+	}
+
+	const onPressNext = () => {
+		TrackPlayer.skipToNext()
+	}
+
 	return (
 		<View style={styles.container}>
 			<TouchableWithoutFeedback onPress={onPressShuffle}>
@@ -46,17 +62,21 @@ function Controller() {
 				</View>
 			</TouchableWithoutFeedback>
 
-			<View style={styles.prev}>
-				<Skip />
-			</View>
+			<TouchableWithoutFeedback onPress={onPressPrev}>
+				<View style={styles.prev}>
+					<Skip />
+				</View>
+			</TouchableWithoutFeedback>
 
 			<TouchableWithoutFeedback onPress={onClickPlayPause}>
 				<View style={styles.playPause}>{playing ? <Pause /> : <Play />}</View>
 			</TouchableWithoutFeedback>
 
-			<View style={styles.next}>
-				<Skip />
-			</View>
+			<TouchableWithoutFeedback onPress={onPressNext}>
+				<View style={styles.next}>
+					<Skip />
+				</View>
+			</TouchableWithoutFeedback>
 		</View>
 	)
 }

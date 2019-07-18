@@ -1,5 +1,5 @@
 import TrackPlayer from 'react-native-track-player'
-import { playbackState, playbackTrack } from './actions'
+import { playbackState, playbackTrack, playbackQueueEnded } from './actions'
 
 async function Handler(dispatch, data) {
 	switch (data.type) {
@@ -28,11 +28,12 @@ async function Handler(dispatch, data) {
 			dispatch(playbackState(data.state))
 			break
 		case 'playback-track-changed':
-			dispatch(playbackTrack(data.nextTrack))
+			dispatch(playbackTrack())
 
 			break
 		case 'playback-queue-ended':
 			// finish
+			dispatch(playbackQueueEnded())
 
 			break
 		case 'playback-error':

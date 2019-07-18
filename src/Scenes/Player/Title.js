@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Text, Dimensions } from 'react-native'
-import Animated from 'react-native-reanimated'
+import { Animated, Text, Dimensions } from 'react-native'
 
 const { width: windowWidth } = Dimensions.get('window')
 

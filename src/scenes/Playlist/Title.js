@@ -1,48 +1,75 @@
-import React from 'react'
-import { View, Text, Button } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { GoogleSignin, statusCodes } from 'react-native-google-signin'
+
+import { ListDownload } from '../../components/Icons'
+
+GoogleSignin.configure({
+	scopes: ['https://www.googleapis.com/auth/youtube.readonly']
+})
 
 import { YTD, setPlaylist } from '../../utils'
 import { setList } from '../../reducers/Playlist/actions'
 
-const getPlaylistsData = async () => {
-	try {
-		const { items } = await YTD('playlists')
-
-		return await Promise.all(
-			items.map(async ({ id, snippet: { title } }) => {
-				let list = await YTD('playlistItems', { playlistId: id })
-
-				list = list.items.map(
-					({
-						snippet: {
-							title,
-							thumbnails: {
-								default: { url: thumbnail }
-							},
-							resourceId: { videoId }
-						}
-					}) => ({
-						title,
-						thumbnail,
-						videoId
-					})
-				)
-
-				return {
-					id,
-					title,
-					list
-				}
-			})
-		)
-	} catch (e) {
-		console.log(e)
-	}
-}
-
 export default function Title({ items, index }) {
+	const [isProgress, setProgress] = useState(false)
 	const dispatch = useDispatch()
+
+	const getPlaylistsData = async () => {
+		setProgress(true)
+
+		try {
+			await GoogleSignin.hasPlayServices()
+			await GoogleSignin.signIn()
+
+			const { accessToken } = await GoogleSignin.getTokens()
+
+			const { items } = await YTD('playlists', accessToken)
+
+			return await Promise.all(
+				items.map(async ({ id, snippet: { title } }) => {
+					let list = await YTD('playlistItems', accessToken, { playlistId: id })
+
+					list = list.items.map(
+						({
+							snippet: {
+								title,
+								thumbnails: {
+									default: { url: thumbnail }
+								},
+								resourceId: { videoId }
+							}
+						}) => ({
+							title,
+							thumbnail,
+							videoId
+						})
+					)
+
+					return {
+						id,
+						title,
+						list
+					}
+				})
+			)
+		} catch (error) {
+			if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+				// user cancelled the login flow
+			} else if (error.code === statusCodes.IN_PROGRESS) {
+				// operation (f.e. sign in) is in progress already
+			} else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+				// play services not available or outdated
+			} else {
+				// some other error happened
+
+				console.log(error)
+			}
+		} finally {
+			setProgress(false)
+		}
+	}
 
 	const setData = async () => {
 		const playlist = await getPlaylistsData()
@@ -55,7 +82,15 @@ export default function Title({ items, index }) {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>{items.length && items[index].title}</Text>
-			<Button title="set data" onPress={setData} style={styles.button} />
+			<TouchableOpacity onPress={setData}>
+				<View style={{ paddingHorizontal: 20 }}>
+					{isProgress ? (
+						<ActivityIndicator />
+					) : (
+						<ListDownload style={styles.icon} />
+					)}
+				</View>
+			</TouchableOpacity>
 		</View>
 	)
 }
@@ -71,5 +106,8 @@ const styles = {
 		padding: 20,
 		flex: 1
 	},
-	button: {}
+	icon: {
+		width: 25,
+		height: 25
+	}
 }
