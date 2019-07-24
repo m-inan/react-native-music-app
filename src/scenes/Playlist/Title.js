@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { GoogleSignin, statusCodes } from 'react-native-google-signin'
+import RNFS from 'react-native-fs'
 
 import { ListDownload } from '../../components/Icons'
 
@@ -31,20 +32,28 @@ export default function Title({ items, index }) {
 				items.map(async ({ id, snippet: { title } }) => {
 					let list = await YTD('playlistItems', accessToken, { playlistId: id })
 
-					list = list.items.map(
-						({
-							snippet: {
-								title,
-								thumbnails: {
-									default: { url: thumbnail }
-								},
-								resourceId: { videoId }
+					list = await Promise.all(
+						list.items.map(
+							async ({
+								snippet: {
+									title,
+									thumbnails: {
+										default: { url: artwork }
+									},
+									resourceId: { videoId }
+								}
+							}) => {
+								const filePath = `${RNFS.DocumentDirectoryPath}/${videoId}.mp3`
+
+								return {
+									title,
+									artwork,
+									videoId,
+									exists: await RNFS.exists(filePath),
+									source: `file:/${filePath}`
+								}
 							}
-						}) => ({
-							title,
-							thumbnail,
-							videoId
-						})
+						)
 					)
 
 					return {
@@ -73,6 +82,8 @@ export default function Title({ items, index }) {
 
 	const setData = async () => {
 		const playlist = await getPlaylistsData()
+
+		console.log(playlist)
 
 		dispatch(setList(playlist))
 

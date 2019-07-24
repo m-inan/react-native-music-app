@@ -22,48 +22,63 @@ export function initializePlayback() {
 }
 
 export function playbackState(state) {
-	return {
-		type: types.STATE,
-		payload: {
-			state
-		}
+	return async dispatch => {
+		const state = await TrackPlayer.getState()
+
+		dispatch({
+			type: types.STATE,
+			payload: {
+				state
+			}
+		})
 	}
 }
 
 export function playbackTrack() {
 	return async (dispatch, getState) => {
-		const { replay, shuffle, track: current } = getState().Player
+		const { replay, shuffle, track: current, shuffleSkip } = getState().Player
 
 		if (replay) {
 			await TrackPlayer.skip(current.id)
 			await TrackPlayer.play()
 		} else {
-			await new Promise(resolve =>
-				setTimeout(() => {
-					resolve()
-				}, 100)
-			)
+			if (shuffle && !shuffleSkip) {
+				let queue = await TrackPlayer.getQueue()
+				queue = queue.filter(item => item.id !== current.id)
 
-			const duration = await TrackPlayer.getDuration()
-			const trackId = await TrackPlayer.getCurrentTrack()
-			const track = await TrackPlayer.getTrack(trackId)
+				const count = queue.length - 1
+				const index = Math.floor(Math.random() * count)
 
-			dispatch({
-				type: types.TRACK,
-				payload: {
-					track,
-					duration
-				}
-			})
+				const trackId = queue[index].id
+
+				dispatch(setShuffleSkip(true))
+
+				await TrackPlayer.skip(trackId)
+				await TrackPlayer.play()
+			} else {
+				const trackId = await TrackPlayer.getCurrentTrack()
+				const duration = await TrackPlayer.getDuration()
+
+				const track = await TrackPlayer.getTrack(trackId)
+
+				dispatch({
+					type: types.TRACK,
+					payload: {
+						track,
+						duration
+					}
+				})
+				dispatch(setShuffleSkip(false))
+			}
 		}
 	}
 }
 
 export function updatePlayback() {
 	return async dispatch => {
-		dispatch(playbackState(await TrackPlayer.getState()))
+		dispatch(playbackState())
 
-		dispatch(playbackTrack(await TrackPlayer.getCurrentTrack()))
+		dispatch(playbackTrack())
 	}
 }
 
@@ -96,6 +111,35 @@ export function setReplay(replay) {
 	}
 }
 
-export function playbackQueueEnded() {
-	return async (dispatch, getState) => {}
+export function setShuffleSkip(shuffleSkip) {
+	return {
+		type: types.SHUFFLE_SKIP,
+		payload: {
+			shuffleSkip
+		}
+	}
+}
+
+export function playbackQueueEnded(position) {
+	return async (dispatch, getState) => {
+		const { shuffle } = getState().Player
+
+		if (!shuffle && position > 0) {
+			const queue = await TrackPlayer.getQueue()
+
+			dispatch(setUserPlaying(false))
+
+			TrackPlayer.skip(queue[0].id)
+		} else {
+			dispatch(playbackTrack())
+		}
+	}
+}
+
+export function playerReset() {
+	return async dispatch => {
+		await TrackPlayer.reset()
+
+		dispatch({ type: types.RESET })
+	}
 }

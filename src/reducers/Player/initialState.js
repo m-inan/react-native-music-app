@@ -6,6 +6,7 @@ export default () => {
 		track: null,
 		suffle: false,
 		replay: false,
-		playing: false
+		playing: false,
+		shuffleSkip: false
 	}
 }

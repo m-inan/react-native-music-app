@@ -97,7 +97,7 @@ function Record({ positionY, miniPos }) {
 							height: ranges.tLayout,
 							transform: [{ rotate }]
 						}}
-						source={{ uri: track.thumbnail }}
+						source={{ uri: track.artwork }}
 					/>
 				)}
 

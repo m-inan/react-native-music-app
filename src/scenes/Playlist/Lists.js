@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import {
 	View,
 	Text,
@@ -8,27 +8,54 @@ import {
 	Dimensions,
 	TouchableOpacity
 } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import TabView from '../../components/TabView'
+import { setActiveList } from '../../reducers/Playlist/actions'
 
 import Item from './Item'
 import Title from './Title'
 
 import { Colors } from '../../constants'
 
-const padding = 40
-const { width } = Dimensions.get('window')
+const { width } = Dimensions.get('window'),
+	padding = 40
 
 export default function Lists() {
+	const dispatch = useDispatch()
 	const items = useSelector(state => state.Playlist)
+
+	const [index, setIndex] = useState(0)
+
+	const _onPressTabButton = async key => {
+		dispatch(setActiveList(items[key]))
+
+		setIndex(key)
+	}
+
+	const Songs = () => {
+		if (!items.length) return null
+
+		const scene = items[index]
+
+		return (
+			<View style={styles.scene}>
+				<FlatList
+					data={scene.list}
+					keyExtractor={({ videoId }) => videoId}
+					renderItem={({ item }) => <Item playlistId={scene.id} {...item} />}
+				/>
+			</View>
+		)
+	}
 
 	return (
 		<View style={styles.container}>
-			<TabView
-				TabBar={({ _onPressTabButton, _measureTab, index }) => (
+			<Title {...{ index, items }} />
+
+			<View style={styles.tabBarContainer}>
+				<ScrollView horizontal showsHorizontalScrollIndicator={false}>
 					<View style={styles.tabBar}>
-						{items.map((item, key) => {
+						{items.map(({ title }, key) => {
 							const isActive = key === index
 
 							return (
@@ -42,36 +69,17 @@ export default function Lists() {
 											color: isActive ? Colors.white : Colors.lightGray,
 											paddingRight: 20
 										}}
-										onLayout={_measureTab.bind(this, key)}
 									>
-										{item.title}
+										{title}
 									</Text>
 								</TouchableOpacity>
 							)
 						})}
 					</View>
-				)}
-				Screens={({ index }) => {
-					if (!items.length) return null
+				</ScrollView>
+			</View>
 
-					const scene = items[index]
-
-					return (
-						<View style={styles.scene}>
-							<ScrollView>
-								<FlatList
-									data={scene.list}
-									keyExtractor={({ videoId }) => videoId}
-									renderItem={({ item }) => (
-										<Item playlistId={scene.id} {...item} />
-									)}
-								/>
-							</ScrollView>
-						</View>
-					)
-				}}
-				Title={({ index }) => <Title {...{ index, items }} />}
-			/>
+			<View style={styles.sceneContainer}>{Songs()}</View>
 		</View>
 	)
 }
@@ -92,5 +100,13 @@ const styles = StyleSheet.create({
 		paddingHorizontal: padding / 2,
 		alignItems: 'center',
 		height: 30
+	},
+	tabBarContainer: {
+		height: 100,
+		backgroundColor: Colors.primary
+	},
+	sceneContainer: {
+		top: -50,
+		flex: 1
 	}
 })

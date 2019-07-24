@@ -16,13 +16,7 @@ import { Colors, Api } from '../../constants'
 
 import { Download, Play } from '../../components/Icons'
 
-export default function Item({
-	thumbnail,
-	title,
-	videoId,
-	exists,
-	playlistId
-}) {
+export default function Item({ artwork, title, videoId, exists, playlistId }) {
 	const dispatch = useDispatch()
 	const { track } = useSelector(state => state.Player)
 	const [loading, setLoading] = useState(false)
@@ -41,7 +35,7 @@ export default function Item({
 		})
 
 		setLoading(false)
-		dispatch(setAudioFileExists(playlistId, videoId, `file://${toFile}`))
+		dispatch(setAudioFileExists(playlistId, videoId, `file:/${toFile}`))
 	}
 
 	const _play = async () => {
@@ -53,7 +47,7 @@ export default function Item({
 
 	return (
 		<View style={styles.item}>
-			<Image source={{ uri: thumbnail }} style={styles.thumbnail} />
+			<Image source={{ uri: artwork }} style={styles.artwork} />
 			<Text style={{ color: Colors.gray, flex: 1 }}>{title}</Text>
 			{exists ? (
 				<TouchableOpacity onPress={_play}>
@@ -84,7 +78,7 @@ const styles = {
 		padding: 10,
 		flexDirection: 'row'
 	},
-	thumbnail: {
+	artwork: {
 		width: 60,
 		height: 50,
 		marginRight: 15

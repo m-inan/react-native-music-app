@@ -41,7 +41,6 @@
 		2DCD954D1E0B4F2C00145EB5 /* musicappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* musicappTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		37D75EAA372449A79A7A7184 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 733CECD39CF040CBB511F38E /* libRNFS.a */; };
-		65E2DFC707754C3B99D1151A /* libRNReanimated.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B91ACC6452648D898E481F4 /* libRNReanimated.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8658DD4EA7A1457BAF233B82 /* libRNReanimated-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7838DAB50D456582BD81C4 /* libRNReanimated-tvOS.a */; };
 		A5A35113830145349DD02F71 /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0899E5B6F0B41D3AFF2D10E /* libRNGestureHandler-tvOS.a */; };
@@ -394,20 +393,6 @@
 			remoteGlobalIDString = 9FD355121D3E4A2900D06170;
 			remoteInfo = RNGoogleSignin;
 		};
-		E9924A1722DA87E40065B890 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 999C08C4B545489D82EFCC89 /* RNReanimated.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNReanimated;
-		};
-		E9924A1922DA87E40065B890 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 999C08C4B545489D82EFCC89 /* RNReanimated.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FDBB176E229BF04900D1E455;
-			remoteInfo = "RNReanimated-tvOS";
-		};
 		E9924A1D22DA87E40065B890 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DF5611D8F4514B9998958EF9 /* RNSVG.xcodeproj */;
@@ -428,20 +413,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 9B0E28291F07D76F00B71D2A;
 			remoteInfo = RNTrackPlayer;
-		};
-		E9F7D0A422DA981700EECEF9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C914D012E26A4F46B74A4A23 /* ReactNativeConfig.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EB2648DF1C7BE17A00B8F155;
-			remoteInfo = ReactNativeConfig;
-		};
-		E9F7D0A622DA981700EECEF9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C914D012E26A4F46B74A4A23 /* ReactNativeConfig.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3DF7F6AC203AA09B00D0EAB7;
-			remoteInfo = "ReactNativeConfig-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -484,12 +455,10 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8E477AA0B95F41239B5CA995 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
 		989919147A8F4F239161DE88 /* libRNTrackPlayer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNTrackPlayer.a; sourceTree = "<group>"; };
-		999C08C4B545489D82EFCC89 /* RNReanimated.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNReanimated.xcodeproj; path = "../node_modules/react-native-reanimated/ios/RNReanimated.xcodeproj"; sourceTree = "<group>"; };
 		A34548228A984CC5A6031A8B /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		C0899E5B6F0B41D3AFF2D10E /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; };
 		C8DC4763E6F747A88A4CCF43 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
-		C914D012E26A4F46B74A4A23 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
 		DF5611D8F4514B9998958EF9 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		E3A2AF1183414911B9202AFF /* RNFS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		E4082C7A4AC242C4A870061F /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
@@ -540,7 +509,6 @@
 				04589DA9915F4F619483FDFC /* libRNSVG.a in Frameworks */,
 				143149BF990E46499665A10C /* libRNTrackPlayer.a in Frameworks */,
 				A970326D6BB14023A6A55303 /* libRNGestureHandler.a in Frameworks */,
-				65E2DFC707754C3B99D1151A /* libRNReanimated.a in Frameworks */,
 				E4D800028F7342E9BE537AC1 /* libRNGoogleSignin.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -748,9 +716,7 @@
 				DF5611D8F4514B9998958EF9 /* RNSVG.xcodeproj */,
 				4A6874C78F4841328536E8FE /* RNTrackPlayer.xcodeproj */,
 				C8DC4763E6F747A88A4CCF43 /* RNGestureHandler.xcodeproj */,
-				999C08C4B545489D82EFCC89 /* RNReanimated.xcodeproj */,
 				5CABD25D32CD4C368218E9A5 /* RNGoogleSignin.xcodeproj */,
-				C914D012E26A4F46B74A4A23 /* ReactNativeConfig.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -837,15 +803,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E99249F122DA87E30065B890 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E9924A1822DA87E40065B890 /* libRNReanimated.a */,
-				E9924A1A22DA87E40065B890 /* libRNReanimated-tvOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		E99249F322DA87E30065B890 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -885,15 +842,6 @@
 			children = (
 				E9924A0F22DA87E40065B890 /* libRNGestureHandler.a */,
 				E9924A1122DA87E40065B890 /* libRNGestureHandler-tvOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		E9F7D0A022DA981700EECEF9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E9F7D0A522DA981700EECEF9 /* libReactNativeConfig.a */,
-				E9F7D0A722DA981700EECEF9 /* libReactNativeConfig-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1070,10 +1018,6 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = E9F7D0A022DA981700EECEF9 /* Products */;
-					ProjectRef = C914D012E26A4F46B74A4A23 /* ReactNativeConfig.xcodeproj */;
-				},
-				{
 					ProductGroup = E99249F322DA87E30065B890 /* Products */;
 					ProjectRef = 2111F539B5594FACA5981D21 /* RNCAsyncStorage.xcodeproj */;
 				},
@@ -1092,10 +1036,6 @@
 				{
 					ProductGroup = E99249EF22DA87E30065B890 /* Products */;
 					ProjectRef = 5CABD25D32CD4C368218E9A5 /* RNGoogleSignin.xcodeproj */;
-				},
-				{
-					ProductGroup = E99249F122DA87E30065B890 /* Products */;
-					ProjectRef = 999C08C4B545489D82EFCC89 /* RNReanimated.xcodeproj */;
 				},
 				{
 					ProductGroup = E99249F722DA87E30065B890 /* Products */;
@@ -1432,20 +1372,6 @@
 			remoteRef = E9924A1322DA87E40065B890 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		E9924A1822DA87E40065B890 /* libRNReanimated.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNReanimated.a;
-			remoteRef = E9924A1722DA87E40065B890 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		E9924A1A22DA87E40065B890 /* libRNReanimated-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libRNReanimated-tvOS.a";
-			remoteRef = E9924A1922DA87E40065B890 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		E9924A1E22DA87E40065B890 /* libRNSVG.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1465,20 +1391,6 @@
 			fileType = archive.ar;
 			path = libRNTrackPlayer.a;
 			remoteRef = E9924A2222DA87E40065B890 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		E9F7D0A522DA981700EECEF9 /* libReactNativeConfig.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libReactNativeConfig.a;
-			remoteRef = E9F7D0A422DA981700EECEF9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		E9F7D0A722DA981700EECEF9 /* libReactNativeConfig-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libReactNativeConfig-tvOS.a";
-			remoteRef = E9F7D0A622DA981700EECEF9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1747,9 +1659,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.tilpark.musicapp;
 				PRODUCT_NAME = musicapp;
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1784,9 +1697,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.tilpark.musicapp;
 				PRODUCT_NAME = musicapp;
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

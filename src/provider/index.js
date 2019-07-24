@@ -7,7 +7,8 @@ import store from './store'
 import Playlist from '../scenes/Playlist'
 
 import { updatePlayback, initializePlayback } from '../reducers/Player/actions'
-import Handler from '../reducers/Player/handler'
+
+import Service from './service'
 
 export default function withProvider() {
 	store.dispatch(initializePlayback())
@@ -18,7 +19,7 @@ export default function withProvider() {
 		}
 	})
 
-	TrackPlayer.registerEventHandler(Handler(store.dispatch))
+	TrackPlayer.registerPlaybackService(() => Service(store.dispatch))
 
 	return (
 		<Provider store={store}>
