@@ -22,6 +22,7 @@ export default function Item({ artwork, title, videoId, exists, playlistId }) {
 	const [loading, setLoading] = useState(false)
 
 	const toFile = `${RNFS.DocumentDirectoryPath}/${videoId}.mp3`
+	const imageFile = `${RNFS.DocumentDirectoryPath}/${videoId}.jpg`
 
 	const _downloadAudio = async () => {
 		setLoading(true)
@@ -34,15 +35,20 @@ export default function Item({ artwork, title, videoId, exists, playlistId }) {
 			toFile
 		})
 
+		await RNFS.downloadFile({
+			fromUrl: artwork,
+			toFile: imageFile
+		})
+
 		setLoading(false)
-		dispatch(setAudioFileExists(playlistId, videoId, `file:/${toFile}`))
+		dispatch(
+			setAudioFileExists(playlistId, videoId, `file:/${toFile}`, `${imageFile}`)
+		)
 	}
 
 	const _play = async () => {
-		if (track) {
-			await TrackPlayer.skip(videoId)
-			dispatch(setUserPlaying(true))
-		}
+		await TrackPlayer.skip(videoId)
+		dispatch(setUserPlaying(true))
 	}
 
 	return (

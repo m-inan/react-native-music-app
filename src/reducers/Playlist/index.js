@@ -19,7 +19,8 @@ export default function reducer(state = initialState(), { type, payload }) {
 								return {
 									...item,
 									exists: true,
-									source: payload.source
+									source: payload.source,
+									artwork: payload.artwork
 								}
 							} else {
 								return item
