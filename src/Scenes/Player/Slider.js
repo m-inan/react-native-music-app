@@ -8,6 +8,7 @@ import {
 	polarToCartesian,
 	cartesianToPolar
 } from '../../utils/index'
+import { Colors } from '../../constants'
 
 const { width } = Dimensions.get('window')
 const padding = 20
@@ -34,32 +35,23 @@ export default function Slider({ positionY, miniPos }) {
 				break
 			case 'playing':
 				interval = setInterval(async () => {
-					const current = Math.floor(await TrackPlayer.getPosition())
+					if (!moveSlider) {
+						const current = Math.floor(await TrackPlayer.getPosition())
 
-					setTime(current)
-
-					if (current > 0 && !moveSlider) {
+						setTime(current)
 						setPercent((current * 100) / Math.floor(duration))
 					}
 				}, 100)
 				break
-			default:
-				clearInterval(interval)
 		}
 	}, [state, duration, moveSlider])
 
-	useState(() => {
-		if (percent > 100) {
-			setPercent(100)
-		}
-	}, [percent])
-
 	const setProgress = (x, y) => {
-		if (!track) return
+		if (!track || state === 'ready') return
 
 		const angleToPercent = (cartesianToPolar(x, y, { cy, cx }) / 180) * 100
 
-		setTime(time)
+		setTime((duration / 100) * angleToPercent)
 		setPercent(angleToPercent)
 
 		return true
@@ -84,7 +76,10 @@ export default function Slider({ positionY, miniPos }) {
 			setProgress(locationX, locationY)
 	})
 
-	const { x, y } = polarToCartesian((percent * 180) / 100, { cy, cx, r })
+	const { x, y } = polarToCartesian(
+		((percent > 100 ? 100 : percent) * 180) / 100,
+		{ cy, cx, r }
+	)
 
 	return (
 		<Animated.View
@@ -96,7 +91,16 @@ export default function Slider({ positionY, miniPos }) {
 				...styles.container
 			}}
 		>
-			<Text numberOfLines={1} style={styles.current}>
+			<Text
+				numberOfLines={1}
+				style={[
+					styles.current,
+					moveSlider && {
+						fontSize: 14,
+						color: Colors.primary
+					}
+				]}
+			>
 				{timeFormat(time)}
 			</Text>
 
@@ -109,7 +113,7 @@ export default function Slider({ positionY, miniPos }) {
 					<G {..._panResponder.panHandlers}>
 						<Path
 							fill="none"
-							stroke={'rgb(131, 141, 149)'}
+							stroke={Colors.gray}
 							strokeWidth={5}
 							d={`M${padding} ${cy} A ${r} ${r} 0 0 0 ${r * 2 + padding} ${cy}`}
 						/>
@@ -117,7 +121,7 @@ export default function Slider({ positionY, miniPos }) {
 						<Path
 							fill="none"
 							strokeWidth={5}
-							stroke={'rgb(225, 47, 129)'}
+							stroke={Colors.primary}
 							d={`M${padding} ${cy} A ${r} ${r} 0 0 0 ${x} ${y}`}
 						/>
 
@@ -127,7 +131,7 @@ export default function Slider({ positionY, miniPos }) {
 							r={10}
 							x={Math.abs(x)}
 							y={Math.abs(y)}
-							fill="rgb(225, 47, 129)"
+							fill={Colors.primary}
 						/>
 					</G>
 
