@@ -30,7 +30,7 @@ export const setList = items => {
 	}
 }
 
-export const setAudioFileExists = (playlistId, videoId, source) => {
+export const setAudioFileExists = (playlistId, videoId, source, artwork) => {
 	return async (dispatch, getState) => {
 		const activeList = getState()
 			.Playlist.find(item => item.id === playlistId)
@@ -39,7 +39,7 @@ export const setAudioFileExists = (playlistId, videoId, source) => {
 		const find = item => item.videoId === videoId
 
 		const index = activeList.findIndex(find)
-		const { title, artwork } = activeList.find(find)
+		const { title } = activeList.find(find)
 
 		let insertBeforeId
 
@@ -67,7 +67,8 @@ export const setAudioFileExists = (playlistId, videoId, source) => {
 			payload: {
 				playlistId,
 				videoId,
-				source
+				source,
+				artwork
 			}
 		})
 	}
@@ -89,6 +90,16 @@ export function setActiveList(playlist) {
 				}))
 
 			await TrackPlayer.add(addList)
+		}
+	}
+}
+
+export function setPlaylistIdIndex(id, index) {
+	return {
+		type: types.SET_ID_INDEX,
+		payload: {
+			id,
+			index
 		}
 	}
 }
