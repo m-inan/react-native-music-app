@@ -19,9 +19,10 @@ const height = (width + padding * 2) / 2
 let interval
 
 export default function Slider({ positionY, miniPos }) {
-	const { state, duration, playing, track } = useSelector(state => state.Player)
+	const { state, duration, track } = useSelector(state => state.Player)
 	const [percent, setPercent] = useState(0)
 	const [time, setTime] = useState(null)
+	const [moveSlider, setMoveSlider] = useState(false)
 
 	useEffect(() => {
 		clearInterval(interval)
@@ -37,17 +38,15 @@ export default function Slider({ positionY, miniPos }) {
 
 					setTime(current)
 
-					if (current > 0) {
-						let percent = (current * 100) / Math.floor(duration)
-
-						setPercent(percent)
+					if (current > 0 && !moveSlider) {
+						setPercent((current * 100) / Math.floor(duration))
 					}
 				}, 100)
 				break
 			default:
 				clearInterval(interval)
 		}
-	}, [state, duration])
+	}, [state, duration, moveSlider])
 
 	useState(() => {
 		if (percent > 100) {
@@ -57,8 +56,6 @@ export default function Slider({ positionY, miniPos }) {
 
 	const setProgress = (x, y) => {
 		if (!track) return
-
-		clearInterval(interval)
 
 		const angleToPercent = (cartesianToPolar(x, y, { cy, cx }) / 180) * 100
 
@@ -73,12 +70,13 @@ export default function Slider({ positionY, miniPos }) {
 		onMoveShouldSetPanResponder: () => true,
 		onStartShouldSetPanResponderCapture: () => {
 			// start
+			setMoveSlider(true)
 		},
 		onPanResponderRelease: () => {
 			// end
-			const time = (duration / 100) * percent
+			TrackPlayer.seekTo((duration / 100) * percent)
 
-			TrackPlayer.seekTo(time)
+			setMoveSlider(false)
 		},
 		onPanResponderGrant: ({ nativeEvent: { locationX, locationY } }) =>
 			setProgress(locationX, locationY),
