@@ -18,8 +18,6 @@ export const setList = items => {
 					artist: 'Minan'
 				}))
 
-			console.log(addList)
-
 			await TrackPlayer.add(addList)
 		}
 

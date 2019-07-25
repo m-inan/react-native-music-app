@@ -83,8 +83,6 @@ export default function Title({ items, index }) {
 	const setData = async () => {
 		const playlist = await getPlaylistsData()
 
-		console.log(playlist)
-
 		dispatch(setList(playlist))
 
 		await setPlaylist(playlist)

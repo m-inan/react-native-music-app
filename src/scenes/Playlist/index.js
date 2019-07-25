@@ -19,7 +19,6 @@ export default function Playlist() {
 
 	const setReduxData = async () => {
 		const playlist = await getPlaylist()
-		console.log(playlist)
 
 		dispatch(setList(playlist))
 	}

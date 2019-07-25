@@ -21,7 +21,7 @@ export function initializePlayback() {
 	}
 }
 
-export function playbackState(state) {
+export function playbackState() {
 	return async dispatch => {
 		const state = await TrackPlayer.getState()
 
