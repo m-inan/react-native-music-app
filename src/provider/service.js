@@ -23,9 +23,15 @@ async function Handler(dispatch) {
 
 	TrackPlayer.addEventListener('remote-next', () => TrackPlayer.skipToNext())
 
-	TrackPlayer.addEventListener('remote-previous', () =>
-		TrackPlayer.skipToPrevious()
-	)
+	TrackPlayer.addEventListener('remote-previous', async () => {
+		const time = await TrackPlayer.getPosition()
+
+		if (time <= 3) {
+			TrackPlayer.skipToPrevious()
+		} else {
+			TrackPlayer.seekTo(0)
+		}
+	})
 
 	TrackPlayer.addEventListener('remote-seek', ({ position }) =>
 		TrackPlayer.seekTo(position)
