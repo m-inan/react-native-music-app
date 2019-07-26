@@ -10,22 +10,30 @@ import { useDispatch, useSelector } from 'react-redux'
 import RNFS from 'react-native-fs'
 import TrackPlayer from 'react-native-track-player'
 
-import { setAudioFileExists } from '../../reducers/Playlist/actions'
-import { setUserPlaying } from '../../reducers/Player/actions'
+import {
+	setAudioFileExists,
+	setFileLoading
+} from '../../reducers/Playlist/actions'
+import { setUserPlaying, playerReset } from '../../reducers/Player/actions'
 import { Colors, Api } from '../../constants'
 
 import { Download, Play } from '../../components/Icons'
 
-export default function Item({ artwork, title, videoId, exists, playlistId }) {
+export default function Item({
+	artwork,
+	title,
+	videoId,
+	exists,
+	playlistId,
+	loading
+}) {
 	const dispatch = useDispatch()
-	const { track } = useSelector(state => state.Player)
-	const [loading, setLoading] = useState(false)
+	const { id, items } = useSelector(state => state.Playlist)
 
 	const toFile = `${RNFS.DocumentDirectoryPath}/${videoId}.mp3`
-	const imageFile = `${RNFS.DocumentDirectoryPath}/${videoId}.jpg`
 
 	const _downloadAudio = async () => {
-		setLoading(true)
+		dispatch(setFileLoading(videoId, true))
 
 		const response = await fetch(`${Api.BaseURI}/download/${videoId}`)
 		const { audio: fromUrl } = await response.json()
@@ -35,18 +43,30 @@ export default function Item({ artwork, title, videoId, exists, playlistId }) {
 			toFile
 		})
 
-		await RNFS.downloadFile({
-			fromUrl: artwork,
-			toFile: imageFile
-		})
-
-		setLoading(false)
-		dispatch(
-			setAudioFileExists(playlistId, videoId, `file:/${toFile}`, `${imageFile}`)
-		)
+		dispatch(setFileLoading(videoId, true))
+		dispatch(setAudioFileExists(playlistId, videoId))
 	}
 
 	const _play = async () => {
+		if (playlistId !== id) {
+			await TrackPlayer.reset()
+
+			dispatch(playerReset())
+
+			const addList = items
+				.find(item => item.id === playlistId)
+				.list.filter(item => item.exists)
+				.map(({ title, artwork, videoId, source }) => ({
+					title,
+					artwork,
+					id: videoId,
+					url: source,
+					artist: 'Minan'
+				}))
+
+			await TrackPlayer.add(addList)
+		}
+
 		await TrackPlayer.skip(videoId)
 		dispatch(setUserPlaying(true))
 	}

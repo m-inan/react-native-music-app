@@ -137,9 +137,5 @@ export function playbackQueueEnded(position) {
 }
 
 export function playerReset() {
-	return async dispatch => {
-		await TrackPlayer.reset()
-
-		dispatch({ type: types.RESET })
-	}
+	return { type: types.RESET }
 }

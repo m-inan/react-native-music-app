@@ -73,13 +73,20 @@ export const getPlaylistsData = async () => {
 						}
 					}
 
+					const imageFile = `${RNFS.DocumentDirectoryPath}/${videoId}.jpg`
+
+					await RNFS.downloadFile({
+						fromUrl: artwork,
+						toFile: imageFile
+					})
+
 					const filePath = `${RNFS.DocumentDirectoryPath}/${videoId}.mp3`
 
 					return {
 						title,
-						artwork,
 						videoId,
 						exists: await RNFS.exists(filePath),
+						artwork: `${imageFile}`,
 						source: `file:/${filePath}`
 					}
 				})

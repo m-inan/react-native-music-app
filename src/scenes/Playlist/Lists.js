@@ -8,9 +8,7 @@ import {
 	Dimensions,
 	TouchableOpacity
 } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-
-import { setActiveList } from '../../reducers/Playlist/actions'
+import { useSelector } from 'react-redux'
 
 import Item from './Item'
 import Title from './Title'
@@ -21,14 +19,11 @@ const { width } = Dimensions.get('window'),
 	padding = 40
 
 export default function Lists() {
-	const dispatch = useDispatch()
-	const items = useSelector(state => state.Playlist)
-
 	const [index, setIndex] = useState(0)
 
-	const _onPressTabButton = async key => {
-		dispatch(setActiveList(items[key]))
+	const { items } = useSelector(state => state.Playlist)
 
+	const _onPressTabButton = async key => {
 		setIndex(key)
 	}
 

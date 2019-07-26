@@ -7,34 +7,73 @@ export * from './actions'
 
 export default function reducer(state = initialState(), { type, payload }) {
 	switch (type) {
-		case types.SET:
-			return payload.items
-		case types.SET_FILE_EXISTS:
-			state = state.map(playlist => {
-				if (playlist.id === payload.playlistId) {
-					return {
-						...playlist,
-						list: playlist.list.map(item => {
-							if (item.videoId === payload.videoId) {
-								return {
-									...item,
-									exists: true,
-									source: payload.source,
-									artwork: payload.artwork
-								}
-							} else {
-								return item
+		case types.SET: {
+			const { items } = payload
+
+			if (items.length) {
+				const { id } = items[0]
+
+				return {
+					id,
+					items
+				}
+			} else {
+				return state
+			}
+		}
+
+		case types.SET_PLAYLIST:
+			return {
+				...state,
+				id: payload.id
+			}
+		case types.SET_FILE_EXISTS: {
+			const items = state.items.map(playlist => {
+				return {
+					...playlist,
+					list: playlist.list.map(item => {
+						if (item.videoId === payload.videoId) {
+							return {
+								...item,
+								exists: true
 							}
-						})
-					}
-				} else {
-					return playlist
+						} else {
+							return item
+						}
+					})
 				}
 			})
 
-			setPlaylist(state)
+			setPlaylist(items)
 
-			return state
+			return {
+				...state,
+				items
+			}
+		}
+
+		case types.SET_FILE_LOADING: {
+			const items = state.items.map(playlist => {
+				return {
+					...playlist,
+					list: playlist.list.map(item => {
+						if (item.videoId === payload.videoId) {
+							return {
+								...item,
+								loading: payload.loading
+							}
+						} else {
+							return item
+						}
+					})
+				}
+			})
+
+			return {
+				...state,
+				items
+			}
+		}
 		default:
 			return state
 	}

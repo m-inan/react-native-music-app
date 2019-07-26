@@ -1,8 +1,6 @@
 import * as types from './types'
 import TrackPlayer from 'react-native-track-player'
 
-import { playerReset } from '../Player/actions'
-
 export const setList = items => {
 	return async dispatch => {
 		const playlist = items[0]
@@ -30,16 +28,25 @@ export const setList = items => {
 	}
 }
 
-export const setAudioFileExists = (playlistId, videoId, source, artwork) => {
+export function setPlaylist(id) {
+	return {
+		type: types.SET_PLAYLIST,
+		payload: {
+			id
+		}
+	}
+}
+
+export const setAudioFileExists = (playlistId, videoId) => {
 	return async (dispatch, getState) => {
 		const activeList = getState()
-			.Playlist.find(item => item.id === playlistId)
+			.Playlist.items.find(item => item.id === playlistId)
 			.list.filter(item => item.exists || item.videoId === videoId)
 
 		const find = item => item.videoId === videoId
 
 		const index = activeList.findIndex(find)
-		const { title } = activeList.find(find)
+		const { title, artwork, source } = activeList.find(find)
 
 		let insertBeforeId
 
@@ -65,41 +72,18 @@ export const setAudioFileExists = (playlistId, videoId, source, artwork) => {
 		dispatch({
 			type: types.SET_FILE_EXISTS,
 			payload: {
-				playlistId,
-				videoId,
-				source,
-				artwork
+				videoId
 			}
 		})
 	}
 }
 
-export function setActiveList(playlist) {
-	return async dispatch => {
-		dispatch(playerReset())
-
-		if (playlist && playlist.list) {
-			const addList = playlist.list
-				.filter(item => item.exists)
-				.map(({ title, artwork, videoId, source }) => ({
-					title,
-					artwork,
-					id: videoId,
-					url: source,
-					artist: 'Minan'
-				}))
-
-			await TrackPlayer.add(addList)
-		}
-	}
-}
-
-export function setPlaylistIdIndex(id, index) {
+export const setFileLoading = (videoId, loading) => {
 	return {
-		type: types.SET_ID_INDEX,
+		type: types.SET_FILE_LOADING,
 		payload: {
-			id,
-			index
+			videoId,
+			loading
 		}
 	}
 }

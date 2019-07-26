@@ -8,8 +8,8 @@ import { getPlaylistsData, setPlaylist } from '../../utils'
 import { setList } from '../../reducers/Playlist/actions'
 
 export default function Title({ items, index }) {
-	const [isProgress, setProgress] = useState(false)
 	const dispatch = useDispatch()
+	const [isProgress, setProgress] = useState(false)
 
 	const setData = async () => {
 		setProgress(true)
@@ -19,7 +19,6 @@ export default function Title({ items, index }) {
 		dispatch(setList(playlist))
 
 		setProgress(false)
-
 		setPlaylist(playlist)
 	}
 
