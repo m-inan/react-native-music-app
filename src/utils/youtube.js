@@ -1,4 +1,4 @@
-import { GoogleSignin, statusCodes } from 'react-native-google-signin'
+import { GoogleSignin } from 'react-native-google-signin'
 import RNFS from 'react-native-fs'
 import { buildQueryString } from './URL'
 

@@ -17,6 +17,6 @@ const styles = {
 		width: '100%',
 		top: 25,
 		alignItems: 'center',
-		zIndex: 98
+		zIndex: 9999
 	}
 }

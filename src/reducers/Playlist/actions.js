@@ -87,3 +87,13 @@ export const setFileLoading = (videoId, loading) => {
 		}
 	}
 }
+
+export const multipleDownloadLoading = (playlistId, loading) => {
+	return {
+		type: types.MULTPLE_DOWNLOAD_LOADING,
+		payload: {
+			playlistId,
+			loading
+		}
+	}
+}

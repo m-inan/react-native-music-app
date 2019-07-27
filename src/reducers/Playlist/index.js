@@ -74,6 +74,19 @@ export default function reducer(state = initialState(), { type, payload }) {
 				items
 			}
 		}
+
+		case types.MULTPLE_DOWNLOAD_LOADING:
+			return {
+				...state,
+				items: state.items.map(item => {
+					if (item.id === payload.playlistId) {
+						return {
+							...item,
+							loading: payload.loading
+						}
+					} else return item
+				})
+			}
 		default:
 			return state
 	}
