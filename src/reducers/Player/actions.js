@@ -1,5 +1,15 @@
 import TrackPlayer from 'react-native-track-player'
+import RNFS from 'react-native-fs'
+
 import * as types from './types'
+
+import { Api } from '../../constants'
+
+import {
+	setAudioFileExists,
+	setFileLoading,
+	setPlaylist
+} from '../Playlist/actions'
 
 export function initializePlayback() {
 	return async dispatch => {
@@ -68,7 +78,10 @@ export function playbackTrack() {
 						duration
 					}
 				})
-				dispatch(setShuffleSkip(false))
+
+				if (shuffleSkip) {
+					dispatch(setShuffleSkip(false))
+				}
 			}
 		}
 	}
@@ -77,18 +90,22 @@ export function playbackTrack() {
 export function updatePlayback() {
 	return async dispatch => {
 		dispatch(playbackState())
-
-		dispatch(playbackTrack())
 	}
 }
 
 export function setUserPlaying(playing) {
-	TrackPlayer[playing ? 'play' : 'pause']()
+	return (dispatch, getState) => {
+		const { track } = getState().Player
 
-	return {
-		type: types.PLAYING,
-		payload: {
-			playing
+		if (track) {
+			TrackPlayer[playing ? 'play' : 'pause']()
+
+			dispatch({
+				type: types.PLAYING,
+				payload: {
+					playing
+				}
+			})
 		}
 	}
 }
@@ -138,4 +155,61 @@ export function playbackQueueEnded(position) {
 
 export function playerReset() {
 	return { type: types.RESET }
+}
+
+export function downloadAudio(videoId, playlistId) {
+	return async dispatch => {
+		const toFile = `${RNFS.DocumentDirectoryPath}/${videoId}.mp3`
+
+		dispatch(setFileLoading(videoId, true))
+
+		const response = await fetch(`${Api.BaseURI}/download/${videoId}`)
+		const { audio: fromUrl } = await response.json()
+
+		await RNFS.downloadFile({
+			fromUrl,
+			toFile
+		})
+
+		// wait download complete
+		await new Promise(resolve => setTimeout(resolve, 300))
+
+		dispatch(setFileLoading(videoId, false))
+		dispatch(setAudioFileExists(playlistId, videoId))
+	}
+}
+
+export function itemPlay(videoId, playlistId) {
+	return async (dispatch, getState) => {
+		const { id, items } = getState().Playlist
+
+		dispatch(setShuffleSkip(true))
+
+		if (playlistId !== id) {
+			await TrackPlayer.reset()
+
+			dispatch(playerReset())
+
+			const addList = items
+				.find(item => item.id === playlistId)
+				.list.filter(item => item.exists)
+				.map(({ title, artwork, videoId, source }) => ({
+					title,
+					artwork,
+					id: videoId,
+					url: source,
+					artist: 'Minan'
+				}))
+
+			await TrackPlayer.add(addList)
+
+			dispatch(setPlaylist(playlistId))
+		}
+
+		await TrackPlayer.skip(videoId)
+
+		await new Promise(resolve => setTimeout(resolve, 100))
+
+		dispatch(setUserPlaying(true))
+	}
 }

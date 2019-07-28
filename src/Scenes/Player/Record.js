@@ -6,11 +6,11 @@ import {
 	Easing,
 	TouchableWithoutFeedback
 } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
 import { setUserPlaying } from '../../reducers/Player/actions'
 
+import { Play, Pause } from '../../components/Icons'
+
 const { width } = Dimensions.get('window')
-const isPhoneX = /iPhone X/g.test(DeviceInfo.getDeviceName())
 const spinValue = new Animated.Value(0)
 
 const rotate = spinValue.interpolate({
@@ -51,7 +51,7 @@ function Record({ positionY, miniPos }) {
 		layout: [width - 100, 90],
 		tLayout: [width - 140, 70],
 		tRadius: [(width - 140) / 2, 35],
-		translateY: [isPhoneX ? 150 : 100, 5],
+		translateY: [100, 5],
 		translateX: [-20, -5],
 		miniLayout: [50, 20],
 		right: [(width - (width - 60)) / 2, 0]
@@ -67,6 +67,11 @@ function Record({ positionY, miniPos }) {
 	const borderWidth = positionY.interpolate({
 		inputRange: [0, 100, miniPos],
 		outputRange: [10, 0, 0]
+	})
+
+	const miniControllerOpacity = positionY.interpolate({
+		inputRange: [0, miniPos - 100, miniPos],
+		outputRange: [0, 0, 1]
 	})
 
 	return (
@@ -109,6 +114,11 @@ function Record({ positionY, miniPos }) {
 						borderWidth: borderWidth
 					}}
 				/>
+				<Animated.View
+					style={[styles.miniControl, { opacity: miniControllerOpacity }]}
+				>
+					{playing ? <Pause /> : <Play />}
+				</Animated.View>
 			</Animated.View>
 		</TouchableWithoutFeedback>
 	)
@@ -130,6 +140,12 @@ const styles = {
 		borderColor: 'rgb(225, 48, 129)',
 		backgroundColor: 'rgb(49, 56, 62)',
 		position: 'absolute'
+	},
+	miniControl: {
+		position: 'absolute',
+		width: '100%',
+		height: '100%',
+		padding: 35
 	}
 }
 

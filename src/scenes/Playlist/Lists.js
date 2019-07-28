@@ -27,8 +27,6 @@ import { Download } from '../../components/Icons'
 const { width } = Dimensions.get('window'),
 	padding = 40
 
-console.log(RNFS.DocumentDirectoryPath)
-
 export default function Lists() {
 	const dispatch = useDispatch()
 	const { items } = useSelector(state => state.Playlist)
@@ -54,7 +52,7 @@ export default function Lists() {
 				const response = await fetch(`${Api.BaseURI}/download/${videoId}`)
 				const { audio: fromUrl } = await response.json()
 
-				dispatch(setFileLoading(videoId, true))
+				dispatch(setFileLoading(videoId, false))
 				dispatch(setAudioFileExists(id, videoId))
 
 				return await RNFS.downloadFile({

@@ -14,12 +14,10 @@ import { Play, Pause, Skip, Replay, Shuffle } from '../../components/Icons'
 
 function Controller() {
 	const dispatch = useDispatch()
-	const { playing, shuffle, replay, track } = useSelector(state => state.Player)
+	const { playing, shuffle, replay } = useSelector(state => state.Player)
 
 	const onClickPlayPause = () => {
-		if (track) {
-			dispatch(setUserPlaying(!playing))
-		}
+		dispatch(setUserPlaying(!playing))
 	}
 
 	const selectFill = bool => {
