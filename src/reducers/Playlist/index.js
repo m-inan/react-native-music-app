@@ -44,7 +44,20 @@ export default function reducer(state = initialState(), { type, payload }) {
 				}
 			})
 
-			setPlaylist(items)
+			setPlaylist(
+				items.map(playlist => {
+					return {
+						...playlist,
+						loading: false,
+						list: playlist.list.map(item => {
+							return {
+								...item,
+								loading: false
+							}
+						})
+					}
+				})
+			)
 
 			return {
 				...state,

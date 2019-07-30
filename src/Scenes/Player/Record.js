@@ -76,7 +76,11 @@ function Record({ positionY, miniPos }) {
 
 	return (
 		<TouchableWithoutFeedback
-			onPress={() => dispatch(setUserPlaying(!playing))}
+			onPress={() => {
+				if (positionY._value === miniPos) {
+					dispatch(setUserPlaying(!playing))
+				}
+			}}
 		>
 			<Animated.View
 				style={{

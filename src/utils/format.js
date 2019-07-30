@@ -5,11 +5,25 @@ export function timeFormat(value) {
 
 	value = value.toFixed()
 
-	const second = value % 60
+	const second =
+		(Math.floor(value % 60) < 10 ? '0' : '') + Math.floor(value % 60)
 
-	return (
-		Math.floor(value / 60) +
-		':' +
-		(second ? (second < 10 ? '0' : '') + String(second) : '00')
-	)
+	let minutes = Math.floor(value / 60)
+
+	let hours = '00'
+
+	if (minutes < 10) {
+		minutes = '0' + minutes
+	}
+
+	if (minutes >= 60) {
+		hours = Math.floor(minutes / 60)
+		minutes = minutes % 60
+
+		if (minutes < 10) {
+			minutes = '0' + minutes
+		}
+	}
+
+	return `${hours !== '00' ? hours + ':' : ''}${minutes}:${second}`
 }

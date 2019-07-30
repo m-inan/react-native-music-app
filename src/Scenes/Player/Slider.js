@@ -105,7 +105,7 @@ export default function Slider({ positionY, miniPos }) {
 			</Text>
 
 			<Text numberOfLines={1} style={styles.duration}>
-				{timeFormat(Math.floor(duration))}
+				{timeFormat(duration === null ? null : Math.floor(duration))}
 			</Text>
 
 			<View>
@@ -159,20 +159,22 @@ const styles = {
 	current: {
 		top: -10,
 		left: 0,
-		width: padding * 2,
+		width: padding * 2 + 20,
 		position: 'absolute',
 		color: '#ddd',
-		textAlign: 'center',
-		fontSize: 12
+		textAlign: 'left',
+		fontSize: 12,
+		paddingLeft: 5
 	},
 
 	duration: {
 		top: -10,
 		right: 0,
-		width: padding * 2,
+		width: padding * 2 + 20,
 		position: 'absolute',
 		color: '#ddd',
-		textAlign: 'center',
-		fontSize: 12
+		textAlign: 'right',
+		fontSize: 12,
+		paddingRight: 5
 	}
 }

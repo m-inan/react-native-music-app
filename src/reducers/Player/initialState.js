@@ -4,9 +4,8 @@ export default () => {
 		init: false,
 		state: null,
 		track: null,
-		suffle: false,
+		shuffle: false,
 		replay: false,
-		playing: false,
-		shuffleSkip: false
+		playing: false
 	}
 }

@@ -39,35 +39,39 @@ export function setPlaylist(id) {
 
 export const setAudioFileExists = (playlistId, videoId) => {
 	return async (dispatch, getState) => {
-		const activeList = getState()
-			.Playlist.items.find(item => item.id === playlistId)
-			.list.filter(item => item.exists || item.videoId === videoId)
+		const { items, id } = getState().Playlist
 
-		const find = item => item.videoId === videoId
+		if (id === playlistId) {
+			const activeList = items
+				.find(item => item.id === playlistId)
+				.list.filter(item => item.exists || item.videoId === videoId)
 
-		const index = activeList.findIndex(find)
-		const { title, artwork, source } = activeList.find(find)
+			const find = item => item.videoId === videoId
 
-		let insertBeforeId
+			const index = activeList.findIndex(find)
+			const { title, artwork, source } = activeList.find(find)
 
-		if (activeList.length > 0) {
-			const beforeItem = activeList[index + 1]
+			let insertBeforeId
 
-			if (beforeItem) {
-				insertBeforeId = beforeItem.videoId
+			if (activeList.length > 0) {
+				const beforeItem = activeList[index + 1]
+
+				if (beforeItem) {
+					insertBeforeId = beforeItem.videoId
+				}
 			}
-		}
 
-		await TrackPlayer.add(
-			{
-				title,
-				artwork,
-				id: videoId,
-				url: source,
-				artist: 'Minan'
-			},
-			insertBeforeId
-		)
+			await TrackPlayer.add(
+				{
+					title,
+					artwork,
+					id: videoId,
+					url: source,
+					artist: 'Minan'
+				},
+				insertBeforeId
+			)
+		}
 
 		dispatch({
 			type: types.SET_FILE_EXISTS,

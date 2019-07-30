@@ -34,11 +34,6 @@ export default function reducer(state = initialState(), { type, payload }) {
 				...state,
 				replay: payload.replay
 			}
-		case types.SHUFFLE_SKIP:
-			return {
-				...state,
-				shuffleSkip: payload.shuffleSkip
-			}
 		case types.RESET:
 			return {
 				...initialState()
