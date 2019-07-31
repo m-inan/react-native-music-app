@@ -37,28 +37,28 @@ export default function Lists() {
 	}
 
 	const _multipleDownloadList = async () => {
-		const { id, list } = items[index]
+		let { id, list } = items[index]
 
 		dispatch(multipleDownloadLoading(id, true))
 
-		const items = list.filter(item => !item.exists)
+		list = list.filter(item => !item.exists)
 
-		items.map(({ videoId }) => dispatch(setFileLoading(videoId, true)))
+		list.map(({ videoId }) => dispatch(setFileLoading(videoId, true)))
 
-		for (const item of items) {
+		for (const item of list) {
 			const { videoId } = item
 			const toFile = `${RNFS.DocumentDirectoryPath}/${videoId}.mp3`
 
 			const response = await fetch(`${Api.BaseURI}/download/${videoId}`)
 			const { audio: fromUrl } = await response.json()
 
-			dispatch(setFileLoading(videoId, false))
-			dispatch(setAudioFileExists(id, videoId))
-
 			await RNFS.downloadFile({
 				fromUrl,
 				toFile
 			})
+
+			dispatch(setFileLoading(videoId, false))
+			dispatch(setAudioFileExists(id, videoId))
 		}
 
 		dispatch(multipleDownloadLoading(id, false))
