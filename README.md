@@ -18,6 +18,8 @@ git clone https://github.com/TPMinan/react-native-music-app
 cd react-native-music-app
 npm install && npm start
 cd server
+mkdir ffmpeg mp3
+chmod 0777 ffmpeg mp3
 npm install && npm start
 ```
 
