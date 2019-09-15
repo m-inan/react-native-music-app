@@ -4,9 +4,11 @@ import {
 	Animated,
 	Dimensions,
 	Easing,
-	TouchableWithoutFeedback
+	TouchableWithoutFeedback,
+	Platform
 } from 'react-native'
 import { setUserPlaying } from '../../reducers/Player/actions'
+import TrackPlayer from 'react-native-track-player'
 
 import { Play, Pause } from '../../components/Icons'
 
@@ -24,7 +26,7 @@ function Record({ positionY, miniPos }) {
 
 	useEffect(() => {
 		switch (state) {
-			case 'playing':
+			case TrackPlayer.STATE_PLAYING:
 				Animated.loop(
 					Animated.sequence([
 						Animated.timing(spinValue, {
@@ -36,12 +38,12 @@ function Record({ positionY, miniPos }) {
 				).start()
 				break
 
-			case 'paused':
+			case TrackPlayer.STATE_PAUSED:
 				spinValue.stopAnimation()
 				spinValue.extractOffset()
 				break
 
-			case 'ready':
+			case TrackPlayer.STATE_READY:
 				spinValue.flattenOffset()
 				break
 		}
@@ -51,7 +53,7 @@ function Record({ positionY, miniPos }) {
 		layout: [width - 100, 90],
 		tLayout: [width - 140, 70],
 		tRadius: [(width - 140) / 2, 35],
-		translateY: [100, 5],
+		translateY: [Platform.OS === 'ios' ? 100 : 80, 5],
 		translateX: [-20, -5],
 		miniLayout: [50, 20],
 		right: [(width - (width - 60)) / 2, 0]

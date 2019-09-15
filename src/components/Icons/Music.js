@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Svg, { Path } from 'react-native-svg'
 import { Animated } from 'react-native'
 import { useSelector } from 'react-redux'
+import TrackPlayer from 'react-native-track-player'
 
 const slide = new Animated.Value(0)
 
@@ -10,7 +11,7 @@ export function Music() {
 
 	useEffect(() => {
 		switch (state) {
-			case 'playing':
+			case TrackPlayer.STATE_PLAYING:
 				Animated.loop(
 					Animated.sequence([
 						Animated.timing(slide, {
@@ -25,7 +26,8 @@ export function Music() {
 				).start()
 				break
 
-			case 'paused':
+			case TrackPlayer.STATE_PAUSE:
+			case TrackPlayer.STATE_PAUSED:
 				slide.stopAnimation()
 				break
 		}

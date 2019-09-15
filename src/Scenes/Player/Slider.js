@@ -29,11 +29,11 @@ export default function Slider({ positionY, miniPos }) {
 		clearInterval(interval)
 
 		switch (state) {
-			case 'ready':
+			case TrackPlayer.STATE_READY:
 				setPercent(0)
 				setTime(0)
 				break
-			case 'playing':
+			case TrackPlayer.STATE_PLAYING:
 				interval = setInterval(async () => {
 					if (!moveSlider) {
 						const current = Math.floor(await TrackPlayer.getPosition())
@@ -47,7 +47,7 @@ export default function Slider({ positionY, miniPos }) {
 	}, [state, duration, moveSlider])
 
 	const setProgress = (x, y) => {
-		if (!track || state === 'ready') return
+		if (!track || state === TrackPlayer.STATE_READY) return
 
 		const angleToPercent = (cartesianToPolar(x, y, { cy, cx }) / 180) * 100
 

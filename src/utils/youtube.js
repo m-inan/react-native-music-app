@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import { GoogleSignin } from 'react-native-google-signin'
 import RNFS from 'react-native-fs'
 import { buildQueryString } from './URL'
@@ -65,20 +66,24 @@ export const getPlaylistsData = async () => {
 
 					const types = ['maxres', 'standard', 'high', 'medium', 'default']
 
-					for (const type of types) {
-						if (thumbnails[type]) {
-							artwork = thumbnails[type].url
+					if (thumbnails) {
+						for (const type of types) {
+							if (thumbnails[type]) {
+								artwork = thumbnails[type].url
 
-							break
+								break
+							}
 						}
 					}
 
 					const imageFile = `${RNFS.DocumentDirectoryPath}/${videoId}.jpg`
 
-					await RNFS.downloadFile({
-						fromUrl: artwork,
-						toFile: imageFile
-					})
+					if (artwork) {
+						await RNFS.downloadFile({
+							fromUrl: artwork,
+							toFile: imageFile
+						})
+					}
 
 					const filePath = `${RNFS.DocumentDirectoryPath}/${videoId}.mp3`
 
@@ -86,8 +91,8 @@ export const getPlaylistsData = async () => {
 						title,
 						videoId,
 						exists: await RNFS.exists(filePath),
-						artwork: `${imageFile}`,
-						source: `file:/${filePath}`
+						artwork: Platform.OS === 'ios' ? imageFile : `file://${imageFile}`,
+						source: Platform.OS === 'ios' ? filePath : `file://${filePath}`
 					}
 				})
 			)

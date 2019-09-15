@@ -1,12 +1,37 @@
 const express = require('express')
 const app = express()
-
+const fs = require('fs')
 const ytdl = require('ytdl-core')
 const ffmpeg   = require('fluent-ffmpeg');
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const timeout = require('connect-timeout');
 
+
+app.use(timeout('120s'));
 app.use(express.static('mp3'))
 
-app.get('/download/:videoId', async ({ params: { videoId } }, res) => {
+
+const uri = 'http://192.168.1.34:3000'
+
+
+ffmpeg.setFfmpegPath(ffmpegPath);
+
+
+app.get('/', (req, res) => res.send('react native music app service'))
+
+function isExists (req, res, next) {
+  console.log('start')
+  fs.exists(`mp3/${req.params.videoId}.mp3`, (exists) => {
+    req.mp3File = exists
+
+    next()
+  })
+}
+
+function downloadMp3({ mp3File, params: { videoId } }, res, next) {
+  if ( mp3File ) {
+    next()
+  }
 
   ytdl.getInfo(`http://www.youtube.com/watch?v=${videoId}`, { quality: 'highestaudio' }, function(err, info) {
     var stream = ytdl.downloadFromInfo(info, {
@@ -19,14 +44,22 @@ app.get('/download/:videoId', async ({ params: { videoId } }, res) => {
     .toFormat("mp3")
     .saveToFile(`mp3/${videoId}.mp3`)
     .on("error", function(err) {
+      console.log('error', err)
       res.json(err)
     })
     .on("end", function() {
-      res.json({
-        audio: `http://localhost:3000/${videoId}.mp3`
-      })
+      next() 
     })
+  }) 
+}
+function renderJson(req, res) {
+  res.json({
+    audio: `${uri}/${req.params.videoId}.mp3`
   })
-})
+}
 
-app.listen(3000)
+
+app.get('/download/:videoId', isExists, downloadMp3, renderJson)
+
+
+app.listen(process.env.PORT || 3000)

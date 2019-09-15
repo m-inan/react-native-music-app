@@ -3,14 +3,12 @@ package com.musicapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
-import com.swmansion.reanimated.ReanimatedPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.guichaguri.trackplayer.TrackPlayer;
 import com.horcrux.svg.SvgPackage;
 import com.rnfs.RNFSPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -32,14 +30,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ReactNativeConfigPackage(),
+            new RNDeviceInfo(),
             new RNGoogleSigninPackage(),
-            new ReanimatedPackage(),
             new RNGestureHandlerPackage(),
             new TrackPlayer(),
             new SvgPackage(),
             new RNFSPackage(),
-            new RNDeviceInfo(),
             new AsyncStoragePackage()
       );
     }

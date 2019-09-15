@@ -278,3 +278,6 @@ buck-out/
 .fakebuckversion
 
 # End of https://www.gitignore.io/api/macos,reactnative
+
+server/mp3
+server/ffmpeg

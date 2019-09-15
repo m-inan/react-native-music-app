@@ -1,7 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:tools="http://schemas.android.com/tools"
   package="com.musicapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+     android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+     android:maxSdkVersion="18" />
 
     <application
       android:name=".MainApplication"
@@ -9,7 +14,10 @@
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
-      android:theme="@style/AppTheme">
+      android:theme="@style/AppTheme"
+      android:usesCleartextTraffic="true"
+      tools:targetApi="28"
+      tools:replace="android:allowBackup">
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
@@ -22,5 +30,6 @@
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
+
 
 </manifest>

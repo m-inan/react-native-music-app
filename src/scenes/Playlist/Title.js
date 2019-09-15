@@ -24,7 +24,9 @@ export default function Title({ items, index }) {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>{items.length && items[index].title}</Text>
+			<Text numberOfLines={1} style={styles.title}>
+				{items.length && items[index].title}
+			</Text>
 			<TouchableOpacity onPress={setData}>
 				<View style={{ paddingHorizontal: 20 }}>
 					{isProgress ? (

@@ -1,0 +1,4 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <color name="navigatonBar">#23282c</color>
+    <color name="topBar">#343a40</color>
+</resources>

@@ -10,7 +10,7 @@ export default function Title({ positionY, miniPos }) {
 	const { track } = useSelector(state => state.Player)
 
 	const top = positionY.interpolate({
-		inputRange: [0, miniPos],
+		inputRange: [-40, miniPos],
 		outputRange: [miniPos / 2 + 160 - (isiPhoneX ? 70 : 0), 30]
 	})
 
