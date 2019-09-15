@@ -55,9 +55,8 @@ async function Handler(dispatch) {
 		dispatch(playbackQueueEnded(position))
 	})
 
-	TrackPlayer.addEventListener('playback-error', data => {
+	TrackPlayer.addEventListener('playback-error', () => {
 		Alert.alert('Something went wrong. Please try again later.')
-		console.log('playback-error', data)
 	})
 }
 

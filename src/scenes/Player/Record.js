@@ -108,7 +108,11 @@ function Record({ positionY, miniPos }) {
 							height: ranges.tLayout,
 							transform: [{ rotate }]
 						}}
-						source={{ uri: track.artwork }}
+						source={{
+							uri:
+								track.artwork +
+								(Platform.OS === 'android' ? `?time=${new Date()}` : '')
+						}}
 					/>
 				)}
 

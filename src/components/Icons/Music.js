@@ -26,7 +26,7 @@ export function Music() {
 				).start()
 				break
 
-			case TrackPlayer.STATE_PAUSE:
+			case TrackPlayer.STATE_STOPPED:
 			case TrackPlayer.STATE_PAUSED:
 				slide.stopAnimation()
 				break

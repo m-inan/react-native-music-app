@@ -25,7 +25,8 @@ const styles = {
 		top: 0,
 		left: 0,
 		justifyContent: 'center',
-		paddingHorizontal: 10
+		paddingHorizontal: 10,
+		backgroundColor: 'transparent'
 	},
 
 	drag: {

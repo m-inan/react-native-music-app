@@ -92,7 +92,8 @@ export const getPlaylistsData = async () => {
 						videoId,
 						exists: await RNFS.exists(filePath),
 						artwork: Platform.OS === 'ios' ? imageFile : `file://${imageFile}`,
-						source: Platform.OS === 'ios' ? filePath : `file://${filePath}`
+						source:
+							Platform.OS === 'ios' ? `file:/${filePath}` : `file://${filePath}`
 					}
 				})
 			)

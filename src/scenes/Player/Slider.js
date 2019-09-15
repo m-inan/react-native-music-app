@@ -20,10 +20,11 @@ const height = (width + padding * 2) / 2
 let interval
 
 export default function Slider({ positionY, miniPos }) {
-	const { state, duration, track } = useSelector(state => state.Player)
+	const { state, track } = useSelector(state => state.Player)
 	const [percent, setPercent] = useState(0)
 	const [time, setTime] = useState(null)
 	const [moveSlider, setMoveSlider] = useState(false)
+	const [duration, setDuration] = useState(null)
 
 	useEffect(() => {
 		clearInterval(interval)
@@ -38,13 +39,24 @@ export default function Slider({ positionY, miniPos }) {
 					if (!moveSlider) {
 						const current = Math.floor(await TrackPlayer.getPosition())
 
-						setTime(current)
-						setPercent((current * 100) / Math.floor(duration))
+						if (duration && current) {
+							setTime(current)
+							setPercent((current * 100) / Math.floor(duration))
+						}
 					}
 				}, 100)
 				break
 		}
-	}, [state, duration, moveSlider])
+	}, [state, moveSlider])
+
+	useEffect(() => {
+		changePlaybackTrack()
+	}, [track])
+
+	const changePlaybackTrack = async () => {
+		const currentDuration = await TrackPlayer.getDuration()
+		setDuration(currentDuration)
+	}
 
 	const setProgress = (x, y) => {
 		if (!track || state === TrackPlayer.STATE_READY) return

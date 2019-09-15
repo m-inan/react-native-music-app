@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, Animated } from 'react-native'
+import { Dimensions, Animated, Platform } from 'react-native'
 
 import Title from './Title'
 import Header from './Header'
@@ -7,6 +7,7 @@ import Slider from './Slider'
 import Record from './Record'
 import Handle from './Handle'
 import Controllers from './Controllers'
+import AndroidStatusBar from './AndroidStatusBar'
 
 import { _panResponder, positionY, miniPos } from './Animation'
 
@@ -26,6 +27,7 @@ export default function Player() {
 			<Title {...animation} />
 			<Controllers />
 			<Handle {...animation} {..._panResponder.panHandlers} />
+			{Platform.OS === 'android' && <AndroidStatusBar {...animation} />}
 		</Animated.View>
 	)
 }
