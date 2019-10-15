@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { View, TouchableWithoutFeedback } from 'react-native'
+import { View, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 
 import TrackPlayer from 'react-native-track-player'
 
@@ -60,21 +60,21 @@ function Controller() {
 				</View>
 			</TouchableWithoutFeedback>
 
-			<TouchableWithoutFeedback onPress={onPressPrev}>
+			<TouchableOpacity onPress={onPressPrev}>
 				<View style={styles.prev}>
 					<Skip />
 				</View>
-			</TouchableWithoutFeedback>
+			</TouchableOpacity>
 
 			<TouchableWithoutFeedback onPress={onClickPlayPause}>
 				<View style={styles.playPause}>{playing ? <Pause /> : <Play />}</View>
 			</TouchableWithoutFeedback>
 
-			<TouchableWithoutFeedback onPress={onPressNext}>
+			<TouchableOpacity onPress={onPressNext}>
 				<View style={styles.next}>
 					<Skip />
 				</View>
-			</TouchableWithoutFeedback>
+			</TouchableOpacity>
 		</View>
 	)
 }

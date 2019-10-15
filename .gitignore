@@ -281,3 +281,5 @@ buck-out/
 
 server/mp3
 server/ffmpeg
+
+.idea

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Dimensions, PanResponder, View, Animated, Text } from 'react-native'
+import { Dimensions, PanResponder, View, Animated, Text, Platform } from 'react-native'
 import TrackPlayer from 'react-native-track-player'
 import Svg, { Circle, G, Path } from 'react-native-svg'
 import {
@@ -19,6 +19,9 @@ const height = (width + padding * 2) / 2
 
 let interval
 
+
+const STATE_READY = Platform.OS === 'ios' ? 'ready' : 6
+
 export default function Slider({ positionY, miniPos }) {
 	const { state, track } = useSelector(state => state.Player)
 	const [percent, setPercent] = useState(0)
@@ -29,8 +32,9 @@ export default function Slider({ positionY, miniPos }) {
 	useEffect(() => {
 		clearInterval(interval)
 
+
 		switch (state) {
-			case TrackPlayer.STATE_READY:
+			case STATE_READY:
 				setPercent(0)
 				setTime(0)
 				break
@@ -59,7 +63,7 @@ export default function Slider({ positionY, miniPos }) {
 	}
 
 	const setProgress = (x, y) => {
-		if (!track || state === TrackPlayer.STATE_READY) return
+		if (!track || state === STATE_READY) return
 
 		const angleToPercent = (cartesianToPolar(x, y, { cy, cx }) / 180) * 100
 

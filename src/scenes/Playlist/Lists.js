@@ -52,13 +52,20 @@ export default function Lists() {
 			const response = await fetch(`${Api.BaseURI}/download/${videoId}`)
 			const { audio: fromUrl } = await response.json()
 
-			await RNFS.downloadFile({
+			const { promise } = RNFS.downloadFile({
 				fromUrl,
 				toFile
 			})
+			
+			try {
+				await promise
 
-			dispatch(setFileLoading(videoId, false))
-			dispatch(setAudioFileExists(id, videoId))
+				dispatch(setAudioFileExists(id, videoId))
+			} catch (error) {
+				console.log(error)
+			} finally {
+				dispatch(setFileLoading(videoId, false))
+			}
 		}
 
 		dispatch(multipleDownloadLoading(id, false))

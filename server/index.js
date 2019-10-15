@@ -11,7 +11,7 @@ app.use(timeout('120s'));
 app.use(express.static('mp3'))
 
 
-const uri = 'http://192.168.1.34:3000'
+const uri = 'http://192.168.1.35:3000'
 
 
 ffmpeg.setFfmpegPath(ffmpegPath);

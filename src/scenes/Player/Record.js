@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
 	Animated,
 	Dimensions,
 	Easing,
 	TouchableWithoutFeedback,
-	Platform
+	Platform,
+	Image
 } from 'react-native'
 import { setUserPlaying } from '../../reducers/Player/actions'
 import TrackPlayer from 'react-native-track-player'
 
 import { Play, Pause } from '../../components/Icons'
+
+const STATE_READY = Platform.OS === 'ios' ? 'ready' : 6
 
 const { width } = Dimensions.get('window')
 const spinValue = new Animated.Value(0)
@@ -23,6 +26,10 @@ const rotate = spinValue.interpolate({
 function Record({ positionY, miniPos }) {
 	const dispatch = useDispatch()
 	const { state, track, playing } = useSelector(state => state.Player)
+
+	const artwork = useMemo(() => track ? track.artwork : '', [track])
+
+	console.log(artwork)
 
 	useEffect(() => {
 		switch (state) {
@@ -43,7 +50,7 @@ function Record({ positionY, miniPos }) {
 				spinValue.extractOffset()
 				break
 
-			case TrackPlayer.STATE_READY:
+			case STATE_READY:
 				spinValue.flattenOffset()
 				break
 		}
@@ -52,7 +59,6 @@ function Record({ positionY, miniPos }) {
 	const ranges = {
 		layout: [width - 100, 90],
 		tLayout: [width - 140, 70],
-		tRadius: [(width - 140) / 2, 35],
 		translateY: [Platform.OS === 'ios' ? 100 : 80, 5],
 		translateX: [-20, -5],
 		miniLayout: [50, 20],
@@ -101,19 +107,26 @@ function Record({ positionY, miniPos }) {
 				}}
 			>
 				{track && (
-					<Animated.Image
+					<Animated.View
 						style={{
-							borderRadius: ranges.tRadius,
 							width: ranges.tLayout,
 							height: ranges.tLayout,
 							transform: [{ rotate }]
 						}}
+						
+					>
+						<Image
+							style={{
+								width: '100%',
+								height: '100%',
+								borderRadius: width / 2 
+							}}
 						source={{
 							uri:
-								track.artwork +
+							artwork +
 								(Platform.OS === 'android' ? `?time=${new Date()}` : '')
-						}}
-					/>
+						}} />
+					</Animated.View>
 				)}
 
 				<Animated.View
