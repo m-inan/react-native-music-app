@@ -23,13 +23,16 @@ const rotate = spinValue.interpolate({
 	outputRange: ['1deg', '360deg']
 })
 
+const sizes = {
+	default: width - 100,
+	mini: 90
+}
+
 function Record({ positionY, miniPos }) {
 	const dispatch = useDispatch()
 	const { state, track, playing } = useSelector(state => state.Player)
 
 	const artwork = useMemo(() => (track ? track.artwork : ''), [track])
-
-	console.log(artwork)
 
 	useEffect(() => {
 		switch (state) {
@@ -57,12 +60,13 @@ function Record({ positionY, miniPos }) {
 	}, [state])
 
 	const ranges = {
-		layout: [width - 100, 90],
+		layout: [sizes.default, sizes.mini],
 		tLayout: [width - 140, 70],
 		translateY: [Platform.OS === 'ios' ? 100 : 80, 5],
 		translateX: [-20, -5],
 		miniLayout: [50, 20],
-		right: [(width - (width - 60)) / 2, 0]
+		right: [(width - (width - 60)) / 2, 0],
+		radius: [sizes.default / 2, sizes.mini / 2]
 	}
 
 	for (const key in ranges) {
@@ -111,14 +115,15 @@ function Record({ positionY, miniPos }) {
 						style={{
 							width: ranges.tLayout,
 							height: ranges.tLayout,
-							transform: [{ rotate }]
+							transform: [{ rotate }],
+							borderRadius: ranges.radius,
+							overflow: 'hidden'
 						}}
 					>
 						<Image
 							style={{
 								width: '100%',
-								height: '100%',
-								borderRadius: width / 2
+								height: '100%'
 							}}
 							source={{
 								uri:
@@ -151,7 +156,7 @@ const styles = {
 	container: {
 		top: 0,
 		position: 'absolute',
-		borderRadius: width / 2,
+		borderRadius: sizes.default / 2,
 		backgroundColor: 'rgb(26, 30, 34)',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -159,10 +164,10 @@ const styles = {
 	},
 
 	miniCircle: {
-		borderRadius: 100,
 		borderColor: 'rgb(225, 48, 129)',
 		backgroundColor: 'rgb(49, 56, 62)',
-		position: 'absolute'
+		position: 'absolute',
+		borderRadius: 50
 	},
 	miniControl: {
 		position: 'absolute',

@@ -159,15 +159,13 @@ export function downloadAudio(videoId, playlistId) {
 		const { promise } = RNFS.downloadFile({
 			fromUrl,
 			toFile,
-			progressDivider: 5,
-			progress: res => console.log('progress', res),
-			begin: res => console.log('begin', res)
+			progressDivider: 5
+			// progress: res => console.log('progress', res),
+			// begin: res => console.log('begin', res)
 		})
 
 		try {
 			await promise
-
-			console.log('success')
 
 			dispatch(setAudioFileExists(playlistId, videoId))
 		} catch (error) {
