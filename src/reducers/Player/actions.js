@@ -3,7 +3,7 @@ import RNFS from 'react-native-fs'
 
 import * as types from './types'
 
-import { Api } from '../../constants'
+import { Api } from 'constants'
 
 import {
 	setAudioFileExists,

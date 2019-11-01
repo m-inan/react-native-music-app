@@ -8,10 +8,10 @@ import {
 	Platform,
 	Image
 } from 'react-native'
-import { setUserPlaying } from '../../reducers/Player/actions'
+import { setUserPlaying } from 'reducers/Player/actions'
 import TrackPlayer from 'react-native-track-player'
 
-import { Play, Pause } from '../../components/Icons'
+import { Play, Pause } from 'components/Icons'
 
 const STATE_READY = Platform.OS === 'ios' ? 'ready' : 6
 
@@ -27,7 +27,7 @@ function Record({ positionY, miniPos }) {
 	const dispatch = useDispatch()
 	const { state, track, playing } = useSelector(state => state.Player)
 
-	const artwork = useMemo(() => track ? track.artwork : '', [track])
+	const artwork = useMemo(() => (track ? track.artwork : ''), [track])
 
 	console.log(artwork)
 
@@ -113,19 +113,19 @@ function Record({ positionY, miniPos }) {
 							height: ranges.tLayout,
 							transform: [{ rotate }]
 						}}
-						
 					>
 						<Image
 							style={{
 								width: '100%',
 								height: '100%',
-								borderRadius: width / 2 
+								borderRadius: width / 2
 							}}
-						source={{
-							uri:
-							artwork +
-								(Platform.OS === 'android' ? `?time=${new Date()}` : '')
-						}} />
+							source={{
+								uri:
+									artwork +
+									(Platform.OS === 'android' ? `?time=${new Date()}` : '')
+							}}
+						/>
 					</Animated.View>
 				)}
 

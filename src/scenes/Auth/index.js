@@ -5,8 +5,8 @@ import {
 	GoogleSigninButton,
 	statusCodes
 } from 'react-native-google-signin'
-import { Colors } from '../../constants'
-import { setToken } from '../../utils'
+import { Colors } from 'constants'
+import { setToken } from 'utils'
 
 GoogleSignin.configure({
 	scopes: ['https://www.googleapis.com/auth/youtube.readonly']

@@ -8,10 +8,10 @@ import {
 } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-import { downloadAudio, itemPlay } from '../../reducers/Player/actions'
-import { Colors } from '../../constants'
+import { downloadAudio, itemPlay } from 'reducers/Player/actions'
+import { Colors } from 'constants'
 
-import { Download, Play } from '../../components/Icons'
+import { Download, Play } from 'components/Icons'
 
 export default function Item({
 	artwork,

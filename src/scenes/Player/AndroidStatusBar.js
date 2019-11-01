@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StatusBar } from 'react-native'
-import { Colors } from '../../constants'
+import { Colors } from 'constants'
 
 export default function AndroidStatusBar({ positionY }) {
 	const [barColor, setBarColor] = useState(Colors.layoutBG)

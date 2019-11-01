@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, TouchableWithoutFeedback } from 'react-native'
 import { Menu, Search } from '../Icons'
-import { Colors } from '../../constants'
+import { Colors } from 'constants'
 
 export default function Header() {
 	const onPressSearch = () => {}

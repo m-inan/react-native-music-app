@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-import { ListDownload } from '../../components/Icons'
+import { ListDownload } from 'components/Icons'
 
-import { getPlaylistsData, setPlaylist } from '../../utils'
-import { setList } from '../../reducers/Playlist/actions'
+import { getPlaylistsData, setPlaylist } from 'utils'
+import { setList } from 'reducers/Playlist/actions'
 
 export default function Title({ items, index }) {
 	const dispatch = useDispatch()

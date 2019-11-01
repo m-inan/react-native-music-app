@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import { View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-import Layout from '../../components/Layout'
+import Layout from 'components/Layout'
 import Lists from './Lists'
 
-import { Colors } from '../../constants'
-import { setList } from '../../reducers/Playlist/actions'
+import { Colors } from 'constants'
+import { setList } from 'reducers/Playlist/actions'
 
-import { getPlaylist } from '../../utils'
+import { getPlaylist } from 'utils'
 
 export default function Playlist() {
 	const dispatch = useDispatch()

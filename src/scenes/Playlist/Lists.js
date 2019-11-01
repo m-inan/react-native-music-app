@@ -11,18 +11,18 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import RNFS from 'react-native-fs'
 
-import { Api } from '../../constants'
+import { Api } from 'constants'
 import {
 	setFileLoading,
 	setAudioFileExists,
 	multipleDownloadLoading
-} from '../../reducers/Playlist/actions'
+} from 'reducers/Playlist/actions'
 
 import Item from './Item'
 import Title from './Title'
 
-import { Colors } from '../../constants'
-import { Download } from '../../components/Icons'
+import { Colors } from 'constants'
+import { Download } from 'components/Icons'
 
 const { width } = Dimensions.get('window'),
 	padding = 40
@@ -49,14 +49,14 @@ export default function Lists() {
 			const { videoId } = item
 			const toFile = `${RNFS.DocumentDirectoryPath}/${videoId}.mp3`
 
-			const response = await fetch(`${Api.BaseURI}/download/${videoId}`)
+			const response = await fetch(`${Api.SERVICE_URL}/download/${videoId}`)
 			const { audio: fromUrl } = await response.json()
 
 			const { promise } = RNFS.downloadFile({
 				fromUrl,
 				toFile
 			})
-			
+
 			try {
 				await promise
 

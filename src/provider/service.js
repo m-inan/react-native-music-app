@@ -5,7 +5,7 @@ import {
 	playbackTrack,
 	playbackQueueEnded,
 	setUserPlaying
-} from '../reducers/Player/actions'
+} from 'reducers/Player/actions'
 
 async function Handler(dispatch) {
 	TrackPlayer.addEventListener('remote-play', () =>
@@ -55,7 +55,7 @@ async function Handler(dispatch) {
 		dispatch(playbackQueueEnded(position))
 	})
 
-	TrackPlayer.addEventListener('playback-error', (error) => {
+	TrackPlayer.addEventListener('playback-error', error => {
 		console.log(error)
 		Alert.alert('Something went wrong. Please try again later.')
 	})

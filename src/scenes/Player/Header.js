@@ -1,7 +1,7 @@
 import React from 'react'
 import { Animated } from 'react-native'
 
-import { ChevronDown, Options } from '../../components/Icons'
+import { ChevronDown, Options } from 'components/Icons'
 
 export default function Header({ positionY, miniPos }) {
 	const opacity = positionY.interpolate({

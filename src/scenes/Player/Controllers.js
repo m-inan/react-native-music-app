@@ -4,13 +4,9 @@ import { View, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 
 import TrackPlayer from 'react-native-track-player'
 
-import {
-	setUserPlaying,
-	setReplay,
-	setShuffle
-} from '../../reducers/Player/actions'
+import { setUserPlaying, setReplay, setShuffle } from 'reducers/Player/actions'
 
-import { Play, Pause, Skip, Replay, Shuffle } from '../../components/Icons'
+import { Play, Pause, Skip, Replay, Shuffle } from 'components/Icons'
 
 function Controller() {
 	const dispatch = useDispatch()

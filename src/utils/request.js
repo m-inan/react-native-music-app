@@ -1,4 +1,4 @@
-import { Api } from '../constants'
+import { Api } from 'constants'
 
 export const request = async (route, params) => {
 	const token = ''

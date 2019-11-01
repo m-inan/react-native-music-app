@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Dimensions, PanResponder, View, Animated, Text, Platform } from 'react-native'
+import {
+	Dimensions,
+	PanResponder,
+	View,
+	Animated,
+	Text,
+	Platform
+} from 'react-native'
 import TrackPlayer from 'react-native-track-player'
 import Svg, { Circle, G, Path } from 'react-native-svg'
-import {
-	timeFormat,
-	polarToCartesian,
-	cartesianToPolar
-} from '../../utils/index'
-import { Colors } from '../../constants'
+import { timeFormat, polarToCartesian, cartesianToPolar } from 'utils/index'
+import { Colors } from 'constants'
 
 const { width } = Dimensions.get('window')
 const padding = 20
@@ -18,7 +21,6 @@ const cy = padding
 const height = (width + padding * 2) / 2
 
 let interval
-
 
 const STATE_READY = Platform.OS === 'ios' ? 'ready' : 6
 
@@ -31,7 +33,6 @@ export default function Slider({ positionY, miniPos }) {
 
 	useEffect(() => {
 		clearInterval(interval)
-
 
 		switch (state) {
 			case STATE_READY:

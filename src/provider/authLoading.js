@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { ActivityIndicator, StatusBar, View } from 'react-native'
 
-import { Colors } from '../constants'
+import { Colors } from 'constants'
 import { GoogleSignin } from 'react-native-google-signin'
 
 export default function authLoading({ navigation }) {

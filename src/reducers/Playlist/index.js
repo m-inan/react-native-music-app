@@ -1,7 +1,7 @@
 import * as types from './types'
 import initialState from './initialState'
 
-import { setPlaylist } from '../../utils'
+import { setPlaylist } from 'utils'
 
 export * from './actions'
 
