@@ -7,11 +7,13 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const timeout = require('connect-timeout');
 
 
+require('dotenv').config()
+
 app.use(timeout('120s'));
 app.use(express.static('mp3'))
 
 
-const uri = 'http://localhost:3000'
+const { SERVICE_URL } = process.env
 
 
 ffmpeg.setFfmpegPath(ffmpegPath);
@@ -20,7 +22,6 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 app.get('/', (req, res) => res.send('react native music app service'))
 
 function isExists (req, res, next) {
-  console.log('start')
   fs.exists(`mp3/${req.params.videoId}.mp3`, (exists) => {
     req.mp3File = exists
 
@@ -54,7 +55,7 @@ function downloadMp3({ mp3File, params: { videoId } }, res, next) {
 }
 function renderJson(req, res) {
   res.json({
-    audio: `${uri}/${req.params.videoId}.mp3`
+    audio: `${SERVICE_URL}/${req.params.videoId}.mp3`
   })
 }
 

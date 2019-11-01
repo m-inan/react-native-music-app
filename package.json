@@ -41,9 +41,10 @@
     "jetifier": "^1.6.4",
     "lodash": ">=4.17.13",
     "mem": ">=4.0.0",
-    "metro-react-native-babel-preset": "0.54.1",
+    "metro-react-native-babel-preset": "^0.54.1",
     "onchange": "^6.0.0",
     "prettier": "^1.17.1",
+    "react-native-dotenv": "^0.2.0",
     "react-test-renderer": "16.8.3",
     "ws": ">=3.3.1"
   },

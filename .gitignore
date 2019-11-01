@@ -283,3 +283,5 @@ server/mp3
 server/ffmpeg
 
 .idea
+
+ios/GoogleService-Info.plist

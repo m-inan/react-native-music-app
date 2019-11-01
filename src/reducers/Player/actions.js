@@ -153,17 +153,17 @@ export function downloadAudio(videoId, playlistId) {
 
 		dispatch(setFileLoading(videoId, true))
 
-		const response = await fetch(`${Api.BaseURI}/download/${videoId}`)
+		const response = await fetch(`${Api.SERVICE_URL}/download/${videoId}`)
 		const { audio: fromUrl } = await response.json()
 
-		const {promise} = RNFS.downloadFile({
+		const { promise } = RNFS.downloadFile({
 			fromUrl,
 			toFile,
 			progressDivider: 5,
 			progress: res => console.log('progress', res),
 			begin: res => console.log('begin', res)
 		})
-		
+
 		try {
 			await promise
 

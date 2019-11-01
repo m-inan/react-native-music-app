@@ -13,7 +13,7 @@ export const request = async (route, params) => {
 		...(params && { body: JSON.stringify(params) })
 	}
 
-	return fetch(`${Api.BaseURI}/${route}`, options)
+	return fetch(`${Api.SERVICE_URL}/${route}`, options)
 		.then(resp => resp.json())
 		.then(json => json)
 		.catch(error => error)

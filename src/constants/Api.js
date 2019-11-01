@@ -1,3 +1,5 @@
+import { SERVICE_URL } from 'react-native-dotenv'
+
 export default {
-	BaseURI: 'http://localhost:3000'
+	SERVICE_URL
 }
