@@ -20,6 +20,12 @@ git clone https://github.com/TPMinan/react-native-music-app
 cd react-native-music-app
 ```
 
+### Create .env and add SERVICE_URL variable
+You can use the modem's ip address to connect to the service from the device. Like `http://192.168.1.30:3000`
+```env
+SERVICE_URL=http://localhost:3000
+```
+
 #### Start Metro Bundler
 ```console
 npm install
