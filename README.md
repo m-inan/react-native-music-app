@@ -23,6 +23,7 @@ cd react-native-music-app
 ### Create .env and add SERVICE_URL variable
 You can use the modem's ip address to connect to the service from the device. Like `http://192.168.1.30:3000`
 ```console
+# .env
 SERVICE_URL=http://localhost:3000
 ```
 
