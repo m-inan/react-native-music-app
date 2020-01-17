@@ -9,9 +9,14 @@ module.exports = {
   transformer: {
     getTransformOptions: async () => ({
       transform: {
-        experimentalImportSupport: false,
+        experimentalImportSupport: true,
         inlineRequires: false,
       },
     }),
+	minifierConfig: {
+      mangle: {
+        keep_fnames: true,
+      },
+    },
   },
 };
