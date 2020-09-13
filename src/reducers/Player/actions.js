@@ -1,15 +1,8 @@
 import TrackPlayer from 'react-native-track-player'
-import RNFS from 'react-native-fs'
 
 import * as types from './types'
 
-import { Api } from 'constants'
-
-import {
-	setAudioFileExists,
-	setFileLoading,
-	setPlaylist
-} from '../Playlist/actions'
+import { setPlaylist } from '../Playlist/actions'
 
 export function initializePlayback() {
 	return async (dispatch, getState) => {
@@ -145,35 +138,6 @@ export function playbackQueueEnded(position) {
 
 export function playerReset() {
 	return { type: types.RESET }
-}
-
-export function downloadAudio(videoId, playlistId) {
-	return async dispatch => {
-		const toFile = `${RNFS.DocumentDirectoryPath}/${videoId}.mp3`
-
-		dispatch(setFileLoading(videoId, true))
-
-		const response = await fetch(`${Api.SERVICE_URL}/download/${videoId}`)
-		const { audio: fromUrl } = await response.json()
-
-		const { promise } = RNFS.downloadFile({
-			fromUrl,
-			toFile,
-			progressDivider: 5
-			// progress: res => console.log('progress', res),
-			// begin: res => console.log('begin', res)
-		})
-
-		try {
-			await promise
-
-			dispatch(setAudioFileExists(playlistId, videoId))
-		} catch (error) {
-			console.log(error)
-		} finally {
-			dispatch(setFileLoading(videoId, false))
-		}
-	}
 }
 
 export function itemPlay(videoId, playlistId) {
