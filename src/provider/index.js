@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import TrackPlayer from 'react-native-track-player'
 
 import store from './store'
-import Playlist from 'scenes/Playlist'
+import Playlist from 'screens/Playlist'
 
 import { updatePlayback, initializePlayback } from 'reducers/Player/actions'
 

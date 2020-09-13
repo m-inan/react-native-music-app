@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import Logo from '../Logo'
-import Player from 'scenes/Player'
+import Player from 'screens/Player'
 import Header from '../Header'
 
 export default function Layout({ children }) {
