@@ -22,9 +22,14 @@ export default function Playlist() {
 			setList(
 				playlist.map(list => ({
 					...list,
-					sounds: list.items.map(item =>
-						sounds.find(sound => sound.id === item)
-					)
+					sounds: list.items.map(item => {
+						const sound = sounds.find(sound => sound.id === item)
+
+						return {
+							...sound,
+							id: String(sound.id)
+						}
+					})
 				}))
 			)
 		)
