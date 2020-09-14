@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
+	View,
 	Animated,
 	Dimensions,
 	Easing,
@@ -11,6 +12,7 @@ import {
 import { setUserPlaying } from 'reducers/Player/actions'
 import TrackPlayer from 'react-native-track-player'
 
+import { Colors } from 'constants'
 import { Play, Pause } from 'components/Icons'
 
 const STATE_READY = Platform.OS === 'ios' ? 'ready' : 6
@@ -86,6 +88,11 @@ function Record({ positionY, miniPos }) {
 		outputRange: [0, 0, 1]
 	})
 
+	const innerCircle = positionY.interpolate({
+		inputRange: [0, miniPos],
+		outputRange: [1, 0]
+	})
+
 	return (
 		<TouchableWithoutFeedback
 			onPress={() => {
@@ -117,16 +124,43 @@ function Record({ positionY, miniPos }) {
 							height: ranges.tLayout,
 							transform: [{ rotate }],
 							borderRadius: ranges.radius,
-							overflow: 'hidden'
+							overflow: 'hidden',
+							position: 'relative'
 						}}
 					>
-						<Image
-							style={{
-								width: '100%',
-								height: '100%'
-							}}
-							source={artwork}
-						/>
+						<View>
+							<Image
+								style={{
+									width: '100%',
+									height: '100%'
+								}}
+								source={artwork}
+							/>
+							<Animated.View
+								style={{
+									top: 0,
+									left: 0,
+									padding: 7,
+									width: '100%',
+									height: '100%',
+									opacity: innerCircle,
+									position: 'absolute',
+									alignItems: 'center',
+									justifyContent: 'center'
+								}}
+							>
+								<View
+									style={{
+										opacity: 0.7,
+										width: '100%',
+										height: '100%',
+										borderWidth: 2,
+										borderRadius: width,
+										borderColor: Colors.primary
+									}}
+								/>
+							</Animated.View>
+						</View>
 					</Animated.View>
 				)}
 
