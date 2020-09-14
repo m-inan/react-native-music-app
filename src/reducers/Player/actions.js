@@ -151,8 +151,7 @@ export function itemPlay(id, playlistId) {
 
 			const addList = items
 				.find(item => item.id === playlistId)
-				.sounds.filter(item => item.exists)
-				.map(({ title, artwork, id, source }) => ({
+				.sounds.map(({ title, artwork, id, source }) => ({
 					title,
 					artwork,
 					id: id,
