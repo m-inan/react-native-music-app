@@ -7,7 +7,7 @@ import { Colors } from 'constants'
 
 import { Play } from 'components/Icons'
 
-export default function Item({ artwork, title, id, playlistId }) {
+export default function Item({ artwork, title, artist, id, playlistId }) {
 	const dispatch = useDispatch()
 
 	const _play = async () => {
@@ -17,7 +17,16 @@ export default function Item({ artwork, title, id, playlistId }) {
 	return (
 		<View style={styles.item}>
 			<Image source={artwork} style={styles.artwork} />
-			<Text style={{ color: Colors.gray, flex: 1 }}>{title}</Text>
+			<View style={{ flex: 1 }}>
+				<Text style={{ color: Colors.gray }}>{title}</Text>
+				<Text
+					style={{ color: 'rgb(82, 88, 94)' }}
+					numberOfLines={2}
+					ellipsizeMode="tail"
+				>
+					{artist}
+				</Text>
+			</View>
 			<TouchableOpacity onPress={_play}>
 				<View style={styles.play}>
 					<Play />
