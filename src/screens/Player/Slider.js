@@ -25,7 +25,7 @@ let interval
 const STATE_READY = Platform.OS === 'ios' ? 'ready' : 6
 
 export default function Slider({ positionY, miniPos }) {
-	const { state, track } = useSelector(state => state.Player)
+	const { state, track, playing } = useSelector(state => state.Player)
 	const [percent, setPercent] = useState(0)
 	const [time, setTime] = useState(null)
 	const [moveSlider, setMoveSlider] = useState(false)
@@ -34,22 +34,32 @@ export default function Slider({ positionY, miniPos }) {
 	useEffect(() => {
 		clearInterval(interval)
 
-		switch (state) {
-			case STATE_READY:
+		const times = async () => {
+			const current = Math.floor(await TrackPlayer.getPosition())
+
+			if (!playing || current < 1) {
 				setPercent(0)
 				setTime(0)
+			}
+		}
+
+		switch (state) {
+			case STATE_READY:
+				// user playing state
+
+				times()
 				break
 			case TrackPlayer.STATE_PLAYING:
-				interval = setInterval(async () => {
-					if (!moveSlider) {
+				if (!moveSlider) {
+					interval = setInterval(async () => {
 						const current = Math.floor(await TrackPlayer.getPosition())
 
 						if (duration && current) {
 							setTime(current)
 							setPercent((current * 100) / Math.floor(duration))
 						}
-					}
-				}, 100)
+					}, 100)
+				}
 				break
 		}
 	}, [state, moveSlider])
