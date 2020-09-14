@@ -4,8 +4,8 @@ import getLuckyPng from './artworks/getlucky.png'
 export const sounds = [
 	{
 		id: '1',
-		title: 'Track Title',
-		artist: 'Track Artist',
+		title: 'Get Lucky',
+		artist: 'Daft Punk ft. Pharrell Williams, Nile Rodgers',
 		source: getLuckyMp3,
 		artwork: getLuckyPng
 	}
