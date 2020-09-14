@@ -12,7 +12,7 @@ A mobile application built using React Native
 - Next, previous, shuffle, and replay
 
 ## Setup instructions
-The download with youtube was removed. Instead, you have to put sounds and pictures in correct positions in the data. and you can edit the sample data on the file `data / index.js`.
+The download with youtube was removed. Instead, you have to put sounds and pictures in correct positions in the data. and you can edit the sample data on the file `data/index.js`.
 
 #### Download
 ```console
