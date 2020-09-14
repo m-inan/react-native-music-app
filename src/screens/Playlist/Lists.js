@@ -29,13 +29,13 @@ export default function Lists() {
 	const Songs = () => {
 		if (!items.length) return null
 
-		const { id, list } = items[index]
+		const { id, sounds } = items[index]
 
 		return (
 			<View style={styles.scene}>
 				<FlatList
-					data={list}
-					keyExtractor={({ videoId }) => videoId}
+					data={sounds}
+					keyExtractor={({ id }) => id}
 					renderItem={({ item }) => <Item playlistId={id} {...item} />}
 				/>
 			</View>

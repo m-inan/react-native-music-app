@@ -125,11 +125,7 @@ function Record({ positionY, miniPos }) {
 								width: '100%',
 								height: '100%'
 							}}
-							source={{
-								uri:
-									artwork +
-									(Platform.OS === 'android' ? `?time=${new Date()}` : '')
-							}}
+							source={artwork}
 						/>
 					</Animated.View>
 				)}

@@ -140,22 +140,22 @@ export function playerReset() {
 	return { type: types.RESET }
 }
 
-export function itemPlay(videoId, playlistId) {
+export function itemPlay(id, playlistId) {
 	return async (dispatch, getState) => {
-		const { id, items } = getState().Playlist
+		const { id: playId, items } = getState().Playlist
 
-		if (playlistId !== id) {
+		if (playlistId !== playId) {
 			await TrackPlayer.reset()
 
 			dispatch(playerReset())
 
 			const addList = items
 				.find(item => item.id === playlistId)
-				.list.filter(item => item.exists)
-				.map(({ title, artwork, videoId, source }) => ({
+				.sounds.filter(item => item.exists)
+				.map(({ title, artwork, id, source }) => ({
 					title,
 					artwork,
-					id: videoId,
+					id: id,
 					url: source,
 					artist: 'Minan'
 				}))
@@ -165,7 +165,7 @@ export function itemPlay(videoId, playlistId) {
 			dispatch(setPlaylist(playlistId))
 		}
 
-		await TrackPlayer.skip(videoId)
+		await TrackPlayer.skip(id)
 
 		await new Promise(resolve => setTimeout(resolve, 100))
 

@@ -5,16 +5,14 @@ export const setList = items => {
 	return async dispatch => {
 		const playlist = items[0]
 
-		if (playlist && playlist.list) {
-			const addList = playlist.list
-				.filter(item => item.exists)
-				.map(({ title, artwork, videoId, source }) => ({
-					title,
-					artwork,
-					id: videoId,
-					url: source,
-					artist: 'Minan'
-				}))
+		if (playlist && playlist.sounds) {
+			const addList = playlist.sounds.map(({ title, artwork, id, source }) => ({
+				id,
+				title,
+				artwork,
+				url: source,
+				artist: 'Minan'
+			}))
 
 			await TrackPlayer.add(addList)
 		}
@@ -36,4 +34,3 @@ export function setPlaylist(id) {
 		}
 	}
 }
-

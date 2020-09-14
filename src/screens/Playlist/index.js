@@ -9,8 +9,6 @@ import { Colors } from 'constants'
 import { setList } from 'reducers/Playlist/actions'
 import { playlist, sounds } from '../../../data'
 
-// import { getPlaylist } from 'utils'
-
 export default function Playlist() {
 	const dispatch = useDispatch()
 
@@ -19,14 +17,14 @@ export default function Playlist() {
 	}, [])
 
 	const setReduxData = async () => {
-		// const playlist = await getPlaylist()
-
 		// simulate relational database
 		dispatch(
 			setList(
 				playlist.map(list => ({
 					...list,
-					items: list.items.map(item => sounds.find(sound => sound.id === item))
+					sounds: list.items.map(item =>
+						sounds.find(sound => sound.id === item)
+					)
 				}))
 			)
 		)
