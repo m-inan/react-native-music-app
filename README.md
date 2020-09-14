@@ -6,13 +6,13 @@ A mobile application built using React Native
 
 ## Features
 
-- Download Youtube Playlists
-- Download Mp3 in your Phone
 - Offline Playing
+- Customizable playlists
+- Static sounds and artwork files
 - Next, previous, shuffle, and replay
 
 ## Setup instructions
-We select sounds from music on playlists in your youtube account for now. To download them, we need a service. He might be a little heavy. To do this, you need to follow the service step and make sure that the device sends a request to the correct address.
+The download with youtube was removed. Instead, you have to put sounds and pictures in correct positions in the data. and you can edit the sample data on the file `data / index.js`.
 
 #### Download
 ```console
@@ -20,30 +20,33 @@ git clone https://github.com/TPMinan/react-native-music-app
 cd react-native-music-app
 ```
 
-### Create .env and add SERVICE_URL variable
-You can use the modem's ip address to connect to the service from the device. Like `http://192.168.1.30:3000`
+#### Install dependencies
 ```console
-# .env
-SERVICE_URL=http://localhost:3000
+yarn
 ```
 
-#### Start Metro Bundler
+#### Linking libraries
 ```console
-npm install
-npm start
+react-native link
+```
+
+#### Start metro bundler
+```console
+yarn start
 ```
 
 #### IOS
 ```console
-react-native run-ios
+yarn ios
 ```
 
 #### Android
-The `localhost` address for the Service may not work on Android. You can use ip or place names instead
-
 ```console
-react-native run-android
+yarn android
 ```
+
+#### Notice
+> If your phone is stuck in the animation, try it with the release mode. [Running on device](https://reactnative.dev/docs/running-on-device)
 
 
 ### Reporting Issues
