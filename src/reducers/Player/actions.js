@@ -151,12 +151,12 @@ export function itemPlay(id, playlistId) {
 
 			const addList = items
 				.find(item => item.id === playlistId)
-				.sounds.map(({ title, artwork, id, source }) => ({
+				.sounds.map(({ title, artist, artwork, id, source }) => ({
+          id,
 					title,
+          artist,
 					artwork,
-					id: id,
 					url: source,
-					artist: 'Minan'
 				}))
 
 			await TrackPlayer.add(addList)
