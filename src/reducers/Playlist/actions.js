@@ -6,12 +6,12 @@ export const setList = items => {
 		const playlist = items[0]
 
 		if (playlist && playlist.sounds) {
-			const addList = playlist.sounds.map(({ title, artwork, id, source }) => ({
+			const addList = playlist.sounds.map(({ title, artist, artwork, id, source }) => ({
 				id,
 				title,
+        artist,
 				artwork,
 				url: source,
-				artist: 'Minan'
 			}))
 
 			await TrackPlayer.add(addList)
