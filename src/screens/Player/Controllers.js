@@ -91,17 +91,29 @@ const styles = {
 	},
 
 	playPause: {
-		width: 30,
-		marginHorizontal: 40
+		width: 50,
+		height: 50,
+		padding: 10,
+		marginHorizontal: 40,
+		backgroundColor: 'red'
 	},
 
 	prev: {
-		width: 20,
-		transform: [{ rotate: '-180deg' }]
+		width: 40,
+		height: 40,
+		padding: 10,
+		marginHorizontal: 40,
+		transform: [{ rotate: '-180deg' }],
+
+		backgroundColor: 'red'
 	},
 
 	next: {
-		width: 20
+		marginHorizontal: 40,
+		width: 40,
+		height: 40,
+		padding: 10,
+		backgroundColor: 'red'
 	},
 
 	shuffle: {
