@@ -10,12 +10,9 @@ import {
 	Image
 } from 'react-native'
 import { setUserPlaying } from 'reducers/Player/actions'
-import TrackPlayer from 'react-native-track-player'
 
 import { Colors } from 'constants'
 import { Play, Pause } from 'components/Icons'
-
-const STATE_READY = Platform.OS === 'ios' ? 'ready' : 6
 
 const { width } = Dimensions.get('window')
 const spinValue = new Animated.Value(0)
@@ -32,34 +29,39 @@ const sizes = {
 
 function Record({ positionY, miniPos }) {
 	const dispatch = useDispatch()
-	const { state, track, playing } = useSelector(state => state.Player)
+	const { track, playing } = useSelector(state => state.Player)
 
 	const artwork = useMemo(() => (track ? track.artwork : ''), [track])
 
-	useEffect(() => {
-		switch (state) {
-			case TrackPlayer.STATE_PLAYING:
-				Animated.loop(
-					Animated.sequence([
-						Animated.timing(spinValue, {
-							toValue: 1,
-							duration: 10000,
-							easing: Easing.linear
-						})
-					])
-				).start()
-				break
-
-			case TrackPlayer.STATE_PAUSED:
-				spinValue.stopAnimation()
-				spinValue.extractOffset()
-				break
-
-			case STATE_READY:
-				spinValue.flattenOffset()
-				break
+	const runAnimation = () => {
+		if (playing) {
+			Animated.loop(
+				Animated.sequence([
+					Animated.timing(spinValue, {
+						toValue: 1,
+						duration: 10000,
+						easing: Easing.linear
+					})
+				])
+			).start()
 		}
-	}, [state])
+	}
+
+	useEffect(() => {
+		if (playing) {
+			runAnimation()
+		} else {
+			spinValue.stopAnimation()
+			spinValue.extractOffset()
+		}
+	}, [playing])
+
+	useEffect(() => {
+		spinValue.flattenOffset()
+		spinValue.setValue(0)
+
+		runAnimation()
+	}, [track])
 
 	const ranges = {
 		layout: [sizes.default, sizes.mini],
