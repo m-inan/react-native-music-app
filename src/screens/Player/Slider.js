@@ -18,7 +18,7 @@ const padding = 20
 const r = (width - padding * 2) / 2
 const cx = r + padding
 const cy = padding
-const height = (width + padding * 2) / 2
+const height = (width * 1.3 + padding * 2) / 2
 
 let interval
 
@@ -110,6 +110,7 @@ export default function Slider({ positionY, miniPos }) {
 
 	return (
 		<Animated.View
+			{..._panResponder.panHandlers}
 			style={{
 				opacity: positionY.interpolate({
 					inputRange: [0, miniPos / 2, miniPos],
@@ -137,7 +138,7 @@ export default function Slider({ positionY, miniPos }) {
 
 			<View>
 				<Svg width={'100%'} height={'100%'}>
-					<G {..._panResponder.panHandlers}>
+					<G>
 						<Path
 							fill="none"
 							stroke={Colors.gray}
