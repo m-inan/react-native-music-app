@@ -276,6 +276,7 @@ buck-out/
 .buckd/
 .buckversion
 .fakebuckversion
+!debug.keystore
 
 # End of https://www.gitignore.io/api/macos,reactnative
 
@@ -283,5 +284,9 @@ server/mp3
 server/ffmpeg
 
 .idea
+
+
+# CocoaPods
+/ios/Pods/
 
 ios/GoogleService-Info.plist

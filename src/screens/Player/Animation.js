@@ -36,7 +36,8 @@ export const _panResponder = PanResponder.create({
 
 		Animated.timing(positionY, {
 			toValue: pageY,
-			duration: 300
+			duration: 300,
+			useNativeDriver: false
 		}).start()
 	},
 	onMoveShouldSetPanResponder: () => true,
@@ -52,7 +53,8 @@ export const _panResponder = PanResponder.create({
 
 		Animated.timing(positionY, {
 			toValue: pageY,
-			duration: 0
+			duration: 0,
+			useNativeDriver: false
 		}).start()
 	}
 })
