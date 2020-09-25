@@ -71,6 +71,10 @@ export default function Slider({ positionY, miniPos }) {
 	const changePlaybackTrack = async () => {
 		const currentDuration = await TrackPlayer.getDuration()
 		setDuration(currentDuration)
+
+		// Reset values when track changes
+		setPercent(0)
+		setTime(0)
 	}
 
 	const setProgress = (x, y) => {
