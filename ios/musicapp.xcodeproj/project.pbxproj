@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -22,16 +23,12 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		143149BF990E46499665A10C /* libRNTrackPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 989919147A8F4F239161DE88 /* libRNTrackPlayer.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		37D75EAA372449A79A7A7184 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 733CECD39CF040CBB511F38E /* libRNFS.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		A1059059B9564516A54DEC2D /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 414B1F44180D4EBF852B4D8C /* libRNDeviceInfo.a */; };
 		A970326D6BB14023A6A55303 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4082C7A4AC242C4A870061F /* libRNGestureHandler.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C2A122350E204C0FACD4FF05 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E477AA0B95F41239B5CA995 /* libRNCAsyncStorage.a */; };
-		E4D800028F7342E9BE537AC1 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A34548228A984CC5A6031A8B /* libRNGoogleSignin.a */; };
 		E9924A2522DA88450065B890 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E9924A2422DA88450065B890 /* GoogleSignIn.bundle */; };
-		E9924A2722DA88520065B890 /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9924A2622DA88520065B890 /* GoogleSignIn.framework */; };
-		E9924A2922DA886B0065B890 /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9924A2822DA886B0065B890 /* GoogleSignInDependencies.framework */; };
 		E9924A2D22DA892B0065B890 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9924A2C22DA892B0065B890 /* GoogleService-Info.plist */; };
 		E9924A3022DA8AB70065B890 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9924A2F22DA8AB70065B890 /* AudioToolbox.framework */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
@@ -347,13 +344,6 @@
 			remoteGlobalIDString = B5C32A36220C603B000FFB8D;
 			remoteInfo = "RNGestureHandler-tvOS";
 		};
-		E9924A1322DA87E40065B890 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5CABD25D32CD4C368218E9A5 /* RNGoogleSignin.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9FD355121D3E4A2900D06170;
-			remoteInfo = RNGoogleSignin;
-		};
 		E9924A1D22DA87E40065B890 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DF5611D8F4514B9998958EF9 /* RNSVG.xcodeproj */;
@@ -403,15 +393,12 @@
 		414B1F44180D4EBF852B4D8C /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		4A6874C78F4841328536E8FE /* RNTrackPlayer.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNTrackPlayer.xcodeproj; path = "../node_modules/react-native-track-player/ios/RNTrackPlayer.xcodeproj"; sourceTree = "<group>"; };
 		4D5E5ABAD3F94EB9802517BB /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; };
-		5CABD25D32CD4C368218E9A5 /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGoogleSignin.xcodeproj; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		733CECD39CF040CBB511F38E /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8BD075D86B4041008F635D98 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		8E477AA0B95F41239B5CA995 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
 		989919147A8F4F239161DE88 /* libRNTrackPlayer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNTrackPlayer.a; sourceTree = "<group>"; };
-		A34548228A984CC5A6031A8B /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		C0899E5B6F0B41D3AFF2D10E /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; };
 		C8DC4763E6F747A88A4CCF43 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
@@ -444,18 +431,14 @@
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
-				E9924A2922DA886B0065B890 /* GoogleSignInDependencies.framework in Frameworks */,
 				E9924A3022DA8AB70065B890 /* AudioToolbox.framework in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				E9924A2722DA88520065B890 /* GoogleSignIn.framework in Frameworks */,
 				C2A122350E204C0FACD4FF05 /* libRNCAsyncStorage.a in Frameworks */,
-				37D75EAA372449A79A7A7184 /* libRNFS.a in Frameworks */,
 				04589DA9915F4F619483FDFC /* libRNSVG.a in Frameworks */,
 				143149BF990E46499665A10C /* libRNTrackPlayer.a in Frameworks */,
 				A970326D6BB14023A6A55303 /* libRNGestureHandler.a in Frameworks */,
-				E4D800028F7342E9BE537AC1 /* libRNGoogleSignin.a in Frameworks */,
 				A1059059B9564516A54DEC2D /* libRNDeviceInfo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,7 +616,6 @@
 				DF5611D8F4514B9998958EF9 /* RNSVG.xcodeproj */,
 				4A6874C78F4841328536E8FE /* RNTrackPlayer.xcodeproj */,
 				C8DC4763E6F747A88A4CCF43 /* RNGestureHandler.xcodeproj */,
-				5CABD25D32CD4C368218E9A5 /* RNGoogleSignin.xcodeproj */,
 				8BD075D86B4041008F635D98 /* RNDeviceInfo.xcodeproj */,
 			);
 			name = Libraries;
@@ -694,25 +676,15 @@
 			children = (
 				17F5D10518BA4E398C5209FA /* RNPlaceholder.swift */,
 				8E477AA0B95F41239B5CA995 /* libRNCAsyncStorage.a */,
-				733CECD39CF040CBB511F38E /* libRNFS.a */,
 				07971928EBC54707ACC4A96A /* libRNSVG.a */,
 				989919147A8F4F239161DE88 /* libRNTrackPlayer.a */,
 				E4082C7A4AC242C4A870061F /* libRNGestureHandler.a */,
-				A34548228A984CC5A6031A8B /* libRNGoogleSignin.a */,
 				F833C670B8784DECBB805A6E /* libRNSVG-tvOS.a */,
 				C0899E5B6F0B41D3AFF2D10E /* libRNGestureHandler-tvOS.a */,
 				414B1F44180D4EBF852B4D8C /* libRNDeviceInfo.a */,
 				4D5E5ABAD3F94EB9802517BB /* libRNDeviceInfo-tvOS.a */,
 			);
 			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		E99249EF22DA87E30065B890 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E9924A1422DA87E40065B890 /* libRNGoogleSignin.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		E99249F322DA87E30065B890 /* Products */ = {
@@ -877,10 +849,6 @@
 				{
 					ProductGroup = E99249FB22DA87E30065B890 /* Products */;
 					ProjectRef = C8DC4763E6F747A88A4CCF43 /* RNGestureHandler.xcodeproj */;
-				},
-				{
-					ProductGroup = E99249EF22DA87E30065B890 /* Products */;
-					ProjectRef = 5CABD25D32CD4C368218E9A5 /* RNGoogleSignin.xcodeproj */;
 				},
 				{
 					ProductGroup = E99249F722DA87E30065B890 /* Products */;
@@ -1207,13 +1175,6 @@
 			remoteRef = E9924A1022DA87E40065B890 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		E9924A1422DA87E40065B890 /* libRNGoogleSignin.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNGoogleSignin.a;
-			remoteRef = E9924A1322DA87E40065B890 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		E9924A1E22DA87E40065B890 /* libRNSVG.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1318,6 +1279,7 @@
 				);
 				INFOPLIST_FILE = musicapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1328,9 +1290,6 @@
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
 			};
 			name = Debug;
 		};
@@ -1357,6 +1316,7 @@
 				);
 				INFOPLIST_FILE = musicapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1367,9 +1327,6 @@
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
 			};
 			name = Release;
 		};
