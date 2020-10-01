@@ -1,3 +1,4 @@
+# An amazing project
 # React Native Music App
 
 A mobile application built using React Native
