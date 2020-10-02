@@ -16,11 +16,13 @@ export function Music() {
 					Animated.sequence([
 						Animated.timing(slide, {
 							toValue: 5,
-							duration: 1000
+							duration: 1000,
+							useNativeDriver: false
 						}),
 						Animated.timing(slide, {
 							toValue: 0,
-							duration: 1000
+							duration: 1000,
+							useNativeDriver: false
 						})
 					])
 				).start()

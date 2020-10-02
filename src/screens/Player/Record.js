@@ -40,7 +40,8 @@ function Record({ positionY, miniPos }) {
 					Animated.timing(spinValue, {
 						toValue: 1,
 						duration: 10000,
-						easing: Easing.linear
+						easing: Easing.linear,
+						useNativeDriver: false
 					})
 				])
 			).start()
