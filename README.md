@@ -25,17 +25,17 @@ cd react-native-music-app
 yarn
 ```
 
-#### Linking libraries
-```console
-react-native link
-```
-
 #### Start metro bundler
 ```console
 yarn start
 ```
 
 #### IOS
+> Install Pods
+```console
+cd ios; pod install; cd ..
+```
+> Run on ios simulator
 ```console
 yarn ios
 ```
@@ -44,10 +44,6 @@ yarn ios
 ```console
 yarn android
 ```
-
-#### Notice
-> If your phone is stuck in the animation, try it with the release mode. [Running on device](https://reactnative.dev/docs/running-on-device)
-
 
 ### Reporting Issues
 If believe you've found an issue, please [report it](https://github.com/TPMinan/react-native-music-app/issues) along with any relevant details to reproduce it.
