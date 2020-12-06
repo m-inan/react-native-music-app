@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "react": "^17.0.1",
-    "react-native": "^0.63.4"
+    "react-native": "^0.63.4",
+    "react-native-svg": "^12.1.0",
+    "react-native-swift": "^1.2.3",
+    "react-native-track-player": "^1.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
