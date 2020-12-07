@@ -1,20 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StatusBar, StyleSheet } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import TrackPlayer from 'react-native-track-player';
 
-TrackPlayer.setupPlayer().then(() => {
-  // The player is ready to be used
-  console.log('track player is ready');
-});
+import { Provider } from 'src/provider';
+
+import { Playlist } from 'src/screens/Playlist';
 
 interface Props {}
 
 export const App: React.FC<Props> = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Starting rewrite musicapp</Text>
-    </View>
+    <Provider value={{ message: 'this is context message' }}>
+      <StatusBar translucent={true} hidden={true} />
+      <View style={{ height: 5, backgroundColor: 'black' }} />
+      <Playlist title="Playlist title" />
+    </Provider>
   );
 };
 
