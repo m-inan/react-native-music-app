@@ -19,9 +19,15 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "types": ["jest"],
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["src/*/index", "src/*"]
+    }
   },
   "exclude": [
     "node_modules",
@@ -29,20 +35,5 @@
     "metro.config.js",
     "jest.config.js"
   ],
-  "baseUrl": "./",
-  "paths": {
-    "src/*": ["src/*/index", "src/*"]
-  },
-  "allowJs": true,
-  "allowSyntheticDefaultImports": true,
-  "esModuleInterop": true,
-  "isolatedModules": true,
-  "jsx": "react",
-  "lib": ["es2015", "es2015.promise", "es2016.array.include", "dom"],
-  "strict": true,
-  "moduleResolution": "node",
-  "noEmit": true,
-  "resolveJsonModule": true,
-  "target": "esnext",
-  "types": ["jest"]
+  "include": ["./src/**/*.ts", "./src/**/*.ts"]
 }

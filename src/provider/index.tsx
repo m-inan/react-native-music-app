@@ -1,31 +1,34 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import TrackPlayer from 'react-native-track-player';
+import React, { useState, useEffect } from 'react';
+import TrackPlayer, {
+  registerPlaybackService,
+  setupPlayer,
+  getState,
+  Track,
+  STATE_PLAYING,
+} from 'react-native-track-player';
 
-export const AppContext = createContext({});
+import { AppContext } from './AppContext';
 
-export const useAppContext = () => {
-  const context = useContext(AppContext);
+export { useAppContext } from './AppContext';
 
-  return context;
-};
+interface Props {}
 
-export const Provider = ({ children }) => {
+export const Provider: React.FC<Props> = ({ children }) => {
   const [message, setMessage] = useState<string>('this is usestate message');
-  const [isServiceRegistered, setServiceRegistered] = useState<boolean>(false);
   const [isReady, setReady] = useState<boolean>(false);
+  const [isPlaying, setPlaying] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log('register playbackservice');
-    TrackPlayer.registerPlaybackService(() => playbackService);
+    registerPlaybackService(() => playbackService);
   }, []);
 
   useEffect(() => {
-    console.log('isServiceRegistered', isServiceRegistered);
-    TrackPlayer.setupPlayer().then(() => {
+    setupPlayer().then(() => {
       // The player is ready to be used
       console.log('track player is ready');
 
-      const track = {
+      const track: Track = {
+        id: '1',
         url:
           'https://github.com/m-inan/react-native-music-app/raw/master/data/sounds/lights.mp3',
         title: 'ligts',
@@ -36,19 +39,26 @@ export const Provider = ({ children }) => {
 
       TrackPlayer.add([track]).then(function () {
         // The tracks were added
+
         setReady(true);
       });
     });
   }, []);
 
   const playbackService = async () => {
-    console.log('register playback');
     setMessage('set message in service');
-    setServiceRegistered(true);
+
+    TrackPlayer.addEventListener('playback-state', async () => {
+      const state = await getState();
+
+      console.log('state', state, STATE_PLAYING);
+
+      setPlaying(state === STATE_PLAYING);
+    });
   };
 
   return (
-    <AppContext.Provider value={{ message, setMessage, isReady }}>
+    <AppContext.Provider value={{ message, isReady, isPlaying }}>
       {children}
     </AppContext.Provider>
   );

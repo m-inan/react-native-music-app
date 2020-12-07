@@ -1,5 +1,5 @@
-import React, { useContext, Fragment } from 'react';
-import { View, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { Fragment } from 'react';
+import { View, Button, Text, StyleSheet } from 'react-native';
 import TrackPlayer from 'react-native-track-player';
 import { useAppContext } from 'src/provider';
 
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const Playlist: React.FC<Props> = ({ title }) => {
-  const { message: text, isReady } = useAppContext();
+  const { message: text, isReady, isPlaying } = useAppContext();
 
   const play = () => {
     TrackPlayer.play();
@@ -20,8 +20,9 @@ export const Playlist: React.FC<Props> = ({ title }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{title}</Text>
+      <Text style={styles.title}>{title}</Text>
       <Text style={styles.text}>{text}</Text>
+      <Text style={styles.text}>{isPlaying ? 'Playing' : 'Pause'}</Text>
 
       {isReady && (
         <Fragment>
