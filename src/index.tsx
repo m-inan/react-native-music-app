@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 
 import { Provider } from 'src/provider';
 import { Playlist } from 'src/screens/Playlist';
