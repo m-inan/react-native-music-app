@@ -9,7 +9,7 @@ export const Title: React.FC<Props> = () => {
   return (
     <View style={styles.container}>
       <Text size={30} type={TextType.SEMIBOLD}>
-        Songs
+        Rock
       </Text>
     </View>
   );
