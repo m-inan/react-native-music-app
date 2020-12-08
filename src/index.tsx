@@ -8,9 +8,12 @@ interface Props {}
 
 export const App: React.FC<Props> = () => {
   return (
-    <Provider value={{ message: 'this is context message' }}>
-      <StatusBar translucent={true} hidden={true} />
-      <View style={{ height: 5, backgroundColor: 'black' }} />
+    <Provider>
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="light-content"
+      />
       <Playlist title="Playlist title" />
     </Provider>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import TrackPlayer, {
   registerPlaybackService,
   setupPlayer,
@@ -58,8 +59,10 @@ export const Provider: React.FC<Props> = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider value={{ message, isReady, isPlaying }}>
-      {children}
-    </AppContext.Provider>
+    <SafeAreaProvider>
+      <AppContext.Provider value={{ message, isReady, isPlaying }}>
+        {children}
+      </AppContext.Provider>
+    </SafeAreaProvider>
   );
 };
