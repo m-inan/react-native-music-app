@@ -14,7 +14,7 @@ export const App: React.FC<Props> = () => {
         backgroundColor="transparent"
         barStyle="light-content"
       />
-      <Playlist title="Playlist title" />
+      <Playlist />
     </Provider>
   );
 };
