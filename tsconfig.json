@@ -8,7 +8,6 @@
     "declaration": true,
     "sourceMap": true,
     "noEmit": true,
-    "isolatedModules": true,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,

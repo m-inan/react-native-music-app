@@ -7,7 +7,7 @@ import { Colors } from 'src/constants';
 import { Header } from './Header';
 import { Title } from './Title';
 import { Tabbar } from './Tabbar';
-import { Items } from './Items';
+import { Tracks } from './Tracks';
 
 interface Props {}
 
@@ -20,7 +20,7 @@ export const Playlist: React.FC<Props> = () => {
       <Header />
       <Title />
       <Tabbar />
-      <Items />
+      <Tracks />
     </View>
   );
 };

@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import Svg, { Rect, Defs, Stop, LinearGradient } from 'react-native-svg';
 
 import { Colors } from 'src/constants';
 
+import { List } from './List';
+
 interface Props {}
 
-export const Items: React.FC<Props> = () => {
+export const Tracks: React.FC<Props> = () => {
   return (
     <View style={styles.area}>
       <Svg
@@ -29,7 +31,11 @@ export const Items: React.FC<Props> = () => {
           </LinearGradient>
         </Defs>
       </Svg>
-      <View style={styles.container}></View>
+      <View style={styles.container}>
+        <ScrollView>
+          <List />
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -38,16 +44,17 @@ const styles = StyleSheet.create({
   area: {
     position: 'relative',
     flex: 1,
-    top: -35,
   },
   container: {
     flex: 1,
     borderTopLeftRadius: 36,
     backgroundColor: Colors.background,
+    overflow: 'hidden',
   },
   shadow: {
     position: 'absolute',
     top: 0,
     left: 0,
+    backgroundColor: Colors.primary,
   },
 });
