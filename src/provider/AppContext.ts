@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { ContextType } from './ContexType';
+import { ContextType } from './ContextType';
 import { InitialValue } from './InitialValue';
 
 export const AppContext = createContext<ContextType>(InitialValue);
