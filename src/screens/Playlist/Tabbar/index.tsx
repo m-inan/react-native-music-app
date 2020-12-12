@@ -5,16 +5,18 @@ import { Colors } from 'src/constants';
 
 import { List } from './List';
 
-interface Props {}
+interface Props {
+  setPlaylistsIndex: (value: number) => void;
+}
 
-export const Tabbar: React.FC<Props> = () => {
+export const Tabbar: React.FC<Props> = ({ setPlaylistsIndex }: Props) => {
   return (
     <View style={styles.container}>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         style={styles.scrollView}>
-        <List />
+        <List {...{ setPlaylistsIndex }} />
       </ScrollView>
     </View>
   );

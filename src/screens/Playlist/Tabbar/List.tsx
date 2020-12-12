@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { IPlaylist } from 'src/interfaces';
 
@@ -7,20 +7,28 @@ import { Item } from './Item';
 
 const items: IPlaylist[] = [];
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 3; i++) {
   items.push({
     id: i,
     title: `item ${i}`,
     items: [],
   });
 }
-interface Props {}
+interface Props {
+  setPlaylistsIndex: (value: number) => void;
+}
 
-export const List: React.FC<Props> = () => {
+export const List: React.FC<Props> = ({ setPlaylistsIndex }) => {
   return (
     <View style={styles.container}>
       {items.map((item: IPlaylist, key: number) => (
-        <Item key={key} {...item} />
+        <TouchableOpacity
+          key={key}
+          onPress={() => {
+            setPlaylistsIndex(key);
+          }}>
+          <Item {...item} />
+        </TouchableOpacity>
       ))}
     </View>
   );

@@ -9,18 +9,25 @@ import { Title } from './Title';
 import { Tabbar } from './Tabbar';
 import { Tracks } from './Tracks';
 
+import { playlists, items } from './data';
+import { useAnimation } from './animation';
+
 interface Props {}
 
 export const Playlist: React.FC<Props> = () => {
   const { top, bottom } = useSafeAreaInsets();
+
+  const { translateX, panResponder, setPlaylistsIndex } = useAnimation(
+    playlists.length,
+  );
 
   return (
     <View
       style={[styles.container, { paddingTop: top, paddingBottom: bottom }]}>
       <Header />
       <Title />
-      <Tabbar />
-      <Tracks />
+      <Tabbar {...{ setPlaylistsIndex }} />
+      <Tracks {...{ playlists, items, translateX, panResponder }} />
     </View>
   );
 };

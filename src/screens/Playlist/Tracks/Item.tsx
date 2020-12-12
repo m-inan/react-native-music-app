@@ -6,9 +6,12 @@ import { Colors } from 'src/constants';
 import { Text } from 'src/components';
 import { Options } from 'src/icons';
 
-interface Props extends ITrack {}
+interface Props {
+  item: ITrack;
+  index: number;
+}
 
-export const Item: React.FC<Props> = ({ id, title }: Props) => {
+export const Item: React.FC<Props> = ({ item: { id, title } }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.artwork}>
