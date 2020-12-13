@@ -18,7 +18,7 @@ export const Title: React.FC<Props> = () => {
 const styles = StyleSheet.create({
   container: {
     height: 60,
-    padding: 20,
+    paddingHorizontal: 20,
     justifyContent: 'center',
   },
 });

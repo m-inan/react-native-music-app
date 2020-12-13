@@ -19,9 +19,10 @@
 		4D3FC811DD558DD3D3AF04BB /* libPods-musicapp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 01087133EE42976161666753 /* libPods-musicapp-tvOSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		821546F3B8A622E36A438CB7 /* libPods-musicapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EE61854F6BFB424A24B44 /* libPods-musicapp.a */; };
-		E2B0F721552FA9964D08A7A3 /* libPods-musicapp-musicappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF442969E5CFC6722E0CE93 /* libPods-musicapp-musicappTests.a */; };
 		C378AEF2960144E3BAB30A84 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F50A53730541427A8C3A837E /* Poppins-Regular.ttf */; };
 		DC27BD8DD09342A5950DFF0C /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52C8DE2642F3453689D9887E /* Poppins-SemiBold.ttf */; };
+		E2B0F721552FA9964D08A7A3 /* libPods-musicapp-musicappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF442969E5CFC6722E0CE93 /* libPods-musicapp-musicappTests.a */; };
+		E91258DD25866FA000B1AAE5 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91258DC25866FA000B1AAE5 /* dummy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,16 +62,18 @@
 		406A53C66550FFC691564128 /* Pods-musicapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicapp.debug.xcconfig"; path = "Target Support Files/Pods-musicapp/Pods-musicapp.debug.xcconfig"; sourceTree = "<group>"; };
 		4AF442969E5CFC6722E0CE93 /* libPods-musicapp-musicappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-musicapp-musicappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B65576562251E3423A34691 /* Pods-musicapp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicapp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-musicapp-tvOSTests/Pods-musicapp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		52C8DE2642F3453689D9887E /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		5CA21610CFA4A346CD8F3DAA /* libPods-musicapp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-musicapp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		620AB535DA0F93DB9BF75146 /* Pods-musicapp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicapp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-musicapp-tvOS/Pods-musicapp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		7D3EE61854F6BFB424A24B44 /* libPods-musicapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-musicapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = musicapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F7C0DA0426AC61F4BC955CE /* Pods-musicapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicapp.release.xcconfig"; path = "Target Support Files/Pods-musicapp/Pods-musicapp.release.xcconfig"; sourceTree = "<group>"; };
 		C20129AC6386173627D5138A /* Pods-musicapp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicapp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-musicapp-tvOSTests/Pods-musicapp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E91258DB25866FA000B1AAE5 /* musicapp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "musicapp-Bridging-Header.h"; sourceTree = "<group>"; };
+		E91258DC25866FA000B1AAE5 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F50A53730541427A8C3A837E /* Poppins-Regular.ttf */ = {isa = PBXFileReference; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		52C8DE2642F3453689D9887E /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; name = "Poppins-SemiBold.ttf"; path = "../assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F50A53730541427A8C3A837E /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				E91258DC25866FA000B1AAE5 /* dummy.swift */,
+				E91258DB25866FA000B1AAE5 /* musicapp-Bridging-Header.h */,
 			);
 			name = musicapp;
 			sourceTree = "<group>";
@@ -187,6 +192,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A0B4F2F4386F48E08FE91F61 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F50A53730541427A8C3A837E /* Poppins-Regular.ttf */,
+				52C8DE2642F3453689D9887E /* Poppins-SemiBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		F9BD56B3CFA7AEE59647D9B0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,19 +213,8 @@
 				C20129AC6386173627D5138A /* Pods-musicapp-tvOSTests.debug.xcconfig */,
 				4B65576562251E3423A34691 /* Pods-musicapp-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		A0B4F2F4386F48E08FE91F61 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				F50A53730541427A8C3A837E /* Poppins-Regular.ttf */,
-				52C8DE2642F3453689D9887E /* Poppins-SemiBold.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -309,7 +312,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						DevelopmentTeam = TH24236SE5;
+						LastSwiftMigration = 1220;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -586,6 +590,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				E91258DD25866FA000B1AAE5 /* dummy.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -627,6 +632,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 00FF69BD4F278E4C566CD75C /* Pods-musicapp-musicappTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -650,6 +656,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1007933D8F8CDF823B4C2769 /* Pods-musicapp-musicappTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = musicappTests/Info.plist;
@@ -673,6 +680,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TH24236SE5;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = musicapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -683,6 +691,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = musicapp;
+				SWIFT_OBJC_BRIDGING_HEADER = "musicapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -696,6 +705,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TH24236SE5;
 				INFOPLIST_FILE = musicapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -705,6 +715,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = musicapp;
+				SWIFT_OBJC_BRIDGING_HEADER = "musicapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
