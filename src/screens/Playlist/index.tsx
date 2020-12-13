@@ -22,7 +22,7 @@ export const Playlist: React.FC<Props> = () => {
   return (
     <View style={[styles.container, { paddingTop: top }]}>
       <Header />
-      <Title />
+      <Title swipeIndex={index} playlists={playlists} />
       <Tabbar swipeIndex={index} />
       <Tracks {...{ playlists, items, translateX, panResponder }} />
     </View>
