@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+  FlatList,
+} from 'react-native';
 
 import { IPlaylist } from 'src/interfaces';
 
@@ -29,22 +35,38 @@ export const List: React.FC<Props> = ({ swipeIndex }) => {
 
   return (
     <View style={styles.container}>
-      {items.map((item: IPlaylist, key: number) => (
-        <TouchableOpacity
-          key={key}
-          onPress={() => {
-            swipeIndex.setValue(key);
-          }}>
-          <Item {...item} isActive={index === key} />
-        </TouchableOpacity>
-      ))}
+      <FlatList
+        data={items}
+        renderItem={({
+          item,
+          index: key,
+        }: {
+          item: IPlaylist;
+          index: number;
+        }) => (
+          <TouchableOpacity
+            onPress={() => {
+              swipeIndex.setValue(key);
+            }}>
+            <Item {...item} isActive={index === key} />
+          </TouchableOpacity>
+        )}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.flatList}
+        keyExtractor={(item: IPlaylist) => item.id.toString()}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 25,
     flexDirection: 'row',
+  },
+
+  flatList: {
+    paddingLeft: 25,
+    paddingVertical: 20,
   },
 });

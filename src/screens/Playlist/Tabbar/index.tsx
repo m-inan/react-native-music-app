@@ -12,12 +12,7 @@ interface Props {
 export const Tabbar: React.FC<Props> = ({ swipeIndex }: Props) => {
   return (
     <View style={styles.container}>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.scrollView}>
-        <List {...{ swipeIndex }} />
-      </ScrollView>
+      <List {...{ swipeIndex }} />
     </View>
   );
 };
@@ -27,9 +22,6 @@ const styles = StyleSheet.create({
     height: 80,
     alignItems: 'flex-start',
     backgroundColor: Colors.primary,
-  },
-  scrollView: {
-    paddingVertical: 25,
   },
   content: {
     paddingLeft: 25,
