@@ -4,4 +4,5 @@ export interface ITrack {
   artist: string;
   source: string;
   artwork: string;
+  last?: boolean;
 }

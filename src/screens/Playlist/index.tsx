@@ -15,15 +15,14 @@ import { useAnimation } from './animation';
 interface Props {}
 
 export const Playlist: React.FC<Props> = () => {
-  const { top, bottom } = useSafeAreaInsets();
+  const { top } = useSafeAreaInsets();
 
   const { translateX, panResponder, setPlaylistsIndex } = useAnimation(
     playlists.length,
   );
 
   return (
-    <View
-      style={[styles.container, { paddingTop: top, paddingBottom: bottom }]}>
+    <View style={[styles.container, { paddingTop: top }]}>
       <Header />
       <Title />
       <Tabbar {...{ setPlaylistsIndex }} />

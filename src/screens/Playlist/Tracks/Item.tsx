@@ -11,7 +11,7 @@ interface Props {
   index: number;
 }
 
-export const Item: React.FC<Props> = ({ item: { id, title } }: Props) => {
+export const Item: React.FC<Props> = ({ item: { id, title, last } }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.artwork}>
@@ -20,7 +20,7 @@ export const Item: React.FC<Props> = ({ item: { id, title } }: Props) => {
         </View>
       </View>
 
-      <View style={styles.content}>
+      <View style={[styles.content, last && { borderBottomWidth: 0 }]}>
         <View style={styles.information}>
           <Text size={16}>
             {String(id)} - {title}
@@ -85,8 +85,9 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    flexDirection: 'row',
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
     borderBottomWidth: 0.5,
     borderBottomColor: Colors.mute,
     marginLeft: 20,
