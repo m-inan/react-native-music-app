@@ -21,7 +21,7 @@ export const List: React.FC<Props> = ({ items }: Props) => {
       data={items}
       renderItem={Item}
       contentContainerStyle={{ paddingBottom: bottom }}
-      keyExtractor={(item: any) => item.id.toString()}
+      keyExtractor={(item: ITrack) => item.id.toString()}
     />
   );
 };
