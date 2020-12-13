@@ -1,22 +1,22 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Animated } from 'react-native';
 
 import { Colors } from 'src/constants';
 
 import { List } from './List';
 
 interface Props {
-  setPlaylistsIndex: (value: number) => void;
+  swipeIndex: Animated.Value;
 }
 
-export const Tabbar: React.FC<Props> = ({ setPlaylistsIndex }: Props) => {
+export const Tabbar: React.FC<Props> = ({ swipeIndex }: Props) => {
   return (
     <View style={styles.container}>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         style={styles.scrollView}>
-        <List {...{ setPlaylistsIndex }} />
+        <List {...{ swipeIndex }} />
       </ScrollView>
     </View>
   );

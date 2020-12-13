@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 
 import { IPlaylist } from 'src/interfaces';
 
@@ -15,19 +15,27 @@ for (let i = 0; i < 3; i++) {
   });
 }
 interface Props {
-  setPlaylistsIndex: (value: number) => void;
+  swipeIndex: Animated.Value;
 }
 
-export const List: React.FC<Props> = ({ setPlaylistsIndex }) => {
+export const List: React.FC<Props> = ({ swipeIndex }) => {
+  const [index, setIndex] = useState<number>(0);
+
+  useEffect(() => {
+    swipeIndex.addListener(({ value }: { value: number }) => {
+      setIndex(value);
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       {items.map((item: IPlaylist, key: number) => (
         <TouchableOpacity
           key={key}
           onPress={() => {
-            setPlaylistsIndex(key);
+            swipeIndex.setValue(key);
           }}>
-          <Item {...item} />
+          <Item {...item} isActive={index === key} />
         </TouchableOpacity>
       ))}
     </View>
