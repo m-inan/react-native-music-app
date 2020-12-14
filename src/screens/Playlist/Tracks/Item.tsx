@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { ITrack } from 'src/interfaces';
 import { Colors } from 'src/constants';
@@ -13,7 +13,7 @@ interface Props {
 
 export const Item: React.FC<Props> = ({ item: { id, title, last } }: Props) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <View style={styles.artwork}>
         <View style={styles.artworkInlineBorder}>
           <View style={styles.artworkPoint} />
@@ -43,7 +43,7 @@ export const Item: React.FC<Props> = ({ item: { id, title, last } }: Props) => {
           <Options size={22} />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
