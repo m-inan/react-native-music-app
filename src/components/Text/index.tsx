@@ -31,7 +31,7 @@ export const Text: React.FC<Props> = ({
   children,
   color = Colors.white,
   type = TextType.REGULAR,
-  features = {},
+  ...props
 }: Props) => {
   let styles: ShortStyles = {};
 
@@ -53,7 +53,7 @@ export const Text: React.FC<Props> = ({
         ...styles,
         ...style,
       }}
-      {...features}>
+      {...props}>
       {children}
     </RNText>
   );

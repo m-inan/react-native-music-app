@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Item: React.FC<Props> = ({
-  item: { id, title, artwork, last },
+  item: { title, artwork, artist, last },
 }: Props) => {
   return (
     <TouchableOpacity style={styles.container}>
@@ -26,11 +26,12 @@ export const Item: React.FC<Props> = ({
 
       <View style={[styles.content, last && { borderBottomWidth: 0 }]}>
         <View style={styles.information}>
-          <Text size={16}>
-            {String(id)} - {title}
-          </Text>
+          <Text size={16}>{title}</Text>
+
           <View style={styles.artistAndGenre}>
-            <Text size={15}>Artist</Text>
+            <Text numberOfLines={1} ellipsizeMode="tail" size={15}>
+              {artist}
+            </Text>
 
             <Text style={styles.genre} color="rgb(121, 127, 129)" size={14}>
               Genre
