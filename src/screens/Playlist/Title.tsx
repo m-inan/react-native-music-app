@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 
-import { IPlaylist } from 'src/interfaces';
+import { usePlaylist } from 'src/provider';
 import { Text, TextType } from 'src/components';
 
 interface Props {
-  playlists: IPlaylist[];
   swipeIndex: Animated.Value;
 }
 
-export const Title: React.FC<Props> = ({ swipeIndex, playlists }: Props) => {
+export const Title: React.FC<Props> = ({ swipeIndex }: Props) => {
+  const { lists } = usePlaylist();
   const [index, setIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export const Title: React.FC<Props> = ({ swipeIndex, playlists }: Props) => {
     });
   }, []);
 
-  const title = playlists[index].title ?? '';
+  const title = lists[index]?.title ?? '';
 
   return (
     <View style={styles.container}>

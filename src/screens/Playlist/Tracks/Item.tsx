@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 import { ITrack } from 'src/interfaces';
 import { Colors } from 'src/constants';
@@ -11,10 +11,14 @@ interface Props {
   index: number;
 }
 
-export const Item: React.FC<Props> = ({ item: { id, title, last } }: Props) => {
+export const Item: React.FC<Props> = ({
+  item: { id, title, artwork, last },
+}: Props) => {
   return (
     <TouchableOpacity style={styles.container}>
-      <View style={styles.artwork}>
+      <View style={styles.artworkContainer}>
+        <Image source={artwork} style={styles.artwork} />
+
         <View style={styles.artworkInlineBorder}>
           <View style={styles.artworkPoint} />
         </View>
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
-  artwork: {
+  artworkContainer: {
     width: 55,
     height: 55,
     borderRadius: 55 / 2,
@@ -65,14 +69,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  artwork: {
+    width: 50,
+    height: 50,
+    borderRadius: 50 / 2,
+  },
+
   artworkInlineBorder: {
-    width: 45,
-    height: 45,
-    borderRadius: 45 / 2,
+    width: 47,
+    height: 47,
+    borderRadius: 47 / 2,
     borderColor: Colors.primary,
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'absolute',
   },
 
   artworkPoint: {

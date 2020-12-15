@@ -4,7 +4,7 @@ import { IPlaylist, ITrack } from 'src/interfaces';
 
 import { Context } from './Context';
 
-export { usePlaylistContext } from './Context';
+export { usePlaylist } from './Context';
 
 interface Props {
   children: React.ReactNode;
@@ -12,10 +12,10 @@ interface Props {
 
 export const PlaylistProvider: React.FC<Props> = ({ children }: Props) => {
   const [lists, setLists] = useState<IPlaylist[]>([]);
-  const [items, setItems] = useState<ITrack[]>([]);
+  const [tracks, setTracks] = useState<ITrack[]>([]);
 
   return (
-    <Context.Provider value={{ lists, items, setLists, setItems }}>
+    <Context.Provider value={{ lists, tracks, setLists, setTracks }}>
       {children}
     </Context.Provider>
   );

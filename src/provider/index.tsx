@@ -17,3 +17,5 @@ export const Provider: React.FC<Props> = ({ children }: Props) => {
     </SafeAreaProvider>
   );
 };
+
+export { usePlaylist } from './Playlist';

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Animated, Dimensions, PanResponderInstance } from 'react-native';
 
 import { IPlaylist, ITrack } from 'src/interfaces';
+import { usePlaylist } from 'src/provider';
 
 import { List } from './List';
 import { BorderTopLeftShadow } from './BorderTopLeftShadow';
@@ -10,18 +11,13 @@ import { styles } from './styles';
 const { width } = Dimensions.get('window');
 
 interface Props {
-  playlists: IPlaylist[];
-  items: ITrack[];
   panResponder: PanResponderInstance;
   translateX: Animated.Value;
 }
 
-export const Tracks: React.FC<Props> = ({
-  panResponder,
-  translateX,
-  playlists,
-  items,
-}) => {
+export const Tracks: React.FC<Props> = ({ panResponder, translateX }) => {
+  const { lists, tracks } = usePlaylist();
+
   return (
     <View style={styles.area}>
       <BorderTopLeftShadow />
@@ -30,17 +26,17 @@ export const Tracks: React.FC<Props> = ({
         <Animated.View
           style={[
             styles.wrapper,
-            { width: width * playlists.length, transform: [{ translateX }] },
+            { width: width * lists.length, transform: [{ translateX }] },
           ]}>
-          {playlists.map((playlist: IPlaylist, key: number) => (
+          {lists.map((playlist: IPlaylist, key: number) => (
             <View key={key} style={{ width }}>
               <List
                 // @ts-ignore
                 items={playlist.items
                   .map((id: number) =>
-                    items.find((item: ITrack) => item.id == id),
+                    tracks.find((track: ITrack) => track.id == id),
                   )
-                  .filter((item: ITrack | undefined) => item !== undefined)}
+                  .filter((track: ITrack | undefined) => track !== undefined)}
               />
             </View>
           ))}

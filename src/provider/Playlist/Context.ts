@@ -3,7 +3,7 @@ import { ContextType } from './ContextType';
 
 export const Context = createContext<ContextType>({} as ContextType);
 
-export const usePlaylistContext = () => {
+export const usePlaylist = () => {
   const context = useContext(Context);
 
   return context;

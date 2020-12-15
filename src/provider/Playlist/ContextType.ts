@@ -2,8 +2,8 @@ import { IPlaylist, ITrack } from 'src/interfaces';
 
 export type ContextType = {
   lists: IPlaylist[];
-  items: ITrack[];
+  tracks: ITrack[];
 
   setLists: (lists: IPlaylist[]) => void;
-  setItems: (lists: ITrack[]) => void;
+  setTracks: (lists: ITrack[]) => void;
 };

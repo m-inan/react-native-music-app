@@ -8,35 +8,31 @@ import {
 } from 'react-native';
 
 import { IPlaylist } from 'src/interfaces';
+import { usePlaylist } from 'src/provider';
 
 import { Item } from './Item';
 
-const items: IPlaylist[] = [];
-
-for (let i = 0; i < 3; i++) {
-  items.push({
-    id: i,
-    title: `item ${i}`,
-    items: [],
-  });
-}
 interface Props {
   swipeIndex: Animated.Value;
 }
 
 export const List: React.FC<Props> = ({ swipeIndex }) => {
+  const { lists } = usePlaylist();
+
   const [index, setIndex] = useState<number>(0);
 
   useEffect(() => {
     swipeIndex.addListener(({ value }: { value: number }) => {
       setIndex(value);
     });
+
+    return () => {};
   }, []);
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={items}
+        data={lists}
         renderItem={({
           item,
           index: key,
