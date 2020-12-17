@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
 
   information: {
     flex: 1,
+    paddingRight: 50,
   },
 
   artistAndGenre: {
