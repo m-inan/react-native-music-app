@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
   area: {
     position: 'relative',
     flex: 1,
+    paddingBottom: 100,
   },
   container: {
     flex: 1,
