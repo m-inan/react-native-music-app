@@ -1,35 +1,23 @@
-import React, { useState } from 'react';
-import { Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import React from 'react';
+import { Text, StyleSheet, Dimensions, Animated } from 'react-native';
 
 import { Colors } from 'src/constants';
 
+import { useAnimation } from './animation';
+
 const { width, height } = Dimensions.get('window');
-console.log(height);
 
 interface Props {}
 
 export const Player: React.FC<Props> = () => {
-  const { top } = useSafeAreaInsets();
-  const [isOpen, setOpen] = useState<boolean>(false);
-
-  const onPress = () => {
-    setOpen(!isOpen);
-  };
-
-  const translateY = isOpen ? 0 : height + top - 100;
-  const paddingTop = isOpen ? top : 20;
-  const borderTopWidth = isOpen ? 0 : 2;
+  const { panResponder, translateY } = useAnimation();
 
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={[
-        styles.container,
-        { transform: [{ translateY }], paddingTop, borderTopWidth },
-      ]}>
+    <Animated.View style={[styles.container, { transform: [{ translateY }] }]}>
+      <Animated.View {...panResponder.panHandlers} style={styles.holder} />
+
       <Text style={styles.text}>Player area</Text>
-    </TouchableOpacity>
+    </Animated.View>
   );
 };
 
@@ -40,7 +28,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     position: 'absolute',
-    paddingTop: 20,
     borderTopWidth: 2,
     borderTopColor: Colors.primary,
     backgroundColor: Colors.background,
@@ -50,5 +37,11 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: Colors.white,
     textAlign: 'center',
+  },
+
+  holder: {
+    height: 100,
+    width: '100%',
+    backgroundColor: Colors.primary,
   },
 });
