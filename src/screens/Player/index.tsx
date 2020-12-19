@@ -3,9 +3,11 @@ import { Text, StyleSheet, Dimensions, Animated } from 'react-native';
 
 import { Colors } from 'src/constants';
 
-import { useAnimation } from './animation';
+import { Handle } from './Handle';
+import { useAnimation } from './Animation';
+import { Context } from './Context';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 interface Props {}
 
@@ -13,24 +15,27 @@ export const Player: React.FC<Props> = () => {
   const { panResponder, translateY } = useAnimation();
 
   return (
-    <Animated.View style={[styles.container, { transform: [{ translateY }] }]}>
-      <Animated.View {...panResponder.panHandlers} style={styles.holder} />
-
-      <Text style={styles.text}>Player area</Text>
-    </Animated.View>
+    <Context.Provider value={{ translateY }}>
+      <Animated.View
+        style={[styles.container, { transform: [{ translateY }] }]}>
+        <Handle panResponder={panResponder} />
+        <Text style={styles.text}>Player area</Text>
+      </Animated.View>
+    </Context.Provider>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     width,
-    height,
+    height: '100%',
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     position: 'absolute',
     borderTopWidth: 2,
     borderTopColor: Colors.primary,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.foreground,
   },
 
   text: {

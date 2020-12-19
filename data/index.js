@@ -96,7 +96,7 @@ export const playlists = [
   {
     id: 1,
     title: 'Pop',
-    items: [1, 2, 3, 4, 5],
+    items: [1, 2, 3, 4, 5, 6, 7, 8],
   },
   {
     id: 2,

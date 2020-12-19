@@ -12,7 +12,7 @@ import { Title } from './Title';
 import { Tabbar } from './Tabbar';
 import { Tracks } from './Tracks';
 
-import { useAnimation } from './animation';
+import { useAnimation } from './Animation';
 
 interface Props {}
 

@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from 'src/constants';
+import { Colors, Dimensions } from 'src/constants';
 
 export const styles = StyleSheet.create({
   area: {
     position: 'relative',
     flex: 1,
-    paddingBottom: 100,
+    paddingBottom: Dimensions.MINI_PLAYER_HEIGHT,
   },
   container: {
     flex: 1,
