@@ -3,6 +3,10 @@ import { Animated } from 'react-native';
 
 type ContextType = {
   translateY: Animated.Value;
+  interpolate: (
+    inputRange: number[],
+    outputRange: string[] | number[],
+  ) => Animated.AnimatedInterpolation;
 };
 
 export const Context = createContext<ContextType>({} as ContextType);

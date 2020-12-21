@@ -1,25 +1,37 @@
 import React from 'react';
-import { Text, StyleSheet, Dimensions, Animated } from 'react-native';
+import { StyleSheet, Animated } from 'react-native';
 
-import { Colors } from 'src/constants';
+import { Colors, Dimensions } from 'src/constants';
 
 import { Handle } from './Handle';
-import { useAnimation } from './Animation';
+import { Header } from './Header';
 import { Context } from './Context';
+import { useAnimation } from './Animation';
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions;
 
 interface Props {}
 
 export const Player: React.FC<Props> = () => {
   const { panResponder, translateY } = useAnimation();
 
+  const interpolate = (
+    inputRange: number[],
+    outputRange: string[] | number[],
+  ) => {
+    return translateY.interpolate({
+      inputRange,
+      outputRange,
+    });
+  };
+
   return (
-    <Context.Provider value={{ translateY }}>
+    <Context.Provider value={{ translateY, interpolate }}>
       <Animated.View
         style={[styles.container, { transform: [{ translateY }] }]}>
         <Handle panResponder={panResponder} />
-        <Text style={styles.text}>Player area</Text>
+
+        <Header />
       </Animated.View>
     </Context.Provider>
   );
@@ -31,10 +43,7 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     position: 'absolute',
-    borderTopWidth: 2,
-    borderTopColor: Colors.primary,
     backgroundColor: Colors.foreground,
   },
 

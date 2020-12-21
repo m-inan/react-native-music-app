@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text as RNText, TextStyle, TextProps } from 'react-native';
+import { Text as RNText, StyleProp, TextStyle, TextProps } from 'react-native';
 
 import { Colors } from 'src/constants';
 
@@ -8,8 +8,8 @@ export enum TextType {
   SEMIBOLD = 'Poppins-SemiBold',
 }
 
-interface Props {
-  style?: TextStyle;
+interface Props extends TextProps {
+  style?: StyleProp<TextStyle>;
   type?: TextType;
   children: string | string[];
   size?: number;
@@ -17,12 +17,6 @@ interface Props {
   center?: boolean;
   features?: TextProps;
 }
-
-type ShortStyles = {
-  fontSize?: number;
-  color?: string;
-  textAlign?: string;
-};
 
 export const Text: React.FC<Props> = ({
   size,
@@ -33,7 +27,7 @@ export const Text: React.FC<Props> = ({
   type = TextType.REGULAR,
   ...props
 }: Props) => {
-  let styles: ShortStyles = {};
+  let styles: StyleProp<TextStyle> = {};
 
   if (size) {
     styles.fontSize = size;
@@ -48,11 +42,13 @@ export const Text: React.FC<Props> = ({
 
   return (
     <RNText
-      style={{
-        fontFamily: type,
-        ...styles,
-        ...style,
-      }}
+      style={[
+        {
+          fontFamily: type,
+        },
+        styles,
+        style,
+      ]}
       {...props}>
       {children}
     </RNText>
