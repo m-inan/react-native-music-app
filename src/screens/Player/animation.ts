@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { PanResponder, Animated, Easing, Platform } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Dimensions } from 'src/constants';
 import { useAnimatedValue } from 'src/utils';
@@ -10,10 +9,10 @@ const THRESHOLD = 100;
 const { height, MINI_PLAYER_HEIGHT } = Dimensions;
 
 export const useAnimation = () => {
-  const { top } = useSafeAreaInsets();
-
   const OFFSET =
-    height + (Platform.OS === 'ios' ? 0 : top) - MINI_PLAYER_HEIGHT;
+    height +
+    (Platform.OS === 'ios' ? 0 : Dimensions.topInset) -
+    MINI_PLAYER_HEIGHT;
 
   const translateY = useAnimatedValue(OFFSET);
   const transitionY = useAnimatedValue(0);

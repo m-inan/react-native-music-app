@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { tracks, playlists } from '../../../data';
 
-import { Colors } from 'src/constants';
+import { Colors, Dimensions } from 'src/constants';
 import { usePlaylist } from 'src/provider';
 
 import { Header } from './Header';
@@ -17,7 +16,6 @@ import { useAnimation } from './Animation';
 interface Props {}
 
 export const Playlist: React.FC<Props> = () => {
-  const { top } = useSafeAreaInsets();
   const { setLists, setTracks } = usePlaylist();
 
   const { translateX, panResponder, index } = useAnimation(playlists.length);
@@ -28,7 +26,7 @@ export const Playlist: React.FC<Props> = () => {
   }, []);
 
   return (
-    <View style={[styles.container, { paddingTop: top }]}>
+    <View style={styles.container}>
       <Header />
       <Title swipeIndex={index} />
       <Tabbar swipeIndex={index} />
@@ -40,6 +38,7 @@ export const Playlist: React.FC<Props> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: Dimensions.topInset,
     backgroundColor: Colors.background,
   },
   title: {
