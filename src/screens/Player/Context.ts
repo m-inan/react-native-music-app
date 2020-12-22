@@ -1,8 +1,15 @@
 import { createContext, useContext } from 'react';
 import { Animated } from 'react-native';
 
+type Snap = {
+  top: number;
+  middle: number;
+  bottom: number;
+};
+
 type ContextType = {
-  translateY: Animated.Value;
+  snap: Snap;
+  position: Animated.Value;
   interpolate: (
     inputRange: number[],
     outputRange: string[] | number[],

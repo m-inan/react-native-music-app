@@ -4,17 +4,17 @@ import { PanResponder, Animated, Easing } from 'react-native';
 import { Dimensions } from 'src/constants';
 import { useAnimatedValue } from 'src/utils';
 
-const { MINI_PLAYER_POS, THRESHOLD } = Dimensions;
+const { PLAYER_SNAP_BOTTOM, THRESHOLD } = Dimensions;
 
 export const useAnimation = () => {
-  const translateY = useAnimatedValue(MINI_PLAYER_POS);
+  const translateY = useAnimatedValue(PLAYER_SNAP_BOTTOM);
   const transitionY = useAnimatedValue(0);
   const status = useAnimatedValue(0);
 
   function animation(): void {
     const isOpen = (status as any)._value;
 
-    const value = isOpen ? 0 : MINI_PLAYER_POS;
+    const value = isOpen ? 0 : PLAYER_SNAP_BOTTOM;
 
     Animated.timing(translateY, {
       toValue: value,
@@ -45,7 +45,7 @@ export const useAnimation = () => {
         const { dy } = gestureState;
 
         const isOpen = (status as any)._value;
-        const offset = isOpen ? 0 : MINI_PLAYER_POS;
+        const offset = isOpen ? 0 : PLAYER_SNAP_BOTTOM;
 
         translateY.setValue(offset + dy);
         transitionY.setValue(dy);
