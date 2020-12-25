@@ -4,7 +4,7 @@ export enum Extrapolate {
   IDENTITY = 'identity',
 }
 
-const internalInterpolate = (values: number[], type?: Extrapolate) => {
+function internalInterpolate(values: number[], type?: Extrapolate) {
   const [x, l, r, ll, rr] = values;
 
   if (r - l === 0) return ll;
@@ -31,14 +31,14 @@ const internalInterpolate = (values: number[], type?: Extrapolate) => {
   }
 
   return val;
-};
+}
 
-export const interpolate = (
+export function interpolate(
   x: number,
   input: number[],
   output: number[],
   type?: Extrapolate,
-) => {
+) {
   const length = input.length;
   let narrowedInput: number[] = [];
 
@@ -60,4 +60,4 @@ export const interpolate = (
     }
   }
   return internalInterpolate([x, ...narrowedInput], type);
-};
+}
