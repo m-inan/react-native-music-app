@@ -1,33 +1,111 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Animated } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Path, Circle } from 'react-native-svg';
 
 import { Colors, Dimensions } from 'src/constants';
-
+import {
+  useAnimatedValues,
+  useAnimatedValue,
+  interpolate,
+  Extrapolate,
+} from 'src/utils';
 import { useBottomSheet } from '../Context';
 
-const { width, sliderRatio } = Dimensions;
+import { useSlider } from './Animation';
+import { sliderHeight } from './Dimensions';
+
+const { width, PLAYER_SNAP_BOTTOM } = Dimensions;
+
+const AnimatedPath = Animated.createAnimatedComponent(Path);
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 interface Props {}
 
+const strokeDasharray = 157.10174560546875;
+const d = 'M0 5 A 50 50 0 0 0 100 5';
+
 export const Slider: React.FC<Props> = () => {
-  const { interpolate, snap } = useBottomSheet();
+  // bottom sheet position
+  const { position, range, percent: BSPercent } = useBottomSheet();
+  const opacity = range([0, 70, 100], [0, 0, 1]);
+  const translateY = range([0, 50, 100], [100, 50, 0]);
 
-  // bottom sheet positions
-  const inputRange = [snap.top, snap.middle, snap.bottom];
+  // slider animation
+  const { panResponder, percent } = useSlider();
+  const [circleX, circleY] = useAnimatedValues(0, 0);
+  const strokeDashoffset = useAnimatedValue(strokeDasharray);
 
-  const opacity = interpolate(inputRange, [1, 0, 0]);
-  const translateY = interpolate(inputRange, [0, 100, 100]);
+  useEffect(() => {
+    // slider percent
+    percent.addListener(setAnimationValues);
+
+    // bottomsheet position
+    position.addListener(setAnimationValues);
+
+    // Initial Animation Values
+    setAnimationValues();
+  }, []);
+
+  const setAnimationValues = () => {
+    let value = (percent as any)._value - 100 + (BSPercent as any)._value;
+
+    // limit value between 0..100
+    value = Math.min(Math.max(0, value), 100);
+
+    const angle = interpolate(value, [0, 100], [Math.PI, 0]);
+
+    const cx = 50 + 50 * Math.cos(angle);
+    const cy = 5 + 50 * Math.sin(angle);
+
+    const stroke = interpolate(value, [0, 100], [strokeDasharray, 0]);
+
+    circleX.setValue(cx);
+    circleY.setValue(cy);
+
+    strokeDashoffset.setValue(stroke);
+  };
 
   return (
     <Animated.View
       style={[styles.container, { opacity, transform: [{ translateY }] }]}>
-      <Svg style={styles.svg} viewBox={`0 0 100 ${100 / sliderRatio}`}>
+      <Svg style={styles.svg} viewBox={`0 0 100 60`}>
         <Path
+          d={d}
+          fill="none"
+          strokeWidth={2}
+          stroke={Colors.mute}
+          pointerEvents="none"
+        />
+        <AnimatedCircle
+          r={4}
+          cx={circleX}
+          cy={circleY}
+          pointerEvents="none"
+          fill={Colors.primary}
+        />
+        <AnimatedCircle
+          r={5}
+          cx={circleX}
+          cy={circleY}
+          pointerEvents="none"
+          fill={'rgba(227, 42, 118, .3)'}
+        />
+        <AnimatedPath
+          d={d}
+          fill="none"
+          stroke={'rgba(227, 42, 118, .3)'}
+          strokeWidth={4}
+          strokeDasharray={strokeDasharray}
+          strokeDashoffset={strokeDashoffset}
+        />
+        <AnimatedPath
+          {...panResponder.panHandlers}
+          d={d}
           fill="none"
           stroke={Colors.primary}
-          strokeWidth={5}
-          d={`M-25 5 A 50 50 0 0 0 125 5`}
+          strokeWidth={2}
+          strokeDasharray={strokeDasharray}
+          strokeDashoffset={strokeDashoffset}
         />
       </Svg>
     </Animated.View>
@@ -38,9 +116,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-end',
+    position: 'relative',
   },
   svg: {
     width: width,
-    height: width / sliderRatio / 2,
+    height: sliderHeight,
   },
 });

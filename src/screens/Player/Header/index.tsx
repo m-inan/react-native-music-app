@@ -10,9 +10,9 @@ import { useBottomSheet } from '../Context';
 interface Props {}
 
 export const Header: React.FC<Props> = () => {
-  const { interpolate, snap } = useBottomSheet();
+  const { range } = useBottomSheet();
 
-  const opacity = interpolate([snap.top, 100, snap.bottom], [1, 0, 0]);
+  const opacity = range([0, 50, 100], [0, 0, 1]);
 
   return (
     <Animated.View style={[styles.container, { opacity }]}>

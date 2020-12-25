@@ -10,7 +10,8 @@ type Snap = {
 type ContextType = {
   snap: Snap;
   position: Animated.Value;
-  interpolate: (
+  percent: Animated.Value;
+  range: (
     inputRange: number[],
     outputRange: string[] | number[],
   ) => Animated.AnimatedInterpolation;

@@ -9,13 +9,9 @@ import { Slider } from './Slider';
 import { Context } from './Context';
 import { useAnimation } from './Animation';
 
-const {
-  width,
-  bottomInset,
-  sliderRatio,
-  PLAYER_SNAP_BOTTOM,
-  PLAYER_SNAP_TOP,
-} = Dimensions;
+import { sliderRatio } from './Slider/Dimensions';
+
+const { width, bottomInset, PLAYER_SNAP_BOTTOM, PLAYER_SNAP_TOP } = Dimensions;
 
 const snap = {
   top: PLAYER_SNAP_TOP,
@@ -26,20 +22,17 @@ const snap = {
 interface Props {}
 
 export const Player: React.FC<Props> = () => {
-  const { panResponder, translateY } = useAnimation();
+  const { panResponder, translateY, percent } = useAnimation();
 
-  const interpolate = (
-    inputRange: number[],
-    outputRange: string[] | number[],
-  ) => {
-    return translateY.interpolate({
-      inputRange,
-      outputRange,
+  const range = (inputRange: number[], outputRange: string[] | number[]) => {
+    return percent.interpolate({
+      inputRange: inputRange,
+      outputRange: outputRange,
     });
   };
 
   return (
-    <Context.Provider value={{ position: translateY, interpolate, snap }}>
+    <Context.Provider value={{ position: translateY, percent, range, snap }}>
       <Animated.View
         style={[styles.container, { transform: [{ translateY }] }]}>
         <Handle panResponder={panResponder} />

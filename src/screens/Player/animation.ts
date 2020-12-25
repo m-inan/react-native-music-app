@@ -1,15 +1,24 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { PanResponder, Animated, Easing } from 'react-native';
 
 import { Dimensions } from 'src/constants';
-import { useAnimatedValue } from 'src/utils';
+import { useAnimatedValue, interpolate } from 'src/utils';
 
-const { PLAYER_SNAP_BOTTOM, THRESHOLD } = Dimensions;
+const { PLAYER_SNAP_BOTTOM, PLAYER_SNAP_TOP, THRESHOLD } = Dimensions;
 
 export const useAnimation = () => {
   const translateY = useAnimatedValue(PLAYER_SNAP_BOTTOM);
+  const percent = useAnimatedValue(0);
   const transitionY = useAnimatedValue(0);
   const status = useAnimatedValue(0);
+
+  useEffect(() => {
+    translateY.addListener(({ value }: { value: number }) => {
+      percent.setValue(
+        interpolate(value, [PLAYER_SNAP_TOP, PLAYER_SNAP_BOTTOM], [100, 0]),
+      );
+    });
+  }, []);
 
   function animation(): void {
     const isOpen = (status as any)._value;
@@ -18,7 +27,7 @@ export const useAnimation = () => {
 
     Animated.timing(translateY, {
       toValue: value,
-      duration: 300,
+      duration: 1500,
       easing: Easing.bezier(0, -0.05, 0.15, 0.98),
       useNativeDriver: true,
     }).start();
@@ -69,5 +78,5 @@ export const useAnimation = () => {
     }),
   ).current;
 
-  return { translateY, panResponder };
+  return { translateY, panResponder, percent };
 };
