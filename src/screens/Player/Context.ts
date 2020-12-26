@@ -1,14 +1,7 @@
 import { createContext, useContext } from 'react';
 import { Animated } from 'react-native';
 
-type Snap = {
-  top: number;
-  middle: number;
-  bottom: number;
-};
-
 type ContextType = {
-  snap: Snap;
   position: Animated.Value;
   percent: Animated.Value;
   range: (

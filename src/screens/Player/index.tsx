@@ -11,13 +11,7 @@ import { useAnimation } from './Animation';
 
 import { sliderRatio } from './Slider/Dimensions';
 
-const { width, bottomInset, PLAYER_SNAP_BOTTOM, PLAYER_SNAP_TOP } = Dimensions;
-
-const snap = {
-  top: PLAYER_SNAP_TOP,
-  middle: PLAYER_SNAP_BOTTOM / 2,
-  bottom: PLAYER_SNAP_BOTTOM,
-};
+const { width, bottomInset } = Dimensions;
 
 interface Props {}
 
@@ -32,7 +26,7 @@ export const Player: React.FC<Props> = () => {
   };
 
   return (
-    <Context.Provider value={{ position: translateY, percent, range, snap }}>
+    <Context.Provider value={{ position: translateY, percent, range }}>
       <Animated.View
         style={[styles.container, { transform: [{ translateY }] }]}>
         <Handle panResponder={panResponder} />

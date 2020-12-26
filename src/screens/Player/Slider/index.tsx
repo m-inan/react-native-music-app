@@ -3,18 +3,13 @@ import { StyleSheet, Animated } from 'react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
 
 import { Colors, Dimensions } from 'src/constants';
-import {
-  useAnimatedValues,
-  useAnimatedValue,
-  interpolate,
-  Extrapolate,
-} from 'src/utils';
+import { useAnimatedValues, useAnimatedValue, interpolate } from 'src/utils';
 import { useBottomSheet } from '../Context';
 
 import { useSlider } from './Animation';
 import { sliderHeight } from './Dimensions';
 
-const { width, PLAYER_SNAP_BOTTOM } = Dimensions;
+const { width } = Dimensions;
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
