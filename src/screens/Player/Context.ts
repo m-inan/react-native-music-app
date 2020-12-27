@@ -1,12 +1,13 @@
-import { createContext, useContext } from 'react';
-import { Animated } from 'react-native';
+import { createContext, useContext, MutableRefObject } from 'react';
+import { Animated, View } from 'react-native';
 
 type ContextType = {
   position: Animated.Value;
   percent: Animated.Value;
+  container: MutableRefObject<View | undefined>;
   range: (
     inputRange: number[],
-    outputRange: string[] | number[],
+    outputRange?: string[] | number[],
   ) => Animated.AnimatedInterpolation;
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 
 import { Colors, Dimensions } from 'src/constants';
@@ -6,6 +6,8 @@ import { Colors, Dimensions } from 'src/constants';
 import { Handle } from './Handle';
 import { Header } from './Header';
 import { Slider } from './Slider';
+import { Record } from './Record';
+import { Controls } from './Controls';
 import { Context } from './Context';
 import { useAnimation } from './Animation';
 
@@ -18,7 +20,22 @@ interface Props {}
 export const Player: React.FC<Props> = () => {
   const { panResponder, translateY, percent } = useAnimation();
 
-  const range = (inputRange: number[], outputRange: string[] | number[]) => {
+  const container = useRef<View>();
+
+  const range = (inputRange: number[], outputRange?: string[] | number[]) => {
+    if (typeof outputRange === 'undefined') {
+      outputRange = inputRange;
+      inputRange = [0];
+
+      const length = outputRange.length;
+      const j = length - 1;
+
+      for (var i = 1; i <= j; i++) {
+        const r = (100 / j) * i;
+        inputRange.push(r);
+      }
+    }
+
     return percent.interpolate({
       inputRange: inputRange,
       outputRange: outputRange,
@@ -26,8 +43,10 @@ export const Player: React.FC<Props> = () => {
   };
 
   return (
-    <Context.Provider value={{ position: translateY, percent, range }}>
+    <Context.Provider
+      value={{ position: translateY, percent, range, container }}>
       <Animated.View
+        ref={container}
         style={[styles.container, { transform: [{ translateY }] }]}>
         <Handle panResponder={panResponder} />
 
@@ -37,8 +56,11 @@ export const Player: React.FC<Props> = () => {
 
         <View style={[styles.section, styles.slider]}>
           <Slider />
+          <Record />
         </View>
-        <View style={[styles.section, styles.controls]}></View>
+        <View style={[styles.section, styles.controls]}>
+          <Controls />
+        </View>
         <View style={[styles.section, styles.nextPrev]}></View>
       </Animated.View>
     </Context.Provider>
@@ -65,9 +87,11 @@ const styles = StyleSheet.create({
   header: {},
   slider: {
     height: width / sliderRatio,
+    alignItems: 'center',
   },
   controls: {
     height: 150,
+    backgroundColor: 'gray',
   },
   nextPrev: {
     height: 180,
