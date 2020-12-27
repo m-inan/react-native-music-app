@@ -3,7 +3,7 @@ import { View, Animated, StyleSheet, findNodeHandle } from 'react-native';
 
 import { Dimensions } from 'src/constants';
 
-import { sliderRatio } from '../Slider/Dimensions';
+import { sliderRatio, minDeviceRatio } from '../Slider/Dimensions';
 import { useBottomSheet } from '../Context';
 
 interface Props {}
@@ -19,9 +19,9 @@ export const Record: React.FC<Props> = () => {
   const [measureY, setMeasureY] = useState(0);
   const { range, container } = useBottomSheet();
 
-  const size = range([80, dimension]);
+  const size = range([70, dimension]);
   const translateY = range([-measureY, 0]);
-  const translateX = range([-radius, 0]);
+  const translateX = range([-(radius + (minDeviceRatio ? 30 : 15)), 0]);
 
   useEffect(() => {
     if (typeof container?.current !== null) {
@@ -29,7 +29,7 @@ export const Record: React.FC<Props> = () => {
         // @ts-ignore
         findNodeHandle(container?.current ?? 0),
         (...measure) => {
-          setMeasureY(measure[1] - 10);
+          setMeasureY(measure[1] - 15);
         },
         () => {},
       );

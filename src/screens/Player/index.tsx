@@ -22,21 +22,28 @@ export const Player: React.FC<Props> = () => {
 
   const container = useRef<View>();
 
-  const range = (inputRange: number[], outputRange?: string[] | number[]) => {
+  const range = (
+    inputRange: string[] | number[],
+    outputRange?: string[] | number[],
+  ) => {
     if (typeof outputRange === 'undefined') {
       outputRange = inputRange;
       inputRange = [0];
 
+      // Divide 100 equally by the number of inputRange
+      // length is `5` outputRange equal [0, 25, 50, 75, 100]
       const length = outputRange.length;
       const j = length - 1;
 
       for (var i = 1; i <= j; i++) {
         const r = (100 / j) * i;
+
         inputRange.push(r);
       }
     }
 
     return percent.interpolate({
+      // @ts-ignore
       inputRange: inputRange,
       outputRange: outputRange,
     });

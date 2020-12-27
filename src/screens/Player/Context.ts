@@ -6,7 +6,7 @@ type ContextType = {
   percent: Animated.Value;
   container: MutableRefObject<View | undefined>;
   range: (
-    inputRange: number[],
+    inputRange: string[] | number[],
     outputRange?: string[] | number[],
   ) => Animated.AnimatedInterpolation;
 };

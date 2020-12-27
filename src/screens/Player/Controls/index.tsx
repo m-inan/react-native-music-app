@@ -4,6 +4,8 @@ import { Animated, View, StyleSheet, findNodeHandle } from 'react-native';
 import { Colors, Dimensions } from 'src/constants';
 
 import { useBottomSheet } from '../Context';
+import { Informations } from './Informations';
+import { Actions } from './Actions';
 
 interface Props {}
 
@@ -13,11 +15,11 @@ export const Controls: React.FC<Props> = () => {
   const [measureY, setMeasureY] = useState(0);
   const { range, container } = useBottomSheet();
 
-  const width = range([200, Dimensions.width]);
+  const width = range([Dimensions.width - 100, Dimensions.width]);
   const height = range([50, 150]);
 
   const translateY = range([-measureY + 15, 0]);
-  const translateX = range([Dimensions.width - 220, 0]);
+  const translateX = range([100, 0]);
 
   useEffect(() => {
     if (typeof container?.current !== null) {
@@ -42,13 +44,16 @@ export const Controls: React.FC<Props> = () => {
           height,
           transform: [{ translateX }, { translateY }],
         },
-      ]}></Animated.View>
+      ]}>
+      <Informations />
+      <Actions />
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: 150,
+    position: 'relative',
     backgroundColor: Colors.primary,
   },
 });

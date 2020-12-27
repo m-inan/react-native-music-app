@@ -15,7 +15,9 @@ const MINI_PLAYER_HEIGHT = 100;
 // player bottomsheet top and bottom position
 const PLAYER_SNAP_TOP = 0;
 const PLAYER_SNAP_BOTTOM =
-  height + (Platform.OS === 'ios' ? 0 : topInset) - MINI_PLAYER_HEIGHT;
+  height +
+  (Platform.OS === 'ios' ? -(bottomInset / 2) : topInset) -
+  MINI_PLAYER_HEIGHT;
 
 export const Dimensions = {
   width,
