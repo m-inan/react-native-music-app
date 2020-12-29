@@ -4,6 +4,7 @@ import { Animated, View } from 'react-native';
 type ContextType = {
   position: Animated.Value;
   percent: Animated.Value;
+  status: Animated.Value;
   container: MutableRefObject<View | undefined>;
   range: (
     inputRange: string[] | number[],

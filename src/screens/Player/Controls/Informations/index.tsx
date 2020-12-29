@@ -1,9 +1,11 @@
 import React from 'react';
 import { Animated, StyleSheet } from 'react-native';
 
-import { Colors } from 'src/constants';
+import { useBottomSheet } from '../../Context';
 
-import { useBottomSheet } from '../Context';
+import { Artist } from './Artist';
+import { Title } from './Title';
+import { Genre } from './Genre';
 
 interface Props {}
 
@@ -14,8 +16,11 @@ export const Informations: React.FC<Props> = () => {
   const width = range(['55%', '100%']);
 
   return (
-    <Animated.View
-      style={[styles.container, { height, width }]}></Animated.View>
+    <Animated.View style={[styles.container, { height, width }]}>
+      <Artist />
+      <Title />
+      <Genre />
+    </Animated.View>
   );
 };
 
@@ -25,6 +30,6 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     width: '100%',
-    backgroundColor: Colors.mute,
+    alignItems: 'flex-start',
   },
 });

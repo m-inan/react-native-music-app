@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Animated, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Animated, StyleSheet } from 'react-native';
 
 import { Dimensions } from 'src/constants';
 import { Text } from 'src/components';
@@ -32,11 +32,11 @@ export const Header: React.FC<Props> = () => {
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 100,
-    width: '100%',
     paddingHorizontal: 24,
+    height: Dimensions.MINI_PLAYER_HEIGHT,
     paddingTop: Dimensions.topInset,
   },
 

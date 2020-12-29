@@ -18,7 +18,7 @@ const { width, bottomInset } = Dimensions;
 interface Props {}
 
 export const Player: React.FC<Props> = () => {
-  const { panResponder, translateY, percent } = useAnimation();
+  const { panResponder, translateY, percent, status } = useAnimation();
 
   const container = useRef<View>();
 
@@ -51,7 +51,7 @@ export const Player: React.FC<Props> = () => {
 
   return (
     <Context.Provider
-      value={{ position: translateY, percent, range, container }}>
+      value={{ position: translateY, percent, range, status, container }}>
       <Animated.View
         ref={container}
         style={[styles.container, { transform: [{ translateY }] }]}>
@@ -77,9 +77,8 @@ export const Player: React.FC<Props> = () => {
 const styles = StyleSheet.create({
   container: {
     width,
-    height: '100%',
+    height: Dimensions.height,
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'space-between',
     position: 'absolute',
     paddingBottom: bottomInset,
@@ -98,7 +97,6 @@ const styles = StyleSheet.create({
   },
   controls: {
     height: 150,
-    backgroundColor: 'gray',
   },
   nextPrev: {
     height: 180,

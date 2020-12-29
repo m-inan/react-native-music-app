@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Animated, View, StyleSheet, findNodeHandle } from 'react-native';
 
-import { Colors, Dimensions } from 'src/constants';
+import { Dimensions } from 'src/constants';
 
 import { useBottomSheet } from '../Context';
 import { Informations } from './Informations';
@@ -54,6 +54,5 @@ export const Controls: React.FC<Props> = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    backgroundColor: Colors.primary,
   },
 });

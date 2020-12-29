@@ -17,13 +17,18 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 interface Props {}
 
 const strokeDasharray = 157.10174560546875;
-const d = 'M0 5 A 50 50 0 0 0 100 5';
+
+const radius = 50;
+const cx = 50;
+const cy = 5;
+
+const d = `M0 ${cy} A ${radius} ${radius} 0 0 0 ${cx * 2} ${cy}`;
 
 export const Slider: React.FC<Props> = () => {
   // bottom sheet position
   const { position, range, percent: BSPercent } = useBottomSheet();
-  const opacity = range([0, 70, 100], [0, 0, 1]);
-  const translateY = range([0, 50, 100], [100, 50, 0]);
+  const opacity = range([0, 80, 100], [0, 0, 1]);
+  const translateY = range([0, 50, 100], [50, 25, 0]);
 
   // slider animation
   const { panResponder, percent } = useSlider();
@@ -42,20 +47,27 @@ export const Slider: React.FC<Props> = () => {
   }, []);
 
   const setAnimationValues = () => {
-    let value = (percent as any)._value - 100 + (BSPercent as any)._value;
+    const bottomSheet = interpolate(
+      (BSPercent as any)._value,
+      [0, 100],
+      [-100, 0],
+    );
+
+    let value = (percent as any)._value + bottomSheet;
 
     // limit value between 0..100
     value = Math.min(Math.max(0, value), 100);
 
     const angle = interpolate(value, [0, 100], [Math.PI, 0]);
 
-    const cx = 50 + 50 * Math.cos(angle);
-    const cy = 5 + 50 * Math.sin(angle);
+    const x = cx + radius * Math.cos(angle);
+    const y = cy + radius * Math.sin(angle);
 
+    circleX.setValue(x);
+    circleY.setValue(y);
+
+    // duration percent and bottomSheet percent animation
     const stroke = interpolate(value, [0, 100], [strokeDasharray, 0]);
-
-    circleX.setValue(cx);
-    circleY.setValue(cy);
 
     strokeDashoffset.setValue(stroke);
   };

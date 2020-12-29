@@ -18,6 +18,8 @@ export const useAnimation = () => {
         interpolate(value, [PLAYER_SNAP_TOP, PLAYER_SNAP_BOTTOM], [100, 0]),
       );
     });
+
+    status.addListener(animation);
   }, []);
 
   function animation(): void {
@@ -27,7 +29,7 @@ export const useAnimation = () => {
 
     Animated.timing(translateY, {
       toValue: value,
-      duration: 1500,
+      duration: 2500,
       easing: Easing.bezier(0, -0.05, 0.15, 0.98),
       useNativeDriver: true,
     }).start();
@@ -37,6 +39,7 @@ export const useAnimation = () => {
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
+
       onPanResponderTerminate: () => {
         // Another component has become the responder, so this gesture
         // should be cancelled
@@ -71,12 +74,9 @@ export const useAnimation = () => {
         } else if (isOpen && transition > THRESHOLD) {
           status.setValue(0);
         }
-
-        // run animation
-        animation();
       },
     }),
   ).current;
 
-  return { translateY, panResponder, percent };
+  return { translateY, panResponder, percent, status };
 };
