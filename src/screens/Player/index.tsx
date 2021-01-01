@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, Platform } from 'react-native';
 
 import { Colors, Dimensions } from 'src/constants';
 
@@ -8,12 +8,13 @@ import { Header } from './Header';
 import { Slider } from './Slider';
 import { Record } from './Record';
 import { Controls } from './Controls';
+import { Informations } from './Informations';
 import { Context } from './Context';
 import { useAnimation } from './Animation';
 
 import { sliderRatio } from './Slider/Dimensions';
 
-const { width, bottomInset } = Dimensions;
+const { width } = Dimensions;
 
 interface Props {}
 
@@ -65,7 +66,13 @@ export const Player: React.FC<Props> = () => {
           <Slider />
           <Record />
         </View>
-        <View style={[styles.section, styles.controls]}>
+        <View
+          style={[
+            styles.section,
+            styles.controls,
+            Platform.OS === 'ios' && { zIndex: 99 },
+          ]}>
+          <Informations />
           <Controls />
         </View>
         <View style={[styles.section, styles.nextPrev]}></View>
@@ -81,7 +88,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     position: 'absolute',
-    paddingBottom: bottomInset,
     backgroundColor: Colors.foreground,
   },
 
@@ -99,7 +105,7 @@ const styles = StyleSheet.create({
     height: 150,
   },
   nextPrev: {
-    height: 180,
+    minHeight: 180,
   },
   section: {
     width: '100%',

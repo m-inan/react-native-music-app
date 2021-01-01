@@ -29,7 +29,7 @@ export const useAnimation = () => {
 
     Animated.timing(translateY, {
       toValue: value,
-      duration: 2500,
+      duration: 7500,
       easing: Easing.bezier(0, -0.05, 0.15, 0.98),
       useNativeDriver: true,
     }).start();
@@ -43,6 +43,7 @@ export const useAnimation = () => {
       onPanResponderTerminate: () => {
         // Another component has become the responder, so this gesture
         // should be cancelled
+        animation();
       },
 
       onPanResponderGrant: (_event) => {
@@ -73,6 +74,8 @@ export const useAnimation = () => {
           status.setValue(1);
         } else if (isOpen && transition > THRESHOLD) {
           status.setValue(0);
+        } else {
+          animation();
         }
       },
     }),

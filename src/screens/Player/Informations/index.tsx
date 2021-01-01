@@ -4,27 +4,25 @@ import { Animated, View, StyleSheet, findNodeHandle } from 'react-native';
 import { Dimensions } from 'src/constants';
 
 import { useBottomSheet } from '../Context';
-import { miniActionsWidth, miniInformationWidth } from '../Dimensions';
+import { miniInformationWidth } from '../Dimensions';
 
-import { Next } from './Next';
-import { Previous } from './Previous';
-import { PlayPause } from './PlayPause';
+import { Artist } from './Artist';
+import { Title } from './Title';
+import { Genre } from './Genre';
 
 interface Props {}
 
-export const Controls: React.FC<Props> = () => {
+export const Informations: React.FC<Props> = () => {
   const marker = useRef<View>();
 
   const [measureY, setMeasureY] = useState(0);
   const { range, container } = useBottomSheet();
 
   const height = range([50, 75]);
-  const width = range([miniActionsWidth, Dimensions.width]);
-  const size = range(['100%', '50%']);
-  const paddingRight = range([5, 0]);
+  const width = range([miniInformationWidth, Dimensions.width]);
 
-  const translateX = range([miniInformationWidth + 100, 0]);
-  const translateY = range([-measureY - 35, 75]);
+  const translateX = range([100, 0]);
+  const translateY = range([-measureY + 15, 0]);
 
   useEffect(() => {
     if (typeof container?.current !== null) {
@@ -32,7 +30,7 @@ export const Controls: React.FC<Props> = () => {
         // @ts-ignore
         findNodeHandle(container?.current ?? 0),
         (...measure) => {
-          setMeasureY(measure[1] - 60);
+          setMeasureY(measure[1] - 10);
         },
         () => {},
       );
@@ -41,35 +39,30 @@ export const Controls: React.FC<Props> = () => {
 
   return (
     <Animated.View
+      pointerEvents="none"
       ref={marker}
       style={[
         styles.container,
         {
           width,
           height,
-          paddingRight,
           transform: [{ translateX }, { translateY }],
         },
       ]}>
-      <Animated.View style={[styles.content, { width: size }]}>
-        <Previous />
-        <PlayPause />
-        <Next />
-      </Animated.View>
+      <Artist />
+      <Title />
+      <Genre />
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    zIndex: 9,
-  },
-  content: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    height: '100%',
+    width: '100%',
+    alignItems: 'flex-start',
   },
 });

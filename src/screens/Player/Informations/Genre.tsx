@@ -4,7 +4,7 @@ import { Animated } from 'react-native';
 import { Colors } from 'src/constants';
 import { Text } from 'src/components';
 
-import { useBottomSheet } from '../../Context';
+import { useBottomSheet } from '../Context';
 
 interface Props {}
 
