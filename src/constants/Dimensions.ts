@@ -14,7 +14,6 @@ if (Platform.OS === 'android') {
 }
 
 // Player BottomSheet Threshold %10 percent of device height
-const THRESHOLD = height / 10;
 const MINI_PLAYER_HEIGHT = 100 + bottomInset / 2;
 
 // player bottomsheet top and bottom position
@@ -26,7 +25,6 @@ export const Dimensions = {
   height,
   topInset,
   bottomInset,
-  THRESHOLD,
   PLAYER_SNAP_TOP,
   PLAYER_SNAP_BOTTOM,
   MINI_PLAYER_HEIGHT,

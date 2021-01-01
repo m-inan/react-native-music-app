@@ -1,16 +1,19 @@
 import { useRef, useEffect } from 'react';
-import { PanResponder, Animated, Easing } from 'react-native';
+import { PanResponder, Animated, Easing, Platform } from 'react-native';
 
 import { Dimensions } from 'src/constants';
-import { useAnimatedValue, interpolate } from 'src/utils';
+import { useAnimatedValues, interpolate, clamp } from 'src/utils';
 
-const { PLAYER_SNAP_BOTTOM, PLAYER_SNAP_TOP, THRESHOLD } = Dimensions;
+const { PLAYER_SNAP_BOTTOM, PLAYER_SNAP_TOP } = Dimensions;
 
 export const useAnimation = () => {
-  const translateY = useAnimatedValue(PLAYER_SNAP_BOTTOM);
-  const percent = useAnimatedValue(0);
-  const transitionY = useAnimatedValue(0);
-  const status = useAnimatedValue(0);
+  const [status, percent, velocityY, translateY] = useAnimatedValues(
+    0,
+    0,
+    0,
+    PLAYER_SNAP_BOTTOM,
+    0,
+  );
 
   useEffect(() => {
     translateY.addListener(({ value }: { value: number }) => {
@@ -24,13 +27,27 @@ export const useAnimation = () => {
 
   function animation(): void {
     const isOpen = (status as any)._value;
+    const velocity = (velocityY as any)._value;
+    const currentValue = (translateY as any)._value;
+    const toValue = isOpen ? 0 : PLAYER_SNAP_BOTTOM;
 
-    const value = isOpen ? 0 : PLAYER_SNAP_BOTTOM;
+    let duration = Math.abs(
+      (toValue - Math.abs(currentValue)) / Math.abs(velocity),
+    );
+
+    // range
+    duration = clamp(duration, 50, 3000);
+
+    // android gives inconsistent values for `velocity` value.
+    // `Duration` constant until problem is solved
+    if (Platform.OS === 'android') {
+      duration = 700;
+    }
 
     Animated.timing(translateY, {
-      toValue: value,
-      duration: 7500,
-      easing: Easing.bezier(0, -0.05, 0.15, 0.98),
+      toValue,
+      duration,
+      easing: Easing.linear,
       useNativeDriver: true,
     }).start();
   }
@@ -60,19 +77,18 @@ export const useAnimation = () => {
         const isOpen = (status as any)._value;
         const offset = isOpen ? 0 : PLAYER_SNAP_BOTTOM;
 
-        translateY.setValue(offset + dy);
-        transitionY.setValue(dy);
+        const value = clamp(offset + dy, 0, PLAYER_SNAP_BOTTOM);
+
+        translateY.setValue(value);
       },
-      onPanResponderRelease: () => {
+      onPanResponderRelease: (_event, gestureState) => {
         // The user has released all touches while this view is the
         // responder. This typically means a gesture has succeeded
-        const isOpen = (status as any)._value;
+        velocityY.setValue(gestureState.vy);
 
-        const transition = (transitionY as any)._value;
-
-        if (!isOpen && transition < -THRESHOLD) {
+        if (gestureState.vy < 0) {
           status.setValue(1);
-        } else if (isOpen && transition > THRESHOLD) {
+        } else if (gestureState.vy > 0) {
           status.setValue(0);
         } else {
           animation();
