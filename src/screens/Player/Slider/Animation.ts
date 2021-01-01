@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Animated, Easing, PanResponder } from 'react-native';
 
 import { Dimensions } from 'src/constants';
-import { useAnimatedValue, interpolate } from 'src/utils';
+import { useAnimatedValue, interpolate, clamp } from 'src/utils';
 
 const { width } = Dimensions;
 
@@ -26,7 +26,8 @@ export const useSlider = () => {
 
   const getDuration = () => {
     let value = (percent as any)._value + 1;
-    value = Math.min(Math.max(0, value), 100);
+    value = clamp(value, 0, 100);
+
     if (!touching) {
       Animated.timing(percent, {
         toValue: value,

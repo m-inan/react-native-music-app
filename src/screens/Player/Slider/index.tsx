@@ -3,7 +3,12 @@ import { StyleSheet, Animated } from 'react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
 
 import { Colors, Dimensions } from 'src/constants';
-import { useAnimatedValues, useAnimatedValue, interpolate } from 'src/utils';
+import {
+  useAnimatedValues,
+  useAnimatedValue,
+  interpolate,
+  clamp,
+} from 'src/utils';
 import { useBottomSheet } from '../Context';
 
 import { useSlider } from './Animation';
@@ -56,7 +61,7 @@ export const Slider: React.FC<Props> = () => {
     let value = (percent as any)._value + bottomSheet;
 
     // limit value between 0..100
-    value = Math.min(Math.max(0, value), 100);
+    value = clamp(value, 0, 100);
 
     const angle = interpolate(value, [0, 100], [Math.PI, 0]);
 
