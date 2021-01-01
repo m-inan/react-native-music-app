@@ -47,7 +47,7 @@ export const useAnimation = () => {
     Animated.timing(translateY, {
       toValue,
       duration,
-      easing: Easing.linear,
+      easing: Easing.bezier(0, -0.05, 0.15, 0.98),
       useNativeDriver: true,
     }).start();
   }
