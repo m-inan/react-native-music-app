@@ -12,7 +12,7 @@ interface Props {}
 export const Header: React.FC<Props> = () => {
   const { range } = useBottomSheet();
 
-  const opacity = range([0, 0, 1]);
+  const opacity = range([80, 100], [0, 1]);
 
   return (
     <Animated.View style={[styles.container, { opacity }]}>
