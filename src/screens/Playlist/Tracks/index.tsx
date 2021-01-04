@@ -5,7 +5,7 @@ import { IPlaylist, ITrack } from 'src/interfaces';
 import { usePlaylist } from 'src/provider';
 
 import { List } from './List';
-import { BorderTopLeftShadow } from './BorderTopLeftShadow';
+import { CornerShadow } from './CornerShadow';
 import { styles } from './styles';
 
 const { width } = Dimensions.get('window');
@@ -20,7 +20,7 @@ export const Tracks: React.FC<Props> = ({ panResponder, translateX }) => {
 
   return (
     <View style={styles.area}>
-      <BorderTopLeftShadow />
+      <CornerShadow />
 
       <Animated.View {...panResponder.panHandlers} style={styles.container}>
         <Animated.View
@@ -34,7 +34,7 @@ export const Tracks: React.FC<Props> = ({ panResponder, translateX }) => {
                 // @ts-ignore
                 items={playlist.items
                   .map((id: number) =>
-                    tracks.find((track: ITrack) => track.id == id),
+                    tracks.find((track: ITrack) => track.id === String(id)),
                   )
                   .filter((track: ITrack | undefined) => track !== undefined)}
               />

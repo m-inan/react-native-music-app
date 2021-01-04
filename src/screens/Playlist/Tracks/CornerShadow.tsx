@@ -3,7 +3,7 @@ import Svg, { Rect, Defs, Stop, LinearGradient } from 'react-native-svg';
 
 import { styles } from './styles';
 
-export const BorderTopLeftShadow = () => (
+export const CornerShadow = () => (
   <Svg
     style={styles.shadow}
     width="38"
