@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Animated } from 'react-native';
 
 import { Colors, Dimensions } from 'src/constants';
+import { usePlayer } from 'src/provider';
 import { Text } from 'src/components';
 import { useBottomSheet } from '../Context';
 
@@ -11,6 +12,8 @@ interface Props {}
 
 export const Title: React.FC<Props> = () => {
   const [size, setSize] = useState<number>(0);
+
+  const { track } = usePlayer();
 
   // center text when panel opens
   const { range } = useBottomSheet();
@@ -29,7 +32,7 @@ export const Title: React.FC<Props> = () => {
             setSize(width);
           }
         }}>
-        Counting Stars
+        {track.title}
       </Text>
     </Animated.View>
   );

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Animated } from 'react-native';
 
 import { Colors, Dimensions } from 'src/constants';
+import { usePlayer } from 'src/provider';
 import { Text } from 'src/components';
 
 import { useBottomSheet } from '../Context';
@@ -11,6 +12,7 @@ const { width } = Dimensions;
 interface Props {}
 
 export const Artist: React.FC<Props> = () => {
+  const { track } = usePlayer();
   const [size, setSize] = useState<number>(0);
 
   // center text when panel opens
@@ -30,7 +32,7 @@ export const Artist: React.FC<Props> = () => {
             setSize(width);
           }
         }}>
-        OneRepublic
+        {track.artist}
       </Text>
     </Animated.View>
   );

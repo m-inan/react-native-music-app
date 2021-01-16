@@ -22,7 +22,13 @@ export const Playlist: React.FC<Props> = () => {
 
   useEffect(() => {
     setLists(playlists);
-    setTracks(tracks);
+    setTracks(
+      tracks.map((item) => ({
+        ...item,
+        id: String(item.id),
+        url: item.source,
+      })),
+    );
   }, []);
 
   return (

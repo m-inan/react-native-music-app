@@ -7,7 +7,6 @@ import { Handle } from './Handle';
 import { Header } from './Header';
 import { Slider } from './Slider';
 import { Record } from './Record';
-import { Duration } from './Duration';
 import { Shuffle } from './Shuffle';
 import { Repeat } from './Repeat';
 import { Controls } from './Controls';
@@ -68,7 +67,6 @@ export const Player: React.FC<Props> = () => {
         <View style={[styles.section, styles.slider]}>
           <Slider />
           <Record />
-          <Duration />
           <Shuffle />
           <Repeat />
         </View>

@@ -1,10 +1,10 @@
 import { ImageRequireSource } from 'react-native';
 
 export interface ITrack {
-  id: number;
+  id: string;
   title: string;
   artist: string;
-  source: string;
-  artwork: ImageRequireSource;
+  url: string;
+  artwork?: ImageRequireSource;
   last?: boolean;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Animated, StyleSheet } from 'react-native';
+import { View, Animated, StyleSheet } from 'react-native';
 
 import { Dimensions } from 'src/constants';
 import { Text } from 'src/components';

@@ -4,7 +4,7 @@ import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
 import { Colors } from 'src/constants';
 import { Repeat as Icon } from 'src/icons';
 
-import { useBottomSheet } from '../Context.ts';
+import { useBottomSheet } from '../Context';
 
 interface Props {}
 

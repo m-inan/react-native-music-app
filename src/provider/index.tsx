@@ -18,4 +18,5 @@ export const Provider: React.FC<Props> = ({ children }: Props) => {
   );
 };
 
+export { usePlayer } from './Player';
 export { usePlaylist } from './Playlist';

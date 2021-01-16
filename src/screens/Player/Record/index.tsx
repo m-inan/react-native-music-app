@@ -1,7 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Animated, StyleSheet, findNodeHandle } from 'react-native';
+import {
+  View,
+  Animated,
+  StyleSheet,
+  findNodeHandle,
+  Image,
+} from 'react-native';
 
 import { Dimensions } from 'src/constants';
+import { usePlayer } from 'src/provider';
 
 import { sliderRatio, minDeviceRatio } from '../Slider/Dimensions';
 import { useBottomSheet } from '../Context';
@@ -14,12 +21,15 @@ const dimension = width / sliderRatio - 60;
 const radius = dimension / 2;
 
 export const Record: React.FC<Props> = () => {
+  const { track } = usePlayer();
+
   const marker = useRef<View>();
 
   const [measureY, setMeasureY] = useState(0);
   const { range, container } = useBottomSheet();
 
   const size = range([70, dimension]);
+  const padding = range([5, 15]);
   const translateY = range([-measureY, 0]);
   const translateX = range([-(radius + (minDeviceRatio ? 30 : 15)), 0]);
 
@@ -42,28 +52,38 @@ export const Record: React.FC<Props> = () => {
       style={[
         styles.container,
         {
+          padding,
           width: size,
           height: size,
           transform: [{ translateX }, { translateY }],
         },
       ]}
       pointerEvents="none">
-      <View style={styles.circle} />
+      <View style={[styles.circle, { borderRadius: 999 }]}>
+        {track.artwork ? (
+          <Image
+            source={track.artwork}
+            style={{ width: '100%', height: '100%' }}
+          />
+        ) : null}
+      </View>
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: radius,
+    borderRadius: 999,
     overflow: 'hidden',
     alignItems: 'center',
     position: 'absolute',
+    padding: 15,
+    backgroundColor: 'rgba(0,0,0,.5)',
     top: 0,
   },
   circle: {
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0,0,0,.5)',
+    overflow: 'hidden',
   },
 });

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Animated, TouchableOpacity } from 'react-native';
+import TrackPlayer from 'react-native-track-player';
+
 import { Previous as IconPrevious } from 'src/icons';
 
 import { useBottomSheet } from '../Context';
@@ -13,7 +15,11 @@ export const Previous: React.FC<Props> = () => {
   const size = range([30, 35]);
 
   return (
-    <TouchableOpacity onPress={() => console.log('previous')}>
+    <TouchableOpacity
+      onPress={() => {
+        console.log('previous');
+        TrackPlayer.skipToPrevious();
+      }}>
       <Animated.View style={{ width: size, height: size }}>
         <IconPrevious size={'100%'} opacity={opacity} />
       </Animated.View>

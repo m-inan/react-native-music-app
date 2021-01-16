@@ -17,7 +17,7 @@ export const Item: React.FC<Props> = ({
   return (
     <TouchableOpacity style={styles.container}>
       <View style={styles.artworkContainer}>
-        <Image source={artwork} style={styles.artwork} />
+        {artwork ? <Image source={artwork} style={styles.artwork} /> : null}
 
         <View style={styles.artworkInlineBorder}>
           <View style={styles.artworkPoint} />

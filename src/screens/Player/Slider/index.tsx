@@ -9,6 +9,7 @@ import {
   interpolate,
   clamp,
 } from 'src/utils';
+import { Duration } from '../Duration';
 import { useBottomSheet } from '../Context';
 
 import { useSlider } from './Animation';
@@ -36,7 +37,7 @@ export const Slider: React.FC<Props> = () => {
   const translateY = range([0, 50, 100], [50, 25, 0]);
 
   // slider animation
-  const { panResponder, percent } = useSlider();
+  const { panResponder, percent, touching } = useSlider();
   const [circleX, circleY] = useAnimatedValues(0, 0);
   const strokeDashoffset = useAnimatedValue(strokeDasharray);
 
@@ -120,6 +121,8 @@ export const Slider: React.FC<Props> = () => {
           strokeDashoffset={strokeDashoffset}
         />
       </Svg>
+
+      <Duration touching={touching} percent={percent} />
     </Animated.View>
   );
 };

@@ -1,8 +1,20 @@
 import { useRef, useState, useEffect } from 'react';
 import { Animated, Easing, PanResponder } from 'react-native';
+import TrackPlayer, {
+  STATE_PLAYING,
+  TrackPlayerEvents,
+  useTrackPlayerEvents,
+} from 'react-native-track-player';
 
 import { Dimensions } from 'src/constants';
 import { useAnimatedValue, interpolate, clamp } from 'src/utils';
+
+const {
+  PLAYBACK_ERROR,
+  PLAYBACK_STATE,
+  PLAYBACK_TRACK_CHANGED,
+} = TrackPlayerEvents;
+const events = [PLAYBACK_STATE, PLAYBACK_ERROR, PLAYBACK_TRACK_CHANGED];
 
 const { width } = Dimensions;
 
@@ -12,34 +24,67 @@ const centerY = 0;
 let timeout: any;
 
 export const useSlider = () => {
-  const [touching, setTouching] = useState<boolean>();
+  const [touching, setTouching] = useState<boolean>(false);
+  const [playbackState, setPlaybackState] = useState(null);
 
   const percent = useAnimatedValue(0);
   const offsetY = useAnimatedValue(0);
 
+  useTrackPlayerEvents(events, (event: any) => {
+    switch (event.type) {
+      case PLAYBACK_TRACK_CHANGED:
+        if (event.nextTrack) {
+          animate(0);
+        }
+        break;
+      case PLAYBACK_STATE:
+        setPlaybackState(event.state);
+        break;
+      case PLAYBACK_ERROR:
+        console.warn('An error occurred while playing the current track.');
+        break;
+    }
+  });
+
   useEffect(() => {
     clearTimeout(timeout);
-    if (!touching) {
-      timeout = setTimeout(getDuration, 500);
-    }
-  }, [touching]);
 
-  const getDuration = () => {
-    let value = (percent as any)._value + 1;
+    const isPlaying = playbackState === STATE_PLAYING;
+
+    if (!touching && isPlaying) {
+      timeout = setTimeout(setPosition, 500);
+    }
+  }, [touching, playbackState]);
+
+  function animate(value: number): void {
+    Animated.timing(percent, {
+      toValue: value,
+      duration: 500,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start();
+  }
+
+  const setPosition = async () => {
+    const position = await TrackPlayer.getPosition();
+    const duration = await TrackPlayer.getDuration();
+
+    let value = Math.abs((position * 100) / duration);
+
     value = clamp(value, 0, 100);
 
-    if (!touching) {
-      Animated.timing(percent, {
-        toValue: value,
-        duration: 500,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }).start();
-    }
+    animate(value);
 
     if (value <= 100) {
-      timeout = setTimeout(getDuration, 500);
+      timeout = setTimeout(setPosition, 500);
     }
+  };
+
+  const setPlaybackPosition = async () => {
+    const value = (percent as any)._value;
+    const duration = await TrackPlayer.getDuration();
+
+    TrackPlayer.seekTo((duration / 100) * value);
   };
 
   const panResponder = useRef(
@@ -96,6 +141,8 @@ export const useSlider = () => {
         // The user has released all touches while this view is the
         // responder. This typically means a gesture has succeeded
         setTouching(false);
+
+        setPlaybackPosition();
       },
     }),
   ).current;
