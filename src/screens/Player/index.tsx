@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   controls: {
-    height: 150,
+    height: 130,
   },
   nextPrev: {
     minHeight: 180,

@@ -28,13 +28,9 @@ export const Item: React.FC<Props> = ({
         <View style={styles.information}>
           <Text size={16}>{title}</Text>
 
-          <View style={styles.artistAndGenre}>
+          <View style={styles.artist}>
             <Text numberOfLines={1} ellipsizeMode="tail" size={15}>
               {artist}
-            </Text>
-
-            <Text style={styles.genre} color="rgb(121, 127, 129)" size={14}>
-              Genre
             </Text>
           </View>
         </View>
@@ -108,16 +104,12 @@ const styles = StyleSheet.create({
 
   information: {
     flex: 1,
-    paddingRight: 50,
+    paddingRight: 10,
   },
 
-  artistAndGenre: {
+  artist: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-
-  genre: {
-    marginLeft: 10,
   },
 
   time: {

@@ -8,7 +8,6 @@ import { miniInformationWidth } from '../Dimensions';
 
 import { Artist } from './Artist';
 import { Title } from './Title';
-import { Genre } from './Genre';
 
 interface Props {}
 
@@ -18,7 +17,6 @@ export const Informations: React.FC<Props> = () => {
   const [measureY, setMeasureY] = useState(0);
   const { range, container } = useBottomSheet();
 
-  const height = range([50, 75]);
   const width = range([miniInformationWidth, Dimensions.width]);
 
   const translateX = range([100, 0]);
@@ -45,13 +43,11 @@ export const Informations: React.FC<Props> = () => {
         styles.container,
         {
           width,
-          height,
           transform: [{ translateX }, { translateY }],
         },
       ]}>
       <Artist />
       <Title />
-      <Genre />
     </Animated.View>
   );
 };
@@ -61,6 +57,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     top: 0,
+    height: 55,
     alignItems: 'flex-start',
   },
 });

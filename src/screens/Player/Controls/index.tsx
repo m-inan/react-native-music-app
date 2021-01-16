@@ -24,7 +24,7 @@ export const Controls: React.FC<Props> = () => {
   const paddingRight = range([5, 0]);
 
   const translateX = range([miniInformationWidth + 100, 0]);
-  const translateY = range([-measureY - 35, 75]);
+  const translateY = range([-measureY - 35, 55]);
 
   useEffect(() => {
     if (typeof container?.current !== null) {
