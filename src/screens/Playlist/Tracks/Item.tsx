@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Item: React.FC<Props> = ({
-  item: { title, artwork, artist, last },
+  item: { title, artwork, artist, last, duration },
 }: Props) => {
   return (
     <TouchableOpacity style={styles.container}>
@@ -41,7 +41,7 @@ export const Item: React.FC<Props> = ({
 
         <View style={styles.time}>
           <Text color={Colors.mute} size={16}>
-            4:20
+            {duration}
           </Text>
         </View>
         <View style={styles.options}>

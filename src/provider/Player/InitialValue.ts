@@ -6,5 +6,6 @@ export const defaultTrack: ITrack = {
   title: 'undefined',
   artist: 'undefined',
   url: '',
+  duration: '0',
   artwork: 0 as ImageRequireSource,
 };

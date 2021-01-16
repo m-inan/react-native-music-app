@@ -5,6 +5,7 @@ export interface ITrack {
   title: string;
   artist: string;
   url: string;
+  duration: string;
   artwork?: ImageRequireSource;
   last?: boolean;
 }

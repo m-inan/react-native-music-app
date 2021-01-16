@@ -39,7 +39,7 @@ export const PlayerProvider: React.FC<Props> = ({ children }: Props) => {
         let trackObject = await getTrack(trackId);
 
         if (trackObject) {
-          setTrack(trackObject);
+          setTrack({ ...trackObject, duration: '' });
         }
       });
     });
