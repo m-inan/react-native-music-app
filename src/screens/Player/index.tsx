@@ -11,6 +11,8 @@ import { Shuffle } from './Shuffle';
 import { Repeat } from './Repeat';
 import { Controls } from './Controls';
 import { Informations } from './Informations';
+import { NextPrevious } from './NextPrevious';
+
 import { Context } from './Context';
 import { useAnimation } from './Animation';
 
@@ -79,7 +81,9 @@ export const Player: React.FC<Props> = () => {
           <Informations />
           <Controls />
         </View>
-        <View style={[styles.section, styles.nextPrev]}></View>
+        <View style={[styles.section, styles.nextPrev]}>
+          <NextPrevious />
+        </View>
       </Animated.View>
     </Context.Provider>
   );
