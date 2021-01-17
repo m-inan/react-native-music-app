@@ -1,5 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import {
+  skip,
+  play,
+  addEventListener,
+  getState,
+  STATE_READY,
+  STATE_PLAYING,
+} from 'react-native-track-player';
 
 import { ITrack } from 'src/interfaces';
 import { Colors } from 'src/constants';
@@ -12,10 +20,28 @@ interface Props {
 }
 
 export const Item: React.FC<Props> = ({
-  item: { title, artwork, artist, last, duration },
+  item: { id, title, artwork, artist, last, duration },
 }: Props) => {
+  const onPress = async () => {
+    // get state before skip
+    const state = await getState();
+
+    await skip(id);
+
+    // If it can't be played, wait until it's ready and then play
+    if (state !== STATE_PLAYING) {
+      let subscription = addEventListener('playback-state', (data) => {
+        if (data.state === STATE_READY) {
+          play();
+
+          subscription.remove();
+        }
+      });
+    }
+  };
+
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.artworkContainer}>
         {artwork ? <Image source={artwork} style={styles.artwork} /> : null}
 
