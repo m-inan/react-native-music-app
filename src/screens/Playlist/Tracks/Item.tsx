@@ -11,18 +11,27 @@ import {
 
 import { ITrack } from 'src/interfaces';
 import { Colors } from 'src/constants';
+import { usePlaylist } from 'src/provider';
 import { Text } from 'src/components';
 import { Options } from 'src/icons';
 
 interface Props {
   item: ITrack;
   index: number;
+  playlist: number;
 }
 
 export const Item: React.FC<Props> = ({
+  playlist,
   item: { id, title, artwork, artist, last, duration },
 }: Props) => {
+  const { active, updateTrackPlayer } = usePlaylist();
+
   const onPress = async () => {
+    if (active !== playlist) {
+      await updateTrackPlayer(playlist);
+    }
+
     // get state before skip
     const state = await getState();
 

@@ -31,6 +31,7 @@ export const Tracks: React.FC<Props> = ({ panResponder, translateX }) => {
           {lists.map((playlist: IPlaylist, key: number) => (
             <View key={key} style={{ width }}>
               <List
+                playlist={key}
                 // @ts-ignore
                 items={playlist.items
                   .map((id: number) =>

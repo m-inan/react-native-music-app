@@ -17,21 +17,37 @@ export const PlaylistProvider: React.FC<Props> = ({ children }: Props) => {
   const [tracks, setTracks] = useState<ITrack[]>([]);
 
   useEffect(() => {
+    updateTrackPlayer(0);
+  }, [tracks, lists]);
+
+  const updateTrackPlayer = async (current: number) => {
+    setActive(current);
+
     if (tracks.length && lists.length) {
       // simulate sql databases
       // find items in active playlist
-      const activeTracks = lists[active].items.map((id: number) =>
+      const activeTracks = lists[current].items.map((id: number) =>
         tracks.find((track: ITrack) => track.id === String(id)),
       );
 
+      await TrackPlayer.reset();
+
       // @ts-ignore
-      TrackPlayer.add(activeTracks).then(function () {});
+      await TrackPlayer.add(activeTracks).then(function () {});
     }
-  }, [tracks, lists, active]);
+  };
 
   return (
     <Context.Provider
-      value={{ active, lists, tracks, setActive, setLists, setTracks }}>
+      value={{
+        active,
+        lists,
+        tracks,
+        setActive,
+        setLists,
+        setTracks,
+        updateTrackPlayer,
+      }}>
       {children}
     </Context.Provider>
   );

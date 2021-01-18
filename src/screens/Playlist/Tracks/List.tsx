@@ -7,11 +7,12 @@ import { Item } from './Item';
 
 interface Props {
   items: ITrack[];
+  playlist: number;
 }
 
 interface Props {}
 
-export const List: React.FC<Props> = ({ items }: Props) => {
+export const List: React.FC<Props> = ({ items, playlist }: Props) => {
   const { bottom } = useSafeAreaInsets();
 
   items[items.length - 1].last = true;
@@ -19,7 +20,7 @@ export const List: React.FC<Props> = ({ items }: Props) => {
   return (
     <FlatList
       data={items}
-      renderItem={Item}
+      renderItem={(data) => <Item {...data} {...{ playlist }} />}
       contentContainerStyle={{ paddingBottom: bottom }}
       keyExtractor={(item: ITrack) => item.id.toString()}
     />

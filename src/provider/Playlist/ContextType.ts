@@ -8,4 +8,6 @@ export type ContextType = {
   setLists: (lists: IPlaylist[]) => void;
   setTracks: (lists: ITrack[]) => void;
   setActive: (active: number) => void;
+
+  updateTrackPlayer: (current: number) => Promise<void>;
 };
