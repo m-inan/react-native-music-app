@@ -15,7 +15,7 @@ import {
   TrackPlayerEvents,
 } from 'react-native-track-player';
 
-import { Dimensions } from 'src/constants';
+import { Dimensions, Colors } from 'src/constants';
 import { usePlayer } from 'src/provider';
 import { useAnimatedValue } from 'src/utils';
 
@@ -42,6 +42,7 @@ export const Record: React.FC<Props> = () => {
   const spinValue = useAnimatedValue(0);
 
   const size = range([70, dimension]);
+  const opacity = range([0, 0, 1]);
   const padding = range([5, 15]);
   const translateY = range([-measureY, 0]);
   const translateX = range([-(radius + (minDeviceRatio ? 30 : 15)), 0]);
@@ -109,15 +110,17 @@ export const Record: React.FC<Props> = () => {
         },
       ]}
       pointerEvents="none">
-      <Animated.View
-        style={{ width: '100%', height: '100%', transform: [{ rotate }] }}>
-        <View style={[styles.circle, { borderRadius: 999 }]}>
-          {track.artwork ? (
-            <Image
-              source={track.artwork}
-              style={{ width: '100%', height: '100%' }}
-            />
-          ) : null}
+      <Animated.View style={[styles.record, { transform: [{ rotate }] }]}>
+        {track.artwork ? (
+          <Image source={track.artwork} style={styles.image} />
+        ) : null}
+
+        <Animated.View style={[styles.cover, { opacity }]}>
+          <View style={styles.circle} />
+        </Animated.View>
+
+        <View style={styles.dotCover}>
+          <View style={styles.dot} />
         </View>
       </Animated.View>
     </Animated.View>
@@ -126,17 +129,57 @@ export const Record: React.FC<Props> = () => {
 
 const styles = StyleSheet.create({
   container: {
+    top: 0,
+    padding: 15,
     borderRadius: 999,
     overflow: 'hidden',
     alignItems: 'center',
     position: 'absolute',
-    padding: 15,
     backgroundColor: 'rgba(0,0,0,.5)',
-    top: 0,
+  },
+  record: {
+    padding: 5,
+    width: '100%',
+    height: '100%',
+    borderRadius: 999,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,.5)',
+  },
+
+  image: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 999,
+  },
+
+  cover: {
+    width: '100%',
+    height: '100%',
+    padding: 7,
+    position: 'absolute',
   },
   circle: {
     width: '100%',
     height: '100%',
-    overflow: 'hidden',
+    borderWidth: 2,
+    borderRadius: 999,
+    borderColor: Colors.primary,
+  },
+  dotCover: {
+    width: '22%',
+    height: '22%',
+    borderRadius: 999,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.primary,
+  },
+  dot: {
+    width: '65%',
+    height: '65%',
+    borderRadius: 999,
+    backgroundColor: Colors.black,
   },
 });
