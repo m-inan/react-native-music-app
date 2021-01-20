@@ -52,9 +52,9 @@ export const useAnimation = (size: number) => {
     PanResponder.create({
       // Ask to be the responder:
       onStartShouldSetPanResponder: (_event, { dx, dy }) =>
-        Math.abs(dx) > Math.abs(dy),
+        Math.abs(dx) > Math.abs(dy) + 2,
       onMoveShouldSetPanResponder: (_event, { dx, dy }) =>
-        Math.abs(dx) > Math.abs(dy),
+        Math.abs(dx) > Math.abs(dy) + 2,
 
       onPanResponderTerminate: () => {
         // Another component has become the responder, so this gesture
