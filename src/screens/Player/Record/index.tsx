@@ -8,6 +8,7 @@ import {
   Easing,
 } from 'react-native';
 import {
+  getState,
   useTrackPlayerEvents,
   STATE_PLAYING,
   STATE_PAUSED,
@@ -67,7 +68,7 @@ export const Record: React.FC<Props> = () => {
 
   useTrackPlayerEvents(
     [PLAYBACK_STATE, PLAYBACK_TRACK_CHANGED],
-    (event: any) => {
+    async (event: any) => {
       if (event.type === PLAYBACK_STATE) {
         if (event.state === STATE_PLAYING) {
           spinValue.extractOffset();
@@ -82,6 +83,12 @@ export const Record: React.FC<Props> = () => {
       } else if (event.type === PLAYBACK_TRACK_CHANGED) {
         spinValue.flattenOffset();
         spinValue.setValue(0);
+
+        const state = await getState();
+
+        if (state === STATE_PLAYING) {
+          runAnimation();
+        }
       }
     },
   );
