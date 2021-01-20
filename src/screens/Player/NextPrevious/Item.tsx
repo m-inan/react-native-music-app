@@ -21,8 +21,13 @@ export const Item: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       {artwork && (
-        <View style={styles.circle}>
+        <View style={styles.record}>
           <Image source={artwork} style={styles.artwork} />
+          <View style={styles.cover}>
+            <View style={styles.circle} />
+          </View>
+
+          <View style={styles.point} />
         </View>
       )}
 
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
     paddingBottom: Dimensions.bottomInset,
   },
 
-  circle: {
+  record: {
     width: 60,
     height: 60,
     justifyContent: 'center',
@@ -69,6 +74,31 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
+  },
+
+  cover: {
+    width: '100%',
+    height: '100%',
+    padding: 7,
+    position: 'absolute',
+  },
+  circle: {
+    width: '100%',
+    height: '100%',
+    borderWidth: 1,
+    borderRadius: 999,
+    borderColor: Colors.primary,
+  },
+  point: {
+    width: 12,
+    height: 12,
+    borderRadius: 12 / 2,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: Colors.primary,
+    backgroundColor: Colors.black,
   },
 
   information: {
