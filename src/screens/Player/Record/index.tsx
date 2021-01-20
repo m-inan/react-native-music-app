@@ -5,10 +5,19 @@ import {
   StyleSheet,
   findNodeHandle,
   Image,
+  Easing,
 } from 'react-native';
+import {
+  useTrackPlayerEvents,
+  STATE_PLAYING,
+  STATE_PAUSED,
+  STATE_STOPPED,
+  TrackPlayerEvents,
+} from 'react-native-track-player';
 
 import { Dimensions } from 'src/constants';
 import { usePlayer } from 'src/provider';
+import { useAnimatedValue } from 'src/utils';
 
 import { sliderRatio, minDeviceRatio } from '../Slider/Dimensions';
 import { useBottomSheet } from '../Context';
@@ -20,6 +29,8 @@ const { width } = Dimensions;
 const dimension = width / sliderRatio - 60;
 const radius = dimension / 2;
 
+const { PLAYBACK_STATE, PLAYBACK_TRACK_CHANGED } = TrackPlayerEvents;
+
 export const Record: React.FC<Props> = () => {
   const { track } = usePlayer();
 
@@ -27,6 +38,8 @@ export const Record: React.FC<Props> = () => {
 
   const [measureY, setMeasureY] = useState(0);
   const { range, container } = useBottomSheet();
+
+  const spinValue = useAnimatedValue(0);
 
   const size = range([70, dimension]);
   const padding = range([5, 15]);
@@ -46,6 +59,43 @@ export const Record: React.FC<Props> = () => {
     }
   }, [marker]);
 
+  const rotate = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
+
+  useTrackPlayerEvents(
+    [PLAYBACK_STATE, PLAYBACK_TRACK_CHANGED],
+    (event: any) => {
+      if (event.type === PLAYBACK_STATE) {
+        if (event.state === STATE_PLAYING) {
+          spinValue.extractOffset();
+          runAnimation();
+        } else if (event.state === STATE_PAUSED) {
+          spinValue.stopAnimation();
+          spinValue.extractOffset();
+        } else if (event.state === STATE_STOPPED) {
+          spinValue.flattenOffset();
+          spinValue.setValue(0);
+        }
+      } else if (event.type === PLAYBACK_TRACK_CHANGED) {
+        spinValue.flattenOffset();
+        spinValue.setValue(0);
+      }
+    },
+  );
+
+  const runAnimation = () => {
+    Animated.loop(
+      Animated.timing(spinValue, {
+        toValue: 1,
+        duration: 3000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    ).start();
+  };
+
   return (
     <Animated.View
       ref={marker}
@@ -59,14 +109,17 @@ export const Record: React.FC<Props> = () => {
         },
       ]}
       pointerEvents="none">
-      <View style={[styles.circle, { borderRadius: 999 }]}>
-        {track.artwork ? (
-          <Image
-            source={track.artwork}
-            style={{ width: '100%', height: '100%' }}
-          />
-        ) : null}
-      </View>
+      <Animated.View
+        style={{ width: '100%', height: '100%', transform: [{ rotate }] }}>
+        <View style={[styles.circle, { borderRadius: 999 }]}>
+          {track.artwork ? (
+            <Image
+              source={track.artwork}
+              style={{ width: '100%', height: '100%' }}
+            />
+          ) : null}
+        </View>
+      </Animated.View>
     </Animated.View>
   );
 };
