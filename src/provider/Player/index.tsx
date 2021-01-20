@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  setupPlayer,
-  registerPlaybackService,
+import TrackPlayer, {
   addEventListener,
   getCurrentTrack,
   getTrack,
@@ -22,26 +20,46 @@ export const PlayerProvider: React.FC<Props> = ({ children }: Props) => {
   const [track, setTrack] = useState<ITrack>(defaultTrack);
 
   useEffect(() => {
-    setupPlayer().then(() => {
-      setReady(true);
-      setPlaying(true);
+    TrackPlayer.setupPlayer().then(() => {
+      TrackPlayer.updateOptions({
+        // Whether the player should stop running when the app is closed on Android
+        stopWithApp: false,
+
+        // An array of media controls capabilities
+        // Can contain CAPABILITY_PLAY, CAPABILITY_PAUSE, CAPABILITY_STOP, CAPABILITY_SEEK_TO,
+        // CAPABILITY_SKIP_TO_NEXT, CAPABILITY_SKIP_TO_PREVIOUS, CAPABILITY_SET_RATING
+        capabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_STOP,
+          TrackPlayer.CAPABILITY_SEEK_TO,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+          TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+        ],
+
+        // An array of capabilities that will show up when the notification is in the compact form on Android
+        compactCapabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_SEEK_TO,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+          TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+        ],
+      }).then(() => {
+        setReady(true);
+        setPlaying(true);
+      });
     });
   }, []);
 
   useEffect(() => {
-    registerPlaybackService(() => async () => {
-      /**
-       * Track is changed
-       *
-       **/
-      addEventListener('playback-track-changed', async () => {
-        let trackId = await getCurrentTrack();
-        let trackObject = await getTrack(trackId);
+    addEventListener('playback-track-changed', async () => {
+      let trackId = await getCurrentTrack();
+      let trackObject = await getTrack(trackId);
 
-        if (trackObject) {
-          setTrack({ ...trackObject, duration: '' });
-        }
-      });
+      if (trackObject) {
+        setTrack({ ...trackObject, duration: '' });
+      }
     });
   }, []);
 
