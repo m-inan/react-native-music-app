@@ -16,9 +16,15 @@ export const Previous: React.FC<Props> = () => {
 
   return (
     <TouchableOpacity
-      onPress={() => {
+      onPress={async () => {
         console.log('previous');
-        TrackPlayer.skipToPrevious();
+        const position = await TrackPlayer.getPosition();
+
+        if (position > 3) {
+          TrackPlayer.seekTo(0);
+        } else {
+          TrackPlayer.skipToPrevious();
+        }
       }}>
       <Animated.View style={{ width: size, height: size }}>
         <IconPrevious size={'100%'} opacity={opacity} />
