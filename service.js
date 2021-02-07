@@ -6,6 +6,7 @@ import {
   skipToNext,
   skipToPrevious,
   seekTo,
+  getPosition,
 } from 'react-native-track-player';
 
 module.exports = async function () {
@@ -17,7 +18,15 @@ module.exports = async function () {
 
   addEventListener('remote-next', () => skipToNext());
 
-  addEventListener('remote-previous', () => skipToPrevious());
+  addEventListener('remote-previous', async (param) => {
+    const position = await getPosition();
+
+    if (position > 3) {
+      seekTo(0);
+    } else {
+      skipToPrevious();
+    }
+  });
 
   addEventListener('remote-seek', (position) => seekTo(position));
 };
