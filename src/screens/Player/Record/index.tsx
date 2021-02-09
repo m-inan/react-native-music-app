@@ -6,6 +6,7 @@ import {
   findNodeHandle,
   Image,
   Easing,
+  Platform,
 } from 'react-native';
 import {
   getState,
@@ -71,11 +72,17 @@ export const Record: React.FC<Props> = () => {
     async (event: any) => {
       if (event.type === PLAYBACK_STATE) {
         if (event.state === STATE_PLAYING) {
-          spinValue.extractOffset();
+          if (Platform.OS === 'android') {
+            spinValue.extractOffset();
+          } else {
+            spinValue.setValue(0);
+          }
           runAnimation();
         } else if (event.state === STATE_PAUSED) {
+          if (Platform.OS === 'android') {
+            spinValue.extractOffset();
+          }
           spinValue.stopAnimation();
-          spinValue.extractOffset();
         } else if (event.state === STATE_STOPPED) {
           spinValue.flattenOffset();
           spinValue.setValue(0);
@@ -95,12 +102,14 @@ export const Record: React.FC<Props> = () => {
 
   const runAnimation = () => {
     Animated.loop(
-      Animated.timing(spinValue, {
-        toValue: 1,
-        duration: 3000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
+      Animated.sequence([
+        Animated.timing(spinValue, {
+          toValue: 1,
+          duration: 3000,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+      ]),
     ).start();
   };
 

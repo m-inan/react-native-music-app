@@ -48,7 +48,6 @@ export const PlayerProvider: React.FC<Props> = ({ children }: Props) => {
         ],
       }).then(() => {
         setReady(true);
-        setPlaying(true);
       });
     });
   }, []);
