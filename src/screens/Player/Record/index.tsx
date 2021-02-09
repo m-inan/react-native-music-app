@@ -102,14 +102,12 @@ export const Record: React.FC<Props> = () => {
 
   const runAnimation = () => {
     Animated.loop(
-      Animated.sequence([
-        Animated.timing(spinValue, {
-          toValue: 1,
-          duration: 3000,
-          easing: Easing.linear,
-          useNativeDriver: true,
-        }),
-      ]),
+      Animated.timing(spinValue, {
+        toValue: 1,
+        duration: 3000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
     ).start();
   };
 
