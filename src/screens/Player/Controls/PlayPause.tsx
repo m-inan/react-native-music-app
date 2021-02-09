@@ -7,6 +7,7 @@ import TrackPlayer, {
   TrackPlayerEvents,
 } from 'react-native-track-player';
 
+import { usePlayer } from 'src/provider';
 import { Play, Pause } from 'src/icons';
 
 import { useBottomSheet } from '../Context';
@@ -16,9 +17,9 @@ interface Props {}
 const { PLAYBACK_STATE } = TrackPlayerEvents;
 
 export const PlayPause: React.FC<Props> = () => {
-  const { range } = useBottomSheet();
+  const { isPlaying, setPlaying } = usePlayer();
 
-  const [isPlaying, setPlaying] = useState<boolean>(false);
+  const { range } = useBottomSheet();
 
   const size = range([50, 60]);
   const backgroundColor = range([

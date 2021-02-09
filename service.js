@@ -28,5 +28,5 @@ module.exports = async function () {
     }
   });
 
-  addEventListener('remote-seek', (position) => seekTo(position));
+  addEventListener('remote-seek', ({ position }) => seekTo(position));
 };

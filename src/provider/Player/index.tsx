@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { AppState } from 'react-native';
 import TrackPlayer, {
   addEventListener,
   getCurrentTrack,
@@ -23,7 +24,7 @@ export const PlayerProvider: React.FC<Props> = ({ children }: Props) => {
     TrackPlayer.setupPlayer().then(() => {
       TrackPlayer.updateOptions({
         // Whether the player should stop running when the app is closed on Android
-        stopWithApp: false,
+        stopWithApp: true,
 
         // An array of media controls capabilities
         // Can contain CAPABILITY_PLAY, CAPABILITY_PAUSE, CAPABILITY_STOP, CAPABILITY_SEEK_TO,
@@ -61,6 +62,17 @@ export const PlayerProvider: React.FC<Props> = ({ children }: Props) => {
         setTrack({ ...trackObject, duration: '' });
       }
     });
+
+    AppState.addEventListener('change', async (appState) => {
+      console.log(appState);
+      if (appState == 'active') {
+        const state = await TrackPlayer.getState();
+
+        console.log(state == TrackPlayer.STATE_PLAYING);
+
+        setPlaying(state == TrackPlayer.STATE_PLAYING);
+      }
+    });
   }, []);
 
   return (
@@ -69,6 +81,7 @@ export const PlayerProvider: React.FC<Props> = ({ children }: Props) => {
         track,
         isReady,
         isPlaying,
+        setPlaying,
       }}>
       {children}
     </Context.Provider>

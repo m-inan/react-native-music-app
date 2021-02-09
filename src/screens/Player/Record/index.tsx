@@ -44,7 +44,7 @@ export const Record: React.FC<Props> = () => {
 
   const size = range([70, dimension]);
   const opacity = range([0, 0, 1]);
-  const padding = range([5, 15]);
+  const padding = range([0, 10]);
   const translateY = range([-measureY, 0]);
   const translateX = range([-(radius + (minDeviceRatio ? 30 : 15)), 0]);
 
