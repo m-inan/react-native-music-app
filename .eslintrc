@@ -1,37 +1,6 @@
 {
-    "root": true,
-    "extends": "@react-native-community",
-    "env": {
-        "browser": true,
-        "es6": true
-    },
-    "extends": ["eslint:recommended", "plugin:react/recommended"],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parser": "babel-eslint",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true,
-            "modules": true,
-            "experimentalObjectRestSpread": true
-        },
-        "sourceType": "module",
-        "ecmaVersion": 6,
-        "allowImportExportEverywhere": true
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "quotes": [2, "single", { "avoidEscape": true }],
-        "comma-dangle": 0,
-        "react/jsx-uses-vars": 1,
-        "react/display-name": 1,
-        "react/prop-types": 0,
-        "no-unused-vars": "warn",
-        "no-console": 1,
-        "no-unexpected-multiline": "warn"
-    }
+  "root": true,
+  "extends": "@react-native-community",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"]
 }
