@@ -16,7 +16,7 @@ import { NextPrevious } from './NextPrevious';
 import { Context } from './Context';
 import { useAnimation } from './Animation';
 
-import { sliderRatio } from './Slider/Dimensions';
+import { sliderRatio, minDeviceRatio } from './Slider/Dimensions';
 
 const { width } = Dimensions;
 
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     height: 130,
   },
   nextPrev: {
-    minHeight: 180,
+    minHeight: minDeviceRatio ? 120 : 160,
   },
   section: {
     width: '100%',
