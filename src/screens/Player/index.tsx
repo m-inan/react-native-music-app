@@ -4,6 +4,7 @@ import { View, StyleSheet, Animated, Platform } from 'react-native';
 import { Colors, Dimensions } from 'src/constants';
 
 import { Handle } from './Handle';
+import { Position } from './Position';
 import { Header } from './Header';
 import { Slider } from './Slider';
 import { Record } from './Record';
@@ -61,6 +62,8 @@ export const Player: React.FC<Props> = () => {
         ref={container}
         style={[styles.container, { transform: [{ translateY }] }]}>
         <Handle panResponder={panResponder} />
+
+        <Position />
 
         <View style={styles.header}>
           <Header />
