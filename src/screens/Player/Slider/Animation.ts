@@ -121,7 +121,7 @@ export const useSlider = () => {
         // gestureState.d{x,y}
         const offset = (offsetY as any)._value;
 
-        const { locationX, pageY } = nativeEvent;
+        const { pageX, pageY } = nativeEvent;
 
         let withOffset = pageY - offset;
 
@@ -130,7 +130,7 @@ export const useSlider = () => {
         }
 
         const diffY = withOffset - centerY;
-        const diffX = locationX - centerX;
+        const diffX = pageX - centerX;
 
         const tetha = Math.atan2(diffY, diffX);
         const percentage = interpolate(tetha, [Math.PI, 0], [0, 100]);
