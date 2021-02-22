@@ -3,7 +3,7 @@
 A mobile application built using React Native
 
 <p align="center">
-  <img src="https://media.giphy.com/media/KIrKyFGWMhRjrsBpFE/source.gif" alt="animated" />
+  <img src="https://github.com/m-inan/react-native-music-app/blob/rewrite/images/screen.gif?raw=true" alt="animated" />
 </p>
 
 ## Features
