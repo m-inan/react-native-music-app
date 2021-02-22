@@ -63,11 +63,8 @@ export const PlayerProvider: React.FC<Props> = ({ children }: Props) => {
     });
 
     AppState.addEventListener('change', async (appState) => {
-      console.log(appState);
       if (appState == 'active') {
         const state = await TrackPlayer.getState();
-
-        console.log(state == TrackPlayer.STATE_PLAYING);
 
         setPlaying(state == TrackPlayer.STATE_PLAYING);
       }
