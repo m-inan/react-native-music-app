@@ -5711,8 +5711,9 @@ react-native-swift@^1.2.3:
     "@raydeck/xcode" "^2.2.0"
     glob "^7.1.2"
 
-react-native-track-player@../react-native-track-player:
+"react-native-track-player@git+https://github.com/m-inan/react-native-track-player.git":
   version "1.2.3"
+  resolved "git+https://github.com/m-inan/react-native-track-player.git#a0af0a0ea2807466bd00d6d5ab4c601e602055c0"
 
 react-native@^0.63.4:
   version "0.63.4"

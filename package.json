@@ -15,7 +15,7 @@
     "react-native-safe-area-context": "^3.1.9",
     "react-native-svg": "^12.1.0",
     "react-native-swift": "^1.2.3",
-    "react-native-track-player": "../react-native-track-player"
+    "react-native-track-player": "git+https://github.com/m-inan/react-native-track-player.git"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
