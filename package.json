@@ -12,6 +12,9 @@
   "dependencies": {
     "react": "^17.0.1",
     "react-native": "^0.63.4",
+    "react-native-fast-image": "^8.3.4",
+    "react-native-gesture-handler": "^1.10.2",
+    "react-native-reanimated": "^2.0.0-rc.3",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-svg": "^12.1.0",
     "react-native-swift": "^1.2.3",
