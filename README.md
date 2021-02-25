@@ -3,12 +3,13 @@
 A mobile application built using React Native
 
 <p align="center">
-  <img src="https://github.com/m-inan/react-native-music-app/blob/rewrite/images/screen.gif?raw=true" alt="animated" />
+  <img src="https://github.com/m-inan/react-native-music-app/blob/animated_api/images/screen.gif?raw=true" alt="animated" />
 </p>
 
 ## Features
 
 - Offline Playing
+- Remote Control
 - Customizable playlists
 - Static sounds and artwork files
 - Next, previous, shuffle, and replay
@@ -18,7 +19,7 @@ The download with youtube was removed. Instead, you have to put sounds and pictu
 
 #### Download
 ```console
-git clone https://github.com/m-inan/react-native-music-app
+git clone -b animated_api https://github.com/m-inan/react-native-music-app
 cd react-native-music-app
 ```
 
