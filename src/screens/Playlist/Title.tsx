@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 
-import { usePlaylist } from 'src/provider';
 import { Text, TextType } from 'src/components';
 
-interface Props {
-  swipeIndex: Animated.Value;
-}
-
-export const Title: React.FC<Props> = ({ swipeIndex }: Props) => {
-  const { lists } = usePlaylist();
-  const [index, setIndex] = useState<number>(0);
-
-  useEffect(() => {
-    swipeIndex.addListener(({ value }: { value: number }) => {
-      setIndex(value);
-    });
-  }, []);
-
-  const title = lists[index]?.title ?? '';
-
+export const Title = () => {
   return (
     <View style={styles.container}>
       <Text size={30} type={TextType.SEMIBOLD}>
-        {title}
+        Pop
       </Text>
     </View>
   );

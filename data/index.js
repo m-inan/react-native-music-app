@@ -112,17 +112,17 @@ export const playlists = [
     items: [1, 2, 3, 4, 5, 6, 7, 8],
   },
   {
-    id: 3,
+    id: 2,
     title: 'Rock',
     items: [8, 9],
   },
   {
-    id: 4,
+    id: 3,
     title: 'Classic',
     items: [10, 11],
   },
   {
-    id: 5,
+    id: 4,
     title: 'Baroque',
     items: [12, 13],
   },

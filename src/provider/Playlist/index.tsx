@@ -15,6 +15,7 @@ export const PlaylistProvider: React.FC<Props> = ({ children }: Props) => {
   const [active, setActive] = useState<number>(0);
   const [lists, setLists] = useState<IPlaylist[]>([]);
   const [tracks, setTracks] = useState<ITrack[]>([]);
+  const [swipeIndex, setSwipeIndex] = useState<number>(0);
 
   useEffect(() => {
     updateTrackPlayer(0);
@@ -43,9 +44,11 @@ export const PlaylistProvider: React.FC<Props> = ({ children }: Props) => {
         active,
         lists,
         tracks,
+        swipeIndex,
         setActive,
         setLists,
         setTracks,
+        setSwipeIndex,
         updateTrackPlayer,
       }}>
       {children}

@@ -1,21 +1,12 @@
-import { createContext, useContext, MutableRefObject } from 'react';
-import { Animated, View } from 'react-native';
+import { createContext, useContext } from 'react';
+import Animated from 'react-native-reanimated';
 
 type ContextType = {
-  position: Animated.Value;
-  percent: Animated.Value;
-  status: Animated.Value;
-  container: MutableRefObject<View | undefined>;
-  range: (
-    inputRange: string[] | number[],
-    outputRange?: string[] | number[],
-  ) => Animated.AnimatedInterpolation;
+  percent: Animated.SharedValue<number>;
 };
 
-export const Context = createContext<ContextType>({} as ContextType);
+export const Context = createContext({} as ContextType);
 
-export const useBottomSheet = () => {
-  const context = useContext(Context);
-
-  return context;
+export const useAnimation = () => {
+  return useContext(Context);
 };

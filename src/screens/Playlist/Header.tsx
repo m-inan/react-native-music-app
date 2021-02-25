@@ -2,9 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Search, Gear, DoubleQuaver } from 'src/icons';
 
-interface Props {}
-
-export const Header: React.FC<Props> = () => {
+export const Header = () => {
   return (
     <View style={styles.container}>
       <Search size={28} />

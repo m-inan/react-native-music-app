@@ -167,6 +167,8 @@ declare module 'react-native-track-player' {
   export function seekTo(seconds: number): Promise<void>;
   export function setVolume(level: number): Promise<void>;
   export function setRate(rate: number): Promise<void>;
+  export function setShuffleMode(mode: boolean): Promise<void>;
+  export function setRepeatMode(mode: boolean): Promise<void>;
 
   // Player Getters
 

@@ -1,23 +1,46 @@
 import React, { useEffect } from 'react';
-import { Animated, Easing, StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+import Animated, {
+  Easing,
+  interpolate,
+  withTiming,
+  useSharedValue,
+  useDerivedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import { getPosition, getDuration } from 'react-native-track-player';
 
 import { Colors } from 'src/constants';
 import { usePlayer } from 'src/provider';
-import { useAnimatedValue } from 'src/utils';
 
-import { useBottomSheet } from '../Context';
+import { useAnimation } from '../Context';
+
+const window = Dimensions.get('window');
+
+let timeout: any;
 
 interface Props {}
 
 export const Position: React.FC<Props> = () => {
-  const { isPlaying } = usePlayer();
-  const { range } = useBottomSheet();
+  const { track, isPlaying } = usePlayer();
 
-  const percent = useAnimatedValue(0);
-  const opacity = range([80, 100], [1, 0]);
+  const { percent } = useAnimation();
+
+  const position = useSharedValue(0);
 
   useEffect(() => {
+    clearTimeout(timeout);
+
+    position.value = withTiming(0, {
+      duration: 500,
+    });
+
+    setCurrentPosition();
+  }, [track]);
+
+  useEffect(() => {
+    clearTimeout(timeout);
+
     if (isPlaying) {
       setTimeout(setCurrentPosition, 1000);
     }
@@ -30,23 +53,31 @@ export const Position: React.FC<Props> = () => {
     if (p > 0 && d > 0) {
       const value = (p * 100) / d;
 
-      Animated.timing(percent, {
-        toValue: value,
+      position.value = withTiming(value, {
         duration: 1000,
         easing: Easing.linear,
-        useNativeDriver: false,
-      }).start();
-
-      setTimeout(setCurrentPosition, 1000);
+      });
     }
+
+    timeout = setTimeout(setCurrentPosition, 1000);
   };
 
-  const width = percent.interpolate({
-    inputRange: [0, 100],
-    outputRange: ['0%', '100%'],
+  const width = useDerivedValue(() => {
+    return interpolate(position.value, [0, 100], [0, window.width]);
   });
 
-  return <Animated.View style={[styles.container, { opacity, width }]} />;
+  const opacity = useDerivedValue(() => {
+    return interpolate(percent.value, [0, 80], [1, 0]);
+  });
+
+  const style = useAnimatedStyle(() => {
+    return {
+      width: width.value,
+      opacity: opacity.value,
+    };
+  });
+
+  return <Animated.View style={[styles.container, style]} />;
 };
 
 const styles = StyleSheet.create({

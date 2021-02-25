@@ -1,21 +1,34 @@
 import React from 'react';
-import { View, Animated, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import Animated, {
+  interpolate,
+  useDerivedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 
-import { Dimensions } from 'src/constants';
 import { Text } from 'src/components';
 import { Back, Search, Options } from 'src/icons';
 
-import { useBottomSheet } from '../Context';
+import { HEADER_HEIGHT } from '../Dimensions';
+import { useAnimation } from '../Context';
 
 interface Props {}
 
 export const Header: React.FC<Props> = () => {
-  const { range } = useBottomSheet();
+  const { percent } = useAnimation();
 
-  const opacity = range([80, 100], [0, 1]);
+  const opacity = useDerivedValue(() => {
+    return interpolate(percent.value, [80, 100], [0, 1]);
+  });
+
+  const style = useAnimatedStyle(() => {
+    return {
+      opacity: opacity.value,
+    };
+  });
 
   return (
-    <Animated.View style={[styles.container, { opacity }]}>
+    <Animated.View pointerEvents="none" style={[styles.container, style]}>
       <View>
         <Back size={25} />
       </View>
@@ -33,11 +46,10 @@ export const Header: React.FC<Props> = () => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    height: HEADER_HEIGHT,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 24,
-    height: Dimensions.MINI_PLAYER_HEIGHT,
-    paddingTop: Dimensions.topInset,
   },
 
   middle: {

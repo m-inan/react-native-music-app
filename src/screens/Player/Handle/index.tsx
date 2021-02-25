@@ -1,25 +1,54 @@
 import React from 'react';
-import { Animated, StyleSheet, PanResponderInstance } from 'react-native';
+import { StyleSheet } from 'react-native';
+import Animated, {
+  interpolate,
+  useDerivedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+import {
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+} from 'react-native-gesture-handler';
 
-import { Dimensions } from 'src/constants';
+import { useAnimation } from '../Context';
+import { WIDTH, HANDLE_HEIGHT, MINI_CONTROL_WIDTH } from '../Dimensions';
 
 interface Props {
-  panResponder: PanResponderInstance;
+  gestureHandler: (event: PanGestureHandlerGestureEvent) => void;
 }
 
-export const Handle: React.FC<Props> = ({ panResponder }: Props) => {
+export const Handle: React.FC<Props> = ({ gestureHandler }: Props) => {
+  const { percent } = useAnimation();
+
+  const width = useDerivedValue(() => {
+    return interpolate(
+      percent.value,
+      [0, 100],
+      [WIDTH - MINI_CONTROL_WIDTH, WIDTH],
+    );
+  });
+
+  const style = useAnimatedStyle(() => {
+    return {
+      width: width.value,
+    };
+  });
+
   return (
-    <Animated.View style={styles.container} {...panResponder.panHandlers} />
+    <PanGestureHandler onGestureEvent={gestureHandler}>
+      <Animated.View style={[styles.container, style]}></Animated.View>
+    </PanGestureHandler>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
+    height: HANDLE_HEIGHT,
+    position: 'absolute',
     top: 0,
     left: 0,
-    zIndex: 9,
-    position: 'absolute',
-    width: '100%',
-    height: Dimensions.MINI_PLAYER_HEIGHT,
+    zIndex: 99,
+    backgroundColor: 'transparent',
   },
 });

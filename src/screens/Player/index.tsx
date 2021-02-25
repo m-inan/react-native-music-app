@@ -1,92 +1,93 @@
-import React, { useRef } from 'react';
-import { View, StyleSheet, Animated, Platform } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import Animated, {
+  withSpring,
+  interpolate,
+  Extrapolate,
+  useSharedValue,
+  useDerivedValue,
+  useAnimatedStyle,
+  useAnimatedGestureHandler,
+} from 'react-native-reanimated';
 
-import { Colors, Dimensions } from 'src/constants';
-
+import { Context } from './Context';
 import { Handle } from './Handle';
 import { Position } from './Position';
 import { Header } from './Header';
-import { Slider } from './Slider';
-import { Record } from './Record';
-import { Shuffle } from './Shuffle';
-import { Repeat } from './Repeat';
-import { Controls } from './Controls';
-import { Informations } from './Informations';
-import { NextPrevious } from './NextPrevious';
+import { Section } from './Section';
+import { Actions } from './Actions';
+import { NextPrev } from './NextPrev';
 
-import { Context } from './Context';
-import { useAnimation } from './Animation';
+import {
+  WIDTH,
+  HEIGHT,
+  TOP_INSET,
+  BOTTOM_INSET,
+  SNAP_TOP,
+  SNAP_BOTTOM,
+} from './Dimensions';
 
-import { sliderRatio, minDeviceRatio } from './Slider/Dimensions';
+export const Player = () => {
+  const translateY = useSharedValue(SNAP_TOP);
 
-const { width } = Dimensions;
+  const gestureHandler = useAnimatedGestureHandler({
+    onStart: (_, ctx: any) => {
+      ctx.startY = translateY.value;
+    },
+    onActive: (event, ctx: any) => {
+      const min = SNAP_BOTTOM;
+      const max = SNAP_TOP;
 
-interface Props {}
+      let value = ctx.startY + event.translationY;
 
-export const Player: React.FC<Props> = () => {
-  const { panResponder, translateY, percent, status } = useAnimation();
-
-  const container = useRef<View>();
-
-  const range = (
-    inputRange: string[] | number[],
-    outputRange?: string[] | number[],
-  ) => {
-    if (typeof outputRange === 'undefined') {
-      outputRange = inputRange;
-      inputRange = [0];
-
-      // Divide 100 equally by the number of inputRange
-      // length is `5` outputRange equal [0, 25, 50, 75, 100]
-      const length = outputRange.length;
-      const j = length - 1;
-
-      for (var i = 1; i <= j; i++) {
-        const r = (100 / j) * i;
-
-        inputRange.push(r);
+      if (value > min) {
+        value = min;
+      } else if (value < max) {
+        value = max;
       }
-    }
 
-    return percent.interpolate({
-      // @ts-ignore
-      inputRange: inputRange,
-      outputRange: outputRange,
-    });
-  };
+      translateY.value = value;
+    },
+    onEnd: (event) => {
+      const velocity = event.velocityY;
+      const toValue = velocity > 0 ? SNAP_BOTTOM : 0;
+
+      translateY.value = withSpring(toValue, {
+        velocity,
+        stiffness: 40,
+        overshootClamping: true,
+      });
+    },
+  });
+
+  const percent = useDerivedValue(() => {
+    return interpolate(
+      translateY.value,
+      [SNAP_BOTTOM, SNAP_TOP],
+      [0, 100],
+      Extrapolate.CLAMP,
+    );
+  });
+
+  const style = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: translateY.value,
+        },
+      ],
+    };
+  });
 
   return (
-    <Context.Provider
-      value={{ position: translateY, percent, range, status, container }}>
-      <Animated.View
-        ref={container}
-        style={[styles.container, { transform: [{ translateY }] }]}>
-        <Handle panResponder={panResponder} />
-
+    <Context.Provider value={{ percent }}>
+      <Animated.View style={[styles.container, style]}>
+        <Handle {...{ gestureHandler }} />
         <Position />
-
-        <View style={styles.header}>
-          <Header />
-        </View>
-
-        <View style={[styles.section, styles.slider]}>
-          <Slider />
-          <Record />
-          <Shuffle />
-          <Repeat />
-        </View>
-        <View
-          style={[
-            styles.section,
-            styles.controls,
-            Platform.OS === 'ios' && { zIndex: 99 },
-          ]}>
-          <Informations />
-          <Controls />
-        </View>
-        <View style={[styles.section, styles.nextPrev]}>
-          <NextPrevious />
-        </View>
+        <Header />
+        <Section />
+        <Actions />
+        <NextPrev />
       </Animated.View>
     </Context.Provider>
   );
@@ -94,31 +95,17 @@ export const Player: React.FC<Props> = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width,
-    height: Dimensions.height,
-    flex: 1,
-    justifyContent: 'space-between',
+    top: 0,
+    left: 0,
+    width: WIDTH,
+    height: HEIGHT,
     position: 'absolute',
-    backgroundColor: Colors.foreground,
-  },
 
-  text: {
-    fontSize: 25,
-    color: Colors.white,
-    textAlign: 'center',
-  },
-  header: {},
-  slider: {
-    height: width / sliderRatio,
+    paddingTop: TOP_INSET,
+    paddingBottom: BOTTOM_INSET,
+
     alignItems: 'center',
-  },
-  controls: {
-    height: 130,
-  },
-  nextPrev: {
-    minHeight: minDeviceRatio ? 120 : 160,
-  },
-  section: {
-    width: '100%',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgb(27, 35, 35)',
   },
 });

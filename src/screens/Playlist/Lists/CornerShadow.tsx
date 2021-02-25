@@ -1,11 +1,12 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import Svg, { Rect, Defs, Stop, LinearGradient } from 'react-native-svg';
 
-import { styles } from './styles';
+import { Colors } from 'src/constants';
 
 export const CornerShadow = () => (
   <Svg
-    style={styles.shadow}
+    style={styles.container}
     width="38"
     height="39"
     viewBox="0 0 38 39"
@@ -25,3 +26,12 @@ export const CornerShadow = () => (
     </Defs>
   </Svg>
 );
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    backgroundColor: Colors.primary,
+  },
+});

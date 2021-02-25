@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import { ITrack } from 'src/interfaces';
-import { Colors, Dimensions } from 'src/constants';
+import { Colors } from 'src/constants';
 import { Text } from 'src/components';
 import { Play } from 'src/icons';
+
+import { WIDTH, BOTTOM_INSET } from '../Dimensions';
 
 interface Props extends ITrack {
   onPress: () => void;
@@ -22,7 +25,7 @@ export const Item: React.FC<Props> = ({
     <View style={styles.container}>
       {artwork && (
         <View style={styles.record}>
-          <Image source={artwork} style={styles.artwork} />
+          <FastImage source={artwork} style={styles.artwork} />
           <View style={styles.cover}>
             <View style={styles.circle} />
           </View>
@@ -57,7 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingBottom: Dimensions.bottomInset,
+    paddingBottom: BOTTOM_INSET,
   },
 
   record: {
@@ -114,7 +117,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingRight: 20,
-    width: Dimensions.width - 200,
+    width: WIDTH - 200,
   },
 
   artist: {

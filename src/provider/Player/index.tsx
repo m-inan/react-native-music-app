@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { AppState } from 'react-native';
 import TrackPlayer, {
-  addEventListener,
-  getCurrentTrack,
   getTrack,
+  getCurrentTrack,
+  addEventListener,
+  TrackPlayerEvents,
+  useTrackPlayerEvents,
+  STATE_PLAYING,
+  STATE_PAUSED,
 } from 'react-native-track-player';
 
 import { ITrack } from 'src/interfaces';
 
 import { Context } from './Context';
 import { defaultTrack } from './InitialValue';
+
+const { PLAYBACK_STATE } = TrackPlayerEvents;
 
 interface Props {
   children: React.ReactNode;
@@ -19,6 +25,16 @@ export const PlayerProvider: React.FC<Props> = ({ children }: Props) => {
   const [isReady, setReady] = useState<boolean>(false);
   const [isPlaying, setPlaying] = useState<boolean>(false);
   const [track, setTrack] = useState<ITrack>(defaultTrack);
+
+  useTrackPlayerEvents([PLAYBACK_STATE], (event: any) => {
+    if (event.type === PLAYBACK_STATE) {
+      if (event.state === STATE_PLAYING) {
+        setPlaying(true);
+      } else if (event.state === STATE_PAUSED) {
+        setPlaying(false);
+      }
+    }
+  });
 
   useEffect(() => {
     TrackPlayer.setupPlayer().then(() => {

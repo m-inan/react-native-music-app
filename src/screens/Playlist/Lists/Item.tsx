@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import FastImage from 'react-native-fast-image';
 import {
   skip,
   play,
@@ -16,20 +18,20 @@ import { Text } from 'src/components';
 import { Options } from 'src/icons';
 
 interface Props {
-  item: ITrack;
-  index: number;
-  playlist: number;
+  item?: ITrack;
+  last: boolean;
+  playlistIndex: number;
 }
 
-export const Item: React.FC<Props> = ({
-  playlist,
-  item: { id, title, artwork, artist, last, duration },
-}: Props) => {
+export const Item: React.FC<Props> = ({ item, last, playlistIndex }: Props) => {
+  if (!item) return null;
+
+  const { id, title, artwork, artist, duration } = item;
   const { active, updateTrackPlayer } = usePlaylist();
 
   const onPress = async () => {
-    if (active !== playlist) {
-      await updateTrackPlayer(playlist);
+    if (active !== playlistIndex) {
+      await updateTrackPlayer(playlistIndex);
     }
 
     // get state before skip
@@ -52,7 +54,7 @@ export const Item: React.FC<Props> = ({
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.artworkContainer}>
-        {artwork ? <Image source={artwork} style={styles.artwork} /> : null}
+        {artwork ? <FastImage source={artwork} style={styles.artwork} /> : null}
 
         <View style={styles.artworkInlineBorder}>
           <View style={styles.artworkPoint} />

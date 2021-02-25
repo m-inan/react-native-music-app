@@ -1,24 +1,21 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 
 import { tracks, playlists } from '../../../data';
 
-import { Colors, Dimensions } from 'src/constants';
+import { Colors } from 'src/constants';
 import { usePlaylist } from 'src/provider';
+
+import { MINI_AREA_HEIGHT } from '../Player/Dimensions';
 
 import { Header } from './Header';
 import { Title } from './Title';
 import { Tabbar } from './Tabbar';
-import { Tracks } from './Tracks';
+import { Lists } from './Lists';
 
-import { useAnimation } from './Animation';
-
-interface Props {}
-
-export const Playlist: React.FC<Props> = () => {
+export const Playlist = () => {
   const { setLists, setTracks } = usePlaylist();
-
-  const { translateX, panResponder, index } = useAnimation(playlists.length);
 
   useEffect(() => {
     setLists(playlists);
@@ -34,9 +31,9 @@ export const Playlist: React.FC<Props> = () => {
   return (
     <View style={styles.container}>
       <Header />
-      <Title swipeIndex={index} />
-      <Tabbar swipeIndex={index} />
-      <Tracks {...{ translateX, panResponder }} />
+      <Title />
+      <Tabbar />
+      <Lists />
     </View>
   );
 };
@@ -44,15 +41,12 @@ export const Playlist: React.FC<Props> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Dimensions.topInset,
     backgroundColor: Colors.background,
-  },
-  title: {
-    fontSize: 40,
-    color: 'white',
+    paddingTop: initialWindowMetrics?.insets.top ?? 0,
+    paddingBottom: MINI_AREA_HEIGHT,
   },
   text: {
-    fontSize: 22,
+    fontSize: 40,
     color: 'white',
   },
 });

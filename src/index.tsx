@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 
 import { Provider } from 'src/provider';
-import { Playlist, Player } from 'src/screens/';
+import { Screens } from 'src/screens';
 
 interface Props {}
 
@@ -14,8 +14,7 @@ export const App: React.FC<Props> = () => {
         backgroundColor="transparent"
         barStyle="light-content"
       />
-      <Playlist />
-      <Player />
+      <Screens />
     </Provider>
   );
 };

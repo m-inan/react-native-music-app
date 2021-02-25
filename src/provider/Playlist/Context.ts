@@ -1,5 +1,19 @@
 import { createContext, useContext } from 'react';
-import { ContextType } from './ContextType';
+import { IPlaylist, ITrack } from 'src/interfaces';
+
+export type ContextType = {
+  active: number;
+  lists: IPlaylist[];
+  tracks: ITrack[];
+  swipeIndex: number;
+
+  setLists: (lists: IPlaylist[]) => void;
+  setTracks: (lists: ITrack[]) => void;
+  setActive: (active: number) => void;
+  setSwipeIndex: (swipeIndex: number) => void;
+
+  updateTrackPlayer: (current: number) => Promise<void>;
+};
 
 export const Context = createContext<ContextType>({} as ContextType);
 

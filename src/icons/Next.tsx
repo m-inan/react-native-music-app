@@ -1,13 +1,13 @@
 import React from 'react';
-import { Animated } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
+import Animated, { useAnimatedProps } from 'react-native-reanimated';
 
 import { IconProps } from './interfaces';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 
 interface Props extends IconProps {
-  opacity: Animated.AnimatedInterpolation;
+  opacity: Animated.SharedValue<number>;
 }
 
 export const Next: React.FC<Props> = ({
@@ -15,6 +15,12 @@ export const Next: React.FC<Props> = ({
   opacity,
   fill = 'rgb(255, 255, 255)',
 }: Props) => {
+  const animatedProps = useAnimatedProps(() => {
+    return {
+      opacity: opacity.value,
+    };
+  });
+
   return (
     <Svg width={size} height={size} viewBox="0 0 870 500">
       <Path
@@ -24,7 +30,7 @@ export const Next: React.FC<Props> = ({
       <AnimatedPath
         d="M486.5,411.71l-.1,88.34S804.14,325.12,824.26,312.73c40.23-23,64.55-88,.13-127.14L486.94-.22l-.09,83.14,282.48,167.3Z"
         fill={'gray'}
-        opacity={opacity}
+        animatedProps={animatedProps}
       />
     </Svg>
   );
