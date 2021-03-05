@@ -28,7 +28,7 @@ import {
 } from './Dimensions';
 
 export const Player = () => {
-  const translateY = useSharedValue(SNAP_TOP);
+  const translateY = useSharedValue(SNAP_BOTTOM);
 
   const gestureHandler = useAnimatedGestureHandler({
     onStart: (_, ctx: any) => {
