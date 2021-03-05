@@ -99,8 +99,8 @@ export const Lists = () => {
             style={[styles.horizontal, { width: width * lists.length }, style]}>
             {lists.map((playlist: IPlaylist, index: number) => {
               const items = playlist.items
-                .map((id: number) =>
-                  tracks.find((track: ITrack) => track.id === String(id)),
+                .map((id: string) =>
+                  tracks.find((track: ITrack) => track.id === id),
                 )
                 .filter((track: ITrack | undefined) => track !== undefined);
 

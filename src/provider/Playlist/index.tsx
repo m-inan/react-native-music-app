@@ -27,8 +27,8 @@ export const PlaylistProvider: React.FC<Props> = ({ children }: Props) => {
     if (tracks.length && lists.length) {
       // simulate sql databases
       // find items in active playlist
-      const activeTracks = lists[current].items.map((id: number) =>
-        tracks.find((track: ITrack) => track.id === String(id)),
+      const activeTracks = lists[current].items.map((id: string) =>
+        tracks.find((track: ITrack) => track.id === id),
       );
 
       await TrackPlayer.reset();

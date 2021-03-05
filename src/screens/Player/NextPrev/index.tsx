@@ -38,7 +38,7 @@ export const NextPrev: React.FC<Props> = () => {
   useEffect(() => {
     if (track && lists && lists[active]) {
       const activeList = lists[active].items;
-      const currentIndex = activeList.indexOf(Number(track.id));
+      const currentIndex = activeList.indexOf(track.id);
 
       if (currentIndex >= 0) {
         const previousIndex = currentIndex - 1;
@@ -48,7 +48,7 @@ export const NextPrev: React.FC<Props> = () => {
           const id = activeList[previousIndex];
 
           if (id) {
-            setPrevious(tracks.find((item) => Number(item.id) == id) ?? null);
+            setPrevious(tracks.find((item) => item.id == id) ?? null);
           }
         } else {
           setPrevious(null);
@@ -58,7 +58,7 @@ export const NextPrev: React.FC<Props> = () => {
           const id = activeList[nextIndex];
 
           if (id) {
-            setNext(tracks.find((item) => Number(item.id) == id) ?? null);
+            setNext(tracks.find((item) => item.id == id) ?? null);
           }
         } else {
           setNext(null);
